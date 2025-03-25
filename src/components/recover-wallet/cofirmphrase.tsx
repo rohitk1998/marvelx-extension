@@ -93,11 +93,11 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   const closeTab = () => {
     alert('Please pin your extension and open your dashboard');
     setTimeout(() => {
+      navigate('/#/wallet-board')
       chrome.tabs.getCurrent(function (tab: any) {
         chrome.tabs.remove(tab?.id);
       });
-      navigate('/wallet-board')
-    }, 3000);
+    }, 2000);
   };
 
   const handleSecretPhraseComparison = () => {

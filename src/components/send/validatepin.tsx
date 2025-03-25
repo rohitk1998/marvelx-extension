@@ -64,16 +64,16 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
 
   return (
     <div
-      className="relative flex flex-col text-white bg-gradient-to-b from-gray-900 to-indigo-950"
+      className="flex flex-col text-white"
       style={{
         height: '600px',
         maxWidth: '375px',
-        padding: '24px',
+        padding: '1rem',
         margin: '0 auto',
         backgroundImage: `url(${BgSecureWallet})`,
       }}
     >
-      <div className="flex items-center" style={{ marginBottom: '48px' }}>
+      <div className="flex items-center">
         <button
           className="absolute text-white left-6"
           onClick={() => setActive(3)}
@@ -130,7 +130,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
         </div>
         <ValidationError error={error} />
       </div>
-      <div style={{ marginTop: 'auto', marginBottom: '10px' }}>
+      <div>
         {pin.every((item) => item !== '') ? (
           <PrimaryButton
             onClick={handleTransactionPinConfirm}
@@ -138,7 +138,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
           />
         ) : (
           <button
-            className="w-full text-[14px] text-gray-400 bg-gray-800 rounded-lg bg-opacity-40 h-[54px] font-[600]"
+            className="w-full text-[14px] text-gray-400 bg-gray-800 rounded-xl bg-opacity-100 h-[54px] font-[600]"
             style={{ padding: '16px 0' }}
             title="Confirm"
           >

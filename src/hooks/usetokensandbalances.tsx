@@ -11,7 +11,9 @@ const useTokenBalance = () => {
     const [selectedNetwork,setSelectedNetwork]=useState('devnet');
 
     useEffect(() => {
-        fetchTokenAndBalance();
+        if(address !== '' && selectedNetwork !== ''){
+            fetchTokenAndBalance();
+        }
     }, [address,selectedNetwork]);
 
     const fetchTokenAndBalance = async()=> {
