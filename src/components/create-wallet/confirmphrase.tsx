@@ -32,11 +32,17 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   done,
   setActive,
 }) => {
-  const { mnemonicsArr, secretphrase, password,privatekey,privatekeyarr,wallet } =
-    useAppContext();
+  const {
+    mnemonicsArr,
+    secretphrase,
+    password,
+    privatekey,
+    privatekeyarr,
+    wallet,
+  } = useAppContext();
 
   const [error, setError] = useState('');
-  const [typedSeed, setTypedSeed] = useState("");
+  const [typedSeed, setTypedSeed] = useState('');
 
   const navigate = useNavigate();
 
@@ -71,7 +77,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
       const newAccount = {
         walletName: '',
         key: privatekey,
-        publicKey:wallet
+        publicKey: wallet,
       };
 
       accountList.push(newAccount);
@@ -89,20 +95,18 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   const closeTab = () => {
     alert('Please pin your extension and open your dashboard');
     setTimeout(() => {
+      navigate('/#/wallet-board');
       chrome.tabs.getCurrent(function (tab: any) {
         chrome.tabs.remove(tab?.id);
       });
-      navigate('/wallet-board')
-    }, 3000);
+    }, 2000);
   };
 
   const handleSecretPhraseComparison = () => {
     if (typedSeed.length !== 12) {
       setError('Please complete your secret phrase');
     }
-    if (
-      secretphrase !== typedSeed
-    ) {
+    if (secretphrase !== typedSeed) {
       setError('Your secret phrase is not correct');
     }
     handleWalletCreation();
@@ -126,14 +130,11 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
           <h2 className="text-[20px] font-[400] text-white">
             Confirm Recovery Phrase
           </h2>
-          <p className="text-[14px] text-white" style={{marginTop:"10px"}}>
+          <p className="text-[14px] text-white" style={{ marginTop: '10px' }}>
             Confirm Secret Recovery Phrase
           </p>
         </div>
-        <MnemonicsInputBox
-          mnemonics={typedSeed}
-          setMnemonics={setTypedSeed}
-        />
+        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
 
         <PrimaryButton
           onClick={() => handleSecretPhraseComparison()}

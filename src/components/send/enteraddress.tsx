@@ -3,70 +3,60 @@ import { PrimaryButton } from '../common/primary-button';
 import { validateSolanaAddress } from '../../helpers/solana/transaction';
 import { ValidationError } from '../common/errortext';
 import { BgSecureWallet } from '../../assets';
+import { NavigationBarTitle } from '../common/navigationbartitle';
 
 interface EnterAddressProps {
   active: number;
   setActive: Function;
   token: any;
-  setReceiverAddress:Function;
-  receiveraddress:string;
+  setReceiverAddress: Function;
+  receiveraddress: string;
 }
 
 const EnterAddress: React.FC<EnterAddressProps> = ({
   setActive,
   token,
   setReceiverAddress,
-  receiveraddress
+  receiveraddress,
 }) => {
-  const [error,setError] = useState('');
+  const [error, setError] = useState('');
 
-  const handleConfirmAddress = ()=>{
-    if(receiveraddress){
+  const handleConfirmAddress = () => {
+    if (receiveraddress) {
       const isValid = validateSolanaAddress(receiveraddress);
-      if(!isValid){
+      if (!isValid) {
         setError('Invalid Solana Address');
-      }
-      else{
+      } else {
         setError('');
         setActive(2);
       }
     }
-  }
+  };
 
-  useEffect(()=>{
-    setError('')
-  },[])
+  useEffect(() => {
+    setError('');
+  }, []);
 
   return (
     <div
-      className="h-screen text-white min-h-[600px] bg-no-repeat max-w-[375px]"
-      style={{ backgroundImage: `url(${BgSecureWallet})`, padding: '1rem' }}
+      className="flex flex-col h-screen text-white bg-no-repeat"
+      style={{
+        backgroundImage: `url(${BgSecureWallet})`,
+        padding:"1rem",
+        height: '600px',
+        width: '375px',
+        maxWidth: '375px',
+        margin: '0px'
+      }}
     >
-      <div className="flex items-center" style={{ marginBottom: '1.5rem' }}>
-        <button style={{ marginRight: '1rem' }} onClick={() => setActive(0)}>
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            ></path>
-          </svg>
-        </button>
-        <h1
-          className="flex-1 text-xl font-medium text-center"
-          style={{ marginRight: '1.5rem' }}
-        >
-          {token?.symbol}
-        </h1>
-      </div>
-      <div className="relative" style={{ marginBottom: '1.5rem' }}>
+      <NavigationBarTitle
+        title={token?.symbol}
+        callback={() => {
+          setActive(0);
+        }}
+      />
+      {/* Send To Input */}
+      <div className="w-[100%]" style={{ marginTop: '1.5rem' }}>
         <input
           type="text"
           placeholder="Send to: username or address"
@@ -82,9 +72,16 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
             setReceiverAddress(e.target.value);
           }}
         />
-       <ValidationError error={error} />
+        <ValidationError error={error} />
       </div>
-      <div className='fixed left-0 right-0 w-[90%] bottom-4' style={{margin:"auto"}}>
+
+      {/* Confirm Button */}
+      <div
+        className="px-4 mt-auto mb-4"
+        style={{
+          marginTop:"25rem"
+        }}
+      >
         <PrimaryButton title="Confirm" onClick={() => handleConfirmAddress()} />
       </div>
     </div>
