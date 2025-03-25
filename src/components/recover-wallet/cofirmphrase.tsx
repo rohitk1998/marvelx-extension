@@ -51,44 +51,84 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   ) {
     let accountList;
     try {
-      accountList = JSON.parse(localStorage.getItem(password) ?? '[]');
-      const isValidAccountList =
-        Array.isArray(accountList) &&
-        accountList.every(
-          (item) =>
-            typeof item === 'object' &&
-            item !== null &&
-            'walletName' in item &&
-            'key' in item &&
-            'publicKey' in item
-        );
-      if (!isValidAccountList) {
-        accountList = [];
-      }
+        accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
+        if (typeof accountList !== 'object' || accountList === null) {
+            accountList = {};
+        }
     } catch {
-      accountList = [];
+        accountList = {};
     }
 
-    const accountExists = accountList.some(
-      (account: any) => account.key === privatekey
+    const accountKeys = Object.keys(accountList);
+    const accountExists = Object.values(accountList).some(
+        (account: any) => account.key === privatekey
     );
+    
     if (!accountExists) {
-      const newAccount = {
-        walletName: '',
-        key: privatekey,
-        publicKey: publickey,
-      };
-
-      accountList.push(newAccount);
-      localStorage.setItem(password, JSON.stringify(accountList));
+        const newAccountKey = `account${accountKeys.length + 1}`;
+        accountList[newAccountKey] = {
+            walletName: '',
+            key: privatekey,
+            publicKey: publickey,
+        };
+        localStorage.setItem(password, JSON.stringify(accountList));
     } else {
-      console.log('Account already added');
+        console.log('Account already added');
     }
+
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
+    localStorage.setItem('secretphrase',typedSeed);
     closeTab();
-  }
+}
+
+  // function setAccount(
+  //   password: string,
+  //   privatekey: string,
+  //   publickey: string,
+  //   privatekeyarr: Array<any>
+  // ) {
+  //   let accountList;
+  //   try {
+  //     accountList = JSON.parse(localStorage.getItem(password) ?? '[]');
+  //     const isValidAccountList =
+  //       Array.isArray(accountList) &&
+  //       accountList.every(
+  //         (item) =>
+  //           typeof item === 'object' &&
+  //           item !== null &&
+  //           'walletName' in item &&
+  //           'key' in item &&
+  //           'publicKey' in item
+  //       );
+  //     if (!isValidAccountList) {
+  //       accountList = [];
+  //     }
+  //   } catch {
+  //     accountList = [];
+  //   }
+
+  //   const accountExists = accountList.some(
+  //     (account: any) => account.key === privatekey
+  //   );
+  //   if (!accountExists) {
+  //     const newAccount = {
+  //       walletName: '',
+  //       key: privatekey,
+  //       publicKey: publickey,
+  //     };
+
+  //     accountList.push(newAccount);
+  //     localStorage.setItem(password, JSON.stringify(accountList));
+  //   } else {
+  //     console.log('Account already added');
+  //   }
+  //   localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
+  //   localStorage.setItem('password', password);
+  //   localStorage.setItem('marvel-wallet-exist', 'true');
+  //   closeTab();
+  // }
 
   const closeTab = () => {
     alert('Please pin your extension and open your dashboard');

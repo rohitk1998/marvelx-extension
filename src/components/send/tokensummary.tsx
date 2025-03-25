@@ -79,8 +79,11 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   const fetch2FaData = async () => {
     let password: any = localStorage.getItem('password');
     let accounts: any = localStorage.getItem(password);
+    if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    setWalletAddress(defaults[0]?.publicKey);
+    const firstAccountKey = Object.keys(defaults)[0];
+    const defaultAccount = defaults[firstAccountKey];
+    setWalletAddress(defaultAccount?.publicKey);
   };
 
   console.log('user in token summary', profile);

@@ -14,6 +14,9 @@ import PublicRoute from './publicroute';
 import PrivateRoute from './privateroute';
 import Receive from './components/receive';
 import Settings from './components/settings';
+import RecoveryPhrase from './components/show-secret';
+import PrivateKeyDisplay from './components/show-privatekey';
+import AccountAddresses from './components/accountaddress';
 
 const routes = [
   {
@@ -129,6 +132,30 @@ const routes = [
     element: (
       <PrivateRoute>
         <TwoFactorAuthenticator />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/recovery-phrase',
+    element: (
+      <PrivateRoute>
+        <RecoveryPhrase />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/secret-key',
+    element: (
+      <PrivateRoute>
+        <PrivateKeyDisplay />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/accounts',
+    element: (
+      <PrivateRoute>
+        <AccountAddresses />
       </PrivateRoute>
     ),
   },

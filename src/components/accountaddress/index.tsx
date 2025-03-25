@@ -1,23 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BgSecureWallet, CopySmall, SOL } from '../../assets/index';
-import useTokenBalance from '../../hooks/usetokensandbalances';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 
-interface SelectTokenProps {
-  active: number;
-  setActive: Function;
-  setToken: Function;
-}
+interface AccountAddressesProps {}
 
-const SelectToken: React.FC<SelectTokenProps> = ({
-  setActive,
-  setToken,
-}) => {
-  const { setAddress, tokens } = useTokenBalance();
+const AccountAddresses: React.FC<AccountAddressesProps> = () => {
+  const [addresses,setAddresses]:any=useState([]);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setWalletInLocal();
@@ -28,14 +19,12 @@ const SelectToken: React.FC<SelectTokenProps> = ({
     let accounts: any = localStorage.getItem(password);
     if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    // Get the first account (default account)
-    const firstAccountKey = Object.keys(defaults)[0]; // Gets "account1"
-    const defaultAccount = defaults[firstAccountKey]; // Access the object
-    setAddress(defaultAccount?.publicKey);
+    const firstAccountKey = Object.keys(defaults)[0];
+    const defaultAccount = defaults[firstAccountKey];
+    setAddresses((prev:string[])=> [...prev,defaultAccount?.publicKey])
   };
 
-
-  const copyToClipBoard = (address:string ) => {
+  const copyToClipBoard = (address: string) => {
     navigator.clipboard.writeText(address);
     setCopied(true);
     setTimeout(() => {
@@ -45,8 +34,15 @@ const SelectToken: React.FC<SelectTokenProps> = ({
 
   return (
     <div
-      className="h-screen text-white min-h-[600px] bg-no-repeat max-w-[375px]"
-      style={{ backgroundImage: `url(${BgSecureWallet})`, padding: '1rem' }}
+    className="flex flex-col h-screen text-white bg-no-repeat"
+    style={{
+      backgroundImage: `url(${BgSecureWallet})`,
+      padding: '1rem',
+      height: '600px',
+      width: '375px',
+      maxWidth: '375px',
+      margin: '0px',
+    }}
     >
       <div className="flex items-center" style={{ marginBottom: '1.5rem' }}>
         <button style={{ marginRight: '1rem' }} onClick={() => navigate(-1)}>
@@ -69,50 +65,15 @@ const SelectToken: React.FC<SelectTokenProps> = ({
           className="flex-1 text-xl font-medium text-center"
           style={{ marginRight: '1.5rem' }}
         >
-          Receive token
+          Account Address
         </h1>
       </div>
-      <div className="relative" style={{ marginBottom: '1.5rem' }}>
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full text-gray-100 bg-[#4B50661A] border border-[#222326] rounded-xl focus:outline-none h-[44px]"
-          style={{
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem',
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-          }}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <div className="absolute transform -translate-y-1/2 right-4 top-1/2">
-          <svg
-            className="w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-        </div>
-      </div>
       <div className="space-y-3">
-        {tokens.map((token: any) => (
+        {addresses.map((token: any) => (
           <div
-            key={token?.symbol}
+            key={token}
             className="flex items-center cursor-pointer bg-[#4B50661A] border border-[#222326] rounded-xl"
             style={{ padding: '1rem', marginTop: '10px' }}
-            onClick={() => {
-              setToken(token);
-              setActive(1);
-            }}
           >
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold`}
@@ -121,13 +82,19 @@ const SelectToken: React.FC<SelectTokenProps> = ({
               <img src={SOL} alt="" />
             </div>
             <div className="flex-1">
-              <div className="font-medium">{token.name}</div>
+              <div className="font-medium">{'Solana'}</div>
               <div className="text-[14px] font-[400] text-white">
-                {DotFormatAddress(token?.associatedTokenAddress)}
+                {DotFormatAddress(token)}
               </div>
             </div>
             <div className="w-[35px] h-[35px] rounded-lg bg-gray-400 flex items-center justify-center">
-              {!copied && <button onClick={()=> copyToClipBoard(token?.associatedTokenAddress)} ><img src={CopySmall} alt="copy icon"/></button>}
+              {!copied && (
+                <button
+                  onClick={() => copyToClipBoard(token)}
+                >
+                  <img src={CopySmall} alt="copy icon" />
+                </button>
+              )}
               {copied && <img src={CopySmall} alt="copied icon" />}
             </div>
           </div>
@@ -137,4 +104,4 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   );
 };
 
-export default SelectToken;
+export default AccountAddresses;

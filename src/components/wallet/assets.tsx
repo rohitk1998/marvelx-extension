@@ -33,9 +33,9 @@ const Assets: React.FC<AssetsProps> = ({ tokens }) => {
                 </div>
                 <div className="listingData_rightData">
                   <h4 className="text-[#fff] text-[16px] font-extrabold flex flex-col gap-[3px]">
-                    223.03
+                    0.00
                     <span className="font-semibold text-[10px] text-[#198E2D]">
-                      + $345
+                      + $0.00
                     </span>
                   </h4>
                 </div>

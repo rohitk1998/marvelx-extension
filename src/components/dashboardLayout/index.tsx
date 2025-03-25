@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import bgsecure from '../../assets/Dashboard.png';
 import CustomDropdown from '../common/CustomDropdown';
 import DashFooter from '../dashFooter/index';
@@ -11,6 +11,7 @@ import { SearchIcon } from '../../assets/SvgIcon';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { GrayButton } from '../common/graybutton';
+import useUserProfile from '../../hooks/useprofile';
 interface DashLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -39,9 +40,32 @@ const DashLayout = ({
   backCallback,
 }: DashLayoutProps) => {
   const navigate = useNavigate();
+  const { user,setWalletAddress }:any = useUserProfile();
+  const [profile,setProfile]:any=useState(null);
+  const [defaultAccount,setDefaultAccount]=useState('Account 1');
+
+  useEffect(() => {
+    setWalletInLocal();
+    if(user !== null){
+      setProfile(user);
+    }
+  }, [user]);
+
+  const setWalletInLocal = async () => {
+    let password: any = localStorage.getItem('password');
+    let accounts: any = localStorage.getItem(password);
+    if (!accounts) return;
+    let defaults: any = JSON.parse(accounts);
+    const firstAccountKey = Object.keys(defaults)[0];
+    console.log('firstAccountKey',firstAccountKey)
+    setDefaultAccount(firstAccountKey);
+    const defaultAccount = defaults[firstAccountKey];
+    setWalletAddress(defaultAccount?.publicKey);
+  };
+
   const dropdownItems = [
     {
-      label: 'First time',
+      label: profile?.username,
       icon: <img src={firsttimeprofiles} alt="imgs" />,
       onClick: () => navigate(ROUTES.EDIT_ACCOUNT),
     },
@@ -56,6 +80,8 @@ const DashLayout = ({
       onClick: () => console.log('Wallet clicked'),
     },
   ];
+
+  console.log('user',user)
   return (
     <div className="flex justify-center w-full m-auto h-screen min-h-[600px] max-w-[375px]">
       <div
@@ -73,9 +99,9 @@ const DashLayout = ({
             <div className="flex gap-[7px] max-w-[300px] w-full">
               <img src={firsttimeprofile} alt="imgs" />
               <p className="text-[10px] font-normal text-[#A5A5A5] flex flex-col">
-                @JamesScott
+                @{profile?.username}
                 <div className="flex items-center justify-center">
-                  <CustomDropdown label="First time" items={dropdownItems} />
+                  <CustomDropdown label={defaultAccount} items={dropdownItems} />
                 </div>
               </p>
             </div>

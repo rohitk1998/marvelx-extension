@@ -43,20 +43,6 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
     }
   };
 
-  // const handlePaste = () => {
-  //   navigator.clipboard.readText().then((text) => {
-  //     const digits = text.replace(/\D/g, '').slice(0, 6).split('');
-  //     const newCode = [...code];
-  //     digits.forEach((digit, index) => {
-  //       if (index < 6) {
-  //         newCode[index] = digit;
-  //       }
-  //     });
-
-  //     setCode(newCode);
-  //   });
-  // };
-
   const sendTransaction = async () => {
     try {
       console.log(token, receiveraddress, usdamount, amount);
@@ -81,15 +67,19 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
     try {
       let password: any = localStorage.getItem('password');
       let accounts: any = localStorage.getItem(password);
+      if (!accounts) return;
       let defaults: any = JSON.parse(accounts);
+      const firstAccountKey = Object.keys(defaults)[0];
+      const defaultAccount = defaults[firstAccountKey];
+     
       console.log(
         'code , wallet address:',
         code.join(''),
-        defaults[0]?.publicKey
+        defaultAccount?.publicKey
       );
       const result = await validate2FACode(
         code.join(''),
-        defaults[0]?.publicKey
+        defaultAccount?.publicKey
       );
       console.log('result', result);
       if (result) {
