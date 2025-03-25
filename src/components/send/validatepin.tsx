@@ -15,17 +15,20 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch2FaData();
+    setWalletInLocal();
     if (user) {
       setProfile(user);
     }
   }, [user]);
 
-  const fetch2FaData = async () => {
+  const setWalletInLocal = async () => {
     let password: any = localStorage.getItem('password');
     let accounts: any = localStorage.getItem(password);
+    if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    setWalletAddress(defaults[0]?.publicKey);
+    const firstAccountKey = Object.keys(defaults)[0];
+    const defaultAccount = defaults[firstAccountKey];
+    setWalletAddress(defaultAccount?.publicKey);
   };
 
   const handlePinChange = (index: number, value: string) => {
@@ -69,7 +72,6 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
         height: '600px',
         maxWidth: '375px',
         padding: '1rem',
-        margin: '0 auto',
         backgroundImage: `url(${BgSecureWallet})`,
       }}
     >

@@ -73,9 +73,12 @@ const Auth2FA: React.FC<Auth2FAProps> = ({ setSelectedMenu }) => {
   const fetch2FaData = async () => {
     let password: any = localStorage.getItem('password');
     let accounts: any = localStorage.getItem(password);
+    if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    setWalletAddress(defaults[0]?.publicKey);
-    setAddress(defaults[0]?.publicKey);
+    const firstAccountKey = Object.keys(defaults)[0];
+    const defaultAccount = defaults[firstAccountKey];
+    setWalletAddress(defaultAccount?.publicKey);
+    setAddress(defaultAccount?.publicKey);
     const result = await generate2FA();
     console.log('result',result);
     setQrCode(result);

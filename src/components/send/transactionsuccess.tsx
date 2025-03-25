@@ -18,7 +18,7 @@ const TransactionSuccess: React.FC<TransactionSuccessProps> = ({receiveraddress,
   const navigate = useNavigate();
   return (
     <div
-      className="flex flex-col w-full items-center justify-center h-screen text-white min-h-[600px] bg-gray-900 max-h-[600px]"
+      className="flex flex-col w-full items-center justify-center h-screen text-white min-h-[600px] bg-gray-900 max-h-[600px] max-w-[375px]"
       style={{ backgroundImage: `url(${BgSecureWallet})`,padding:"20px" }}
     >
       <div className="flex flex-col w-[90%] min-h-[600px] items-center justify-between">

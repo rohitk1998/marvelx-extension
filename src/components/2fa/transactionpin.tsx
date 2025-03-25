@@ -31,8 +31,11 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   const fetch2FaData = async () => {
     let password: any = localStorage.getItem('password');
     let accounts: any = localStorage.getItem(password);
+    if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    setWalletAddress(defaults[0]?.publicKey);
+    const firstAccountKey = Object.keys(defaults)[0];
+    const defaultAccount = defaults[firstAccountKey];
+    setWalletAddress(defaultAccount?.publicKey);
   };
 
   const handlePinChange = (
@@ -66,9 +69,13 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   };
 
   const handlePinValidation = () => {
-    if (pin.join('') !== confirmPin.join('')) {
+    if(!pin.join('') || !confirmPin.join('')){
+      setError('Please fill in both PIN fields');
+    }
+    else if (pin.join('') !== confirmPin.join('')) {
       setError('Pin does not match');
-    } else {
+    } 
+    else {
       handlePinCreation();
     }
   };

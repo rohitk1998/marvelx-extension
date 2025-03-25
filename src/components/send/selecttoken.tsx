@@ -21,12 +21,13 @@ const SelectToken: React.FC<SelectTokenProps> = ({ active, setActive,setToken })
 
   const setWalletInLocal = async () => {
     let password: any = localStorage.getItem('password');
-    console.log('pass', password);
     let accounts: any = localStorage.getItem(password);
-    console.log(accounts);
+    if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
-    console.log(defaults[0]);
-    setAddress(defaults[0]?.publicKey);
+    // Get the first account (default account)
+    const firstAccountKey = Object.keys(defaults)[0]; // Gets "account1"
+    const defaultAccount = defaults[firstAccountKey]; // Access the object
+    setAddress(defaultAccount?.publicKey);
   };
 
   return (

@@ -41,6 +41,10 @@ import ExpFeature from './icons/command-square.svg'
 import HelpSupport from './icons/message-question.svg'
 import AboutMarve from './icons/Asset 1 1.svg'
 import GreenTickImg from "./icons/green-tick.png";
+import Profile from "./icons/profile.jpg";
+import Shild from "./icons/shield-slash.png";
+import KeySquare from "./icons/key-square.png";
+
 export {
     SendIcon,
     EmptyWallet,
@@ -84,5 +88,8 @@ export {
     HelpIcon,
     NavigationBarImg,
     SOL,
-    GreenTickImg
+    GreenTickImg,
+    Profile,
+    Shild,
+    KeySquare
 }

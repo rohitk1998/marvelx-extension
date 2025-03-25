@@ -29,10 +29,10 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
   console.log('qrCode?.url', qrCode?.qrCodeUrl);
   return (
     <div
-      className="flex flex-col max-h-[600px] h-screen w-full bg-no-repeat bg-cover mx-auto text-white"
+      className="flex flex-col max-h-[630px] h-screen w-full bg-no-repeat bg-cover mx-auto text-white rounded-xl"
+      
       style={{
         padding: '20px',
-        maxHeight: '600px',
         maxWidth: '375px',
         backgroundImage: `url(${BgSecureWallet})`,
         backgroundSize: '100% 100%',
@@ -81,14 +81,14 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
         {/* Code input and copy button */}
         <div className="flex items-center" style={{ marginTop: '8px' }}>
           <div
-            className="flex items-center flex-grow text-gray-300 bg-gray-800 rounded"
-            style={{ padding: '12px 16px', marginRight: '8px', height: '48px' }}
+            className="flex items-center flex-grow text-gray-300 bg-transparent border border-gray-400 rounded"
+            style={{ padding: '12px 10px', marginRight: '8px', height: '48px' }}
           >
             <p className="font-mono">{DotFormatAddress(qrCode?.secret)}</p>
           </div>
           <button
             className="flex items-center justify-center text-white bg-gray-700 rounded"
-            style={{ padding: '12px 16px', height: '48px', minWidth: '80px' }}
+            style={{ padding: '12px 10px', height: '48px', minWidth: '80px' }}
             onClick={() => copyToClipBoard()}
           >
             <Copy size={16} style={{ marginRight: '8px' }} />

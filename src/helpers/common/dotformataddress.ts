@@ -3,7 +3,7 @@
 
 const DotFormatAddress = (address: string) => {
     if (address) {
-        return address.slice(0, 15) +
+        return address.slice(0, 13) +
             '...' +
             address.slice(
                 address.length - 10,
