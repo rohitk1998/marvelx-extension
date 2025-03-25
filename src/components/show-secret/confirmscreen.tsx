@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BgSecureWallet, KeySquare } from '../../assets';
 import { NavigationBarTitle } from '../common/navigationbartitle';
-import { useNavigate } from 'react-router-dom';
 import { PrimaryButton } from '../common/primary-button';
 
 interface PasswordProps {
@@ -12,7 +11,6 @@ const RecoveryPhraseWarningScreen: React.FC<PasswordProps> = ({
   setActive,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <div

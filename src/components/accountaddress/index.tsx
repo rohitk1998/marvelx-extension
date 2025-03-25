@@ -14,6 +14,8 @@ const AccountAddresses: React.FC<AccountAddressesProps> = () => {
     setWalletInLocal();
   }, []);
 
+  //new work
+
   const setWalletInLocal = async () => {
     let password: any = localStorage.getItem('password');
     let accounts: any = localStorage.getItem(password);
