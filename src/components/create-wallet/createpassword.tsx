@@ -55,6 +55,9 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({
   }, []);
 
   function savePasswordAndProceed() {
+    if (password.length >= 8) {
+      setError('Passwords must be atleast 8 characters long');
+    } 
     if (password !== confirmpassword) {
       setError('Passwords do not match.');
     } else if (!checked) {

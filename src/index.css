@@ -14,7 +14,7 @@ body {
   max-height: 600px; /* Adjust based on content */
   overflow-y: auto; /* Allow scrolling */
   background-color: #090B1A;
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope" !important;
 }
 
 #root {

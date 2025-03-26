@@ -23,7 +23,7 @@ export const NavigationBarTitle: React.FC<NavigationBarTitleProps> = ({ callback
           />
         </svg>
       </button>
-      <h1 className="w-full text-[20px] font-[700] text-center text-white">{title}</h1>
+      <h1 className="w-full text-[24px] font-[700] text-center text-white">{title}</h1>
     </div>
   );
 };
