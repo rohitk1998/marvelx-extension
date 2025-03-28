@@ -67,12 +67,13 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
 
   return (
     <div
-      className="flex flex-col text-white"
+      className="relative flex flex-col mx-auto text-white"
       style={{
         height: '600px',
-        maxWidth: '375px',
+        maxWidth: '360px',
         padding: '1rem',
         backgroundImage: `url(${BgSecureWallet})`,
+        backgroundSize: '100% 100%',
       }}
     >
       <div className="flex items-center">
@@ -99,12 +100,12 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
         </h1>
       </div>
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col items-center"
         style={{ flex: '1 1 auto' }}
       >
         <h2
-          className="text-2xl font-medium text-center"
-          style={{ marginBottom: '40px' }}
+          className="text-2xl font-medium text-center pt-[67px] pb-[63px]"
+
         >
           Enter your transaction
           <br />
@@ -125,7 +126,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
                 value={pin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value)}
                 onKeyDown={(e) => handlePinBackspace(index, e)}
-                className="w-[56px] h-[46px] text-xl text-center bg-transparent border border-gray-600 rounded-xl focus:border-gray-600 focus:outline-none"
+                className="w-[42px] h-[41px] text-xl text-center bg-[#3A3C48] border border-[#6B6D76] rounded-[7px] focus:border-gray-600 focus:outline-none"
                 style={{ padding: '12px' }}
               />
             ))}
@@ -140,7 +141,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
           />
         ) : (
           <button
-            className="w-full text-[14px] text-gray-400 bg-gray-800 rounded-xl bg-opacity-100 h-[54px] font-[600]"
+            className="w-full text-[14px] text-[#6B6D76] bg-[#232532] rounded-xl bg-opacity-100 h-[54px] font-[600]"
             style={{ padding: '16px 0' }}
             title="Confirm"
           >
@@ -148,7 +149,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
           </button>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -30,8 +30,6 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   receiveraddress,
   amount,
   active,
-  // setError,
-  // setSuccess,
   setActive,
 }) => {
   const { setWalletAddress, user } = useUserProfile();
@@ -101,8 +99,8 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
         {!profile?.google2FaStatus && profile?.transactionPin === ''
           ? `Enable 2-FA`
           : !profile?.google2FaStatus && profile?.transactionPin !== ''
-          ? `Enable 2-FA`
-          : profile?.google2FaStatus &&
+            ? `Enable 2-FA`
+            : profile?.google2FaStatus &&
             profile?.transactionPin === '' &&
             `Set transaction PIN`}
       </h3>
@@ -111,9 +109,9 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
           ? `Two factor authenticator (2-FA) is required before sending funds. Set up
         2-FA now to safely continue`
           : !profile?.google2FaStatus && profile?.transactionPin !== ''
-          ? `Two factor authenticator (2-FA) is required before sending funds. Set up
+            ? `Two factor authenticator (2-FA) is required before sending funds. Set up
         2-FA now to safely continue`
-          : profile?.google2FaStatus &&
+            : profile?.google2FaStatus &&
             profile?.transactionPin === '' &&
             `Transaction PIN is a unique 4-digit PIN set by you make your transactions secure. It can be changed later.`}
       </span>
@@ -123,8 +121,8 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
             !profile?.google2FaStatus && profile?.transactionPin === ''
               ? 'Setup 2-FA'
               : !profile?.google2FaStatus && profile?.transactionPin !== ''
-              ? 'Setup 2-FA'
-              : profile?.google2FaStatus &&
+                ? 'Setup 2-FA'
+                : profile?.google2FaStatus &&
                 profile?.transactionPin === '' &&
                 'Set Transaction PIN'
           }
@@ -147,10 +145,9 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   );
 
   return (
-    <div className="abc">
       <DashboardLayout
         title="Summary"
-        showButton={true}
+        showButton={!isDrawerOpen}
         btntitle="Next"
         onClick={() => {
           console.log(profile?.google2FaStatus, profile?.transactionPin);
@@ -160,6 +157,8 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
             setActive(4);
           }
         }}
+        backCallback={()=> setActive(active - 1)}
+        navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
       >
         <div
           className="flex flex-col items-center justify-center"
@@ -176,20 +175,22 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
             ~${Number(usdamount)}
           </p>
         </div>
-        <div className="flex flex-col gap-[12px]">
-          {data.map((item) => (
-            <p
-              key={item.label}
-              className="flex justify-between text-[12px] text-[#fff] w-full"
-            >
-              <span
-                className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}
+        <div className='pl-[20px] pr-[20px]'>
+          <div className="flex flex-col gap-[12px]">
+            {data.map((item) => (
+              <p
+                key={item.label}
+                className="flex justify-between text-[12px] text-[#fff] w-full"
               >
-                {item.label}
-              </span>
-              {item.value}
-            </p>
-          ))}
+                <span
+                  className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}
+                >
+                  {item.label}
+                </span>
+                {item.value}
+              </p>
+            ))}
+          </div>
         </div>
 
         <CommonDrawer
@@ -198,7 +199,7 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
           closeDrawer={closeDrawer}
         />
       </DashboardLayout>
-    </div>
+    
   );
 };
 

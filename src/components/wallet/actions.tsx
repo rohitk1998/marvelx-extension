@@ -16,7 +16,7 @@ import {
 
 const ActionMenu:React.FC = ()=> {
     return(
-      <div className='flex justify-between' style={{ marginTop: '10px' }}>
+      <div className='flex justify-between pt-[10px] mx-auto w-[329px]'>
       {links.map((link) => (
         <Link key={link.label} to={link.to} className='bg-[#4B50661A] rounded-[18px] border border-[#222326] text-[#9CA9B9] text-[12px] w-[77px] h-[77px] flex flex-col justify-center items-center gap-[3px]'>
           <img src={link.icon} alt="icon" className='w-[38px] h-[38px]' />

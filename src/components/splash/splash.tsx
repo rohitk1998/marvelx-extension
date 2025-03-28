@@ -14,7 +14,7 @@ const Splash: React.FC = () => {
   
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen min-h-[600px] max-h-[600px] bg-no-repeat bg-cover bg-center rounded-xl"
+      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen min-h-[600px] max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px]"
       style={{ backgroundImage: `url(${SplashImg})` }}
     >
       <div className="flex flex-row items-center justify-center gap-1">

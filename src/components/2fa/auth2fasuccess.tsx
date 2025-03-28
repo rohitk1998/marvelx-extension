@@ -15,7 +15,7 @@ const AuthenticatorSuccessScreen: React.FC<AuthenticatorSuccessScreenProps> = ({
   const location = useLocation();
   return (
     <div
-      className="flex flex-col items-center justify-start w-full max-w-[375px] h-screen min-h-[600px] max-h-[600px] bg-no-repeat bg-cover bg-center text-white"
+      className="flex flex-col items-center justify-start w-full max-w-[375px] h-screen min-h-[600px] max-h-[600px] bg-no-repeat bg-cover bg-center text-white mx-auto"
       style={{
         padding: '20px',
         maxHeight: '600px',

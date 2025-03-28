@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { SplashImg } from '../../assets';
+import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, NavigationBarTitle } from '../index';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { useAppContext } from '../../context/useappcontext';
 import { ValidationError } from '../common/errortext';
 
+
 interface RecoverWalletCreatePasswordProps {
   setActive: Function;
 }
 
 const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = ({
-  setActive
-
+  setActive,
 }) => {
   const navigate = useNavigate();
   const { password, setPassword, confirmpassword, setConfirmPassword } =
@@ -35,48 +35,49 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
   }, []);
 
   function savePasswordAndProceed() {
-    if (password !== confirmpassword) {
-      setError('Passwords do not match.');
-    } 
-    else if(!checked){
-     return;
+    if(password.length === 0){
+      setError('Password is required');
     }
-    else {
-      setError('')
+    else if (password.toString().length < 8) {
+      setError('Your password must be at least 8 characters long for better security!');
+    } else if (password !== confirmpassword) {
+      setError('Passwords do not match.');
+    } else if (!checked) {
+      return;
+    } else {
+      setError('');
       setActive(1);
-      console.log(error);
     }
   }
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[580px] bg-no-repeat bg-cover bg-center rounded-xl"
-      style={{ backgroundImage: `url(${SplashImg})` }}
+      className="relative flex flex-col items-center  w-full max-w-[375px] bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[23px] pb-[19px] pl-[20px]"
+      style={{ backgroundImage: `url(${BgSecureWallet})`}}
     >
-      <div className="w-[90%] flex flex-col gap-8">
+      <div className="w-full">
         <NavigationBarTitle
-          title="Recover your wallet"
-          callback={() => navigate(ROUTES.ADD_WALLET)}
+          title="By Secret Key Phrase"
+          callback={() => navigate(ROUTES.RECOVER_WALLET)}
+          titleClass="w-full text-[16px] font-[600] text-center text-white"
         />
-
-        {/* Title & Description */}
-        <h2 className="text-[20px] font-[400]  text-center text-white ">
+      </div>
+      <div className="w-full overflow-auto pt-[52px]">
+        <h2 className="text-[20px] font-medium pb-[5px]  text-center text-white ">
           Create password
         </h2>
-        <p className="mb-4 text-[14px] font-[400] text-start text-white">
+        <p className="text-[14px] font-[400] text-start text-white">
           This password will unlock your MarvelX wallet only on this device.
           MarvelX cannot recover this password.
         </p>
-
-        {/* Password Inputs */}
-        <div className="mt-8 mb-4">
+        <div className="mt-6 mb-4">
           <div className="flex flex-row justify-between w-full">
-            <p className="block mb-1 text-[13px] text-white font-[100]">
+            <p className="block mb-1 text-[13px] text-white font-normal">
               New password (8 character min)
             </p>
             <button
               onClick={() => setShowPassword(!showPassword)}
-              className="text-[12px] text-white"
+              className="text-[12px] text-white font-bold cursor-pointer"
             >
               {showPassword ? 'Hide' : 'Show'}
             </button>
@@ -88,13 +89,13 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
                 if (confirmpassword === e.target.value) {
                   setError('');
                 }
-                passAdjust(e)}}
+                passAdjust(e);
+              }}
               type={showPassword ? 'text' : 'password'}
               className="w-full h-[46px] px-4 py-2 text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-0"
             />
           </div>
         </div>
-
         <div className="mt-8 mb-4">
           <p className="block mb-1 text-[13px] text-white font-[100]">
             Confirm password
@@ -105,30 +106,36 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
               if (password === e.target.value) {
                 setError('');
               }
-              confirmpassAdjust(e)}}
-              type={showPassword ? 'text' : 'password'}
+              confirmpassAdjust(e);
+            }}
+            type={showPassword ? 'text' : 'password'}
             className="w-full h-[46px] px-4 py-2 text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-0"
           />
-           <div style={{ marginTop: '5px' }}>
+
+          <div style={{ marginTop: '5px' }}>
             {error && <ValidationError error={error} />}
           </div>
         </div>
-          
-        <div className="flex items-start gap-4 mt-8 mb-6 space-x-2 text-sm text-white">
+
+        <div className="flex items-start gap-1 mt-8 mb-6 space-x-2 text-sm text-white">
           <input
-            onChange={()=>setChecked(!checked)}
+            onChange={() => {
+              setChecked(!checked);
+            }}
             type="checkbox"
-            className="flex items-center justify-center w-6 h-4 bg-transparent border border-white-600 appearance-none rounded-[3px] checked:bg-[#1142C7] checked:border-transparent focus:ring-0 after:content-['✔'] after:text-white after:text-[12px] after:font-bold after:flex after:items-center after:justify-center checked:after:opacity-100 after:opacity-0"
+            className="flex items-center justify-center w-6 h-4 bg-transparent border border-white-600 appearance-none rounded-[3px] checked:bg-[#1142C7] checked:border-transparent focus:ring-0 after:content-['✔'] after:text-white after:text-[12px] cursor-pointer after:font-bold after:flex after:items-center after:justify-center checked:after:opacity-100 after:opacity-0"
           />
 
-          <p className="text-[13px] text-white font-[100]">
+          <p className="text-[12px] text-white font-normal">
             I understand that MarvelX cannot recover this password for me.{' '}
-            <span className="text-[14px] text-white cursor-pointer font-[500]">
+            <span className="text-[14px] text-white cursor-pointer font-medium">
               Learn more
             </span>
           </p>
         </div>
-        <PrimaryButton onClick={savePasswordAndProceed} title={'Proceed'} />
+        <div className="pt-[5px]">
+          <PrimaryButton onClick={savePasswordAndProceed} title={'Proceed'} />
+        </div>
       </div>
     </div>
   );

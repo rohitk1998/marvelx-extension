@@ -53,7 +53,7 @@ function Summary() {
 	);
 
 	return (
-		<div className='abc'>
+		<div className='summaryCol' >
 			<DashboardLayout title="Summary" showButton={true} btntitle="Next" onClick={openDrawer}>
 				<div className="flex flex-col items-center justify-center" style={{ padding: '52px 0 13px 0' }}>
 					<img src={solIcon} alt="imgs" className="w-[73px] h-[73px]" />
@@ -62,15 +62,17 @@ function Summary() {
 					</h2>
 					<p className="text-[15px] font-normal text-[#fff]">~$230.00</p>
 				</div>
-				<div className="flex flex-col gap-[12px]">
-					{data.map((item, index) => (
-						<p key={index} className="flex justify-between text-[12px] text-[#fff] w-full">
-							<span className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}>
-								{item.label}
-							</span>
-							{item.value}
-						</p>
-					))}
+				<div className='pl-[16px] pr-[16px]'>
+					<div className="flex flex-col gap-[12px]">
+						{data.map((item, index) => (
+							<p key={index} className="flex justify-between text-[12px] text-[#fff] w-full">
+								<span className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}>
+									{item.label}
+								</span>
+								{item.value}
+							</p>
+						))}
+					</div>
 				</div>
 				<CommonDrawer
 					content={drawerContent}

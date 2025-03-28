@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, NavigationBarTitle } from '../index';
 import MnemonicsInputBox from './mnemonicsinputbox';
 import Stepper from './stepper';
 import { useAppContext } from '../../context/useappcontext';
 import { useNavigate } from 'react-router-dom';
+import { BgRecoveryPhrase } from '../../assets';
 
 interface StepType {
   id: number;
@@ -50,83 +50,40 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
     setWalletAndMnemonic(password);
   };
 
-  // function setWalletAndMnemonic(password: string) {
-  //   let accountList;
-  //   try {
-  //     accountList = JSON.parse(localStorage.getItem(password) ?? '[]');
-  //     const isValidAccountList =
-  //       Array.isArray(accountList) &&
-  //       accountList.every(
-  //         (item) =>
-  //           typeof item === 'object' &&
-  //           item !== null &&
-  //           'walletName' in item &&
-  //           'key' in item
-  //       );
-  //     if (!isValidAccountList) {
-  //       accountList = [];
-  //     }
-  //   } catch {
-  //     accountList = [];
-  //   }
-
-  //   const accountExists = accountList.some(
-  //     (account: any) => account.key === privatekey
-  //   );
-  //   if (!accountExists) {
-  //     const newAccount = {
-  //       walletName: '',
-  //       key: privatekey,
-  //       publicKey: wallet,
-  //     };
-
-  //     accountList.push(newAccount);
-  //     localStorage.setItem(password, JSON.stringify(accountList));
-  //   } else {
-  //     console.log('Account already added');
-  //   }
-
-  //   localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
-  //   localStorage.setItem('password', password);
-  //   localStorage.setItem('marvel-wallet-exist', 'true');
-  //   closeTab();
-  // }
-
   function setWalletAndMnemonic(password: string) {
     let accountList;
     try {
-        accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
-        if (typeof accountList !== 'object' || accountList === null) {
-            accountList = {};
-        }
-    } catch {
+      accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
+      if (typeof accountList !== 'object' || accountList === null) {
         accountList = {};
+      }
+    } catch {
+      accountList = {};
     }
 
     const accountKeys = Object.keys(accountList);
     const accountExists = Object.values(accountList).some(
-        (account: any) => account.key === privatekey
+      (account: any) => account.key === privatekey
     );
-    
+
     if (!accountExists) {
-        const newAccountKey = `account${accountKeys.length + 1}`;
-        accountList[newAccountKey] = {
-            walletName: '',
-            key: privatekey,
-            publicKey: wallet,
-        };
-        localStorage.setItem(password, JSON.stringify(accountList));
+      const newAccountKey = `account${accountKeys.length + 1}`;
+      accountList[newAccountKey] = {
+        walletName: '',
+        key: privatekey,
+        publicKey: wallet,
+      };
+      localStorage.setItem(password, JSON.stringify(accountList));
     } else {
-        console.log('Account already added');
+      console.log('Account already added');
     }
 
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
-    localStorage.setItem('secretphrase',secretphrase);
+    localStorage.setItem('secretphrase', secretphrase);
     closeTab();
-}
-
+  }
 
   const closeTab = () => {
     alert('Please pin your extension and open your dashboard');
@@ -151,16 +108,16 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-[100%] min-w-[375px] max-w-[375px] h-screen max-h-[626px] bg-no-repeat bg-cover bg-center rounded-xl"
-      style={{ backgroundImage: `url(${BgSecureWallet})` }}
+      className="relative flex flex-col items-center w-full max-w-[375px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
+      style={{ backgroundImage: `url(${BgRecoveryPhrase})` }}
     >
-      <div className="w-[90%] flex flex-col gap-6">
-        <NavigationBarTitle
-          title="Add a wallet"
-          callback={() => {
-            setActive(1);
-          }}
-        />
+      <NavigationBarTitle
+        title="Add a wallet"
+        callback={() => {
+          setActive(1);
+        }}
+      />
+      <div className="w-full overflow-auto pt-[32px]">
         <Stepper steps={steps} active={active} done={done} />
         <div className="text-center">
           <h2 className="text-[20px] font-[400] text-white">
@@ -174,7 +131,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
         <PrimaryButton
           onClick={() => handleSecretPhraseComparison()}
-          title={'Proceed'}
+          title={'Confirm'}
           isDisabled={mnemonicsArr.length !== 12}
         />
       </div>

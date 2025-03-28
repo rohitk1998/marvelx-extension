@@ -1,22 +1,22 @@
 import DashboardLayout from '../dashboardLayout/index';
 import editIcon from '../../assets/icons/edit-small.png';
-import {Profile} from "../../assets/index";
+import { Profile } from '../../assets/index';
 import arrowright from '../../assets/icons/arrow-right.svg';
 import { useNavigate } from 'react-router-dom';
 
-const EditAccount:React.FC = () => {
+const EditAccount: React.FC = () => {
   const navigate = useNavigate();
-	
+
   const data = [
     {
       label: 'Account name',
       value: 'Account 1',
-       path:'/'
+      path: '/',
     },
     {
       label: 'Account addresses',
       value: '1',
-      path:'/accounts'
+      path: '/accounts',
     },
   ];
 
@@ -24,34 +24,44 @@ const EditAccount:React.FC = () => {
     {
       label: 'Show recovery phrase',
       value: '',
-      path:'/recovery-phrase'
+      path: '/recovery-phrase',
     },
     {
       label: 'Show private key',
       value: '',
-      path:'/secret-key'
+      path: '/secret-key',
     },
   ];
 
   return (
-    <DashboardLayout title="Edit account" backCallback={()=> navigate('/')}>
+    <DashboardLayout
+      title="Edit account"
+      backCallback={() => navigate('/')}
+      navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
+    >
       <div
         className="relative flex flex-col items-center justify-center"
         style={{ padding: '22px 0 28px 0' }}
       >
-        <img src={Profile} alt="imgs" className="w-[148px] h-[148px] rounded-full bg-contain bg-no-repeat" />
-        <span className="absolute bottom-0 right-0 bg-[#3A3C48] rounded-full w-[38px] h-[38px] flex justify-center items-center left-[59%] bottom-[15%] border-3 border-[#0C0E1E]">
+        <div
+          className="w-[148px] h-[148px] rounded-full bg-cover bg-no-repeat flex items-center justify-center"
+          style={{ backgroundImage: `url(${Profile})` }}
+        >
+          <h1 className="text-[42px] font-[800] text-white">A</h1>
+          <h1 className="text-[42px] font-[800] text-white">1</h1>
+        </div>
+        <span className="absolute right-0 bg-[#3A3C48] rounded-full w-[38px] h-[38px] flex justify-center items-center left-[59%] bottom-[15%] border-3 border-[#0C0E1E]">
           <img src={editIcon} alt="imgs" className="w-[18px] h-[18px] " />
         </span>
       </div>
-      <div className="flex flex-col gap-[20px]">
+      <div className="flex flex-col gap-[20px] w-[325px] mx-auto">
         <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
-          {data?.map((item, index) => (
-            <p
-              key={index}
+          {data?.map((item) => (
+            <button
+              key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={()=> navigate(item.path)}
+              onClick={() => navigate(item.path)}
             >
               {item.label}
               <span
@@ -60,17 +70,16 @@ const EditAccount:React.FC = () => {
                 {item.value}
                 <img src={arrowright} alt="imgs" />
               </span>
-            </p>
+            </button>
           ))}
         </div>
         <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
-          {data2?.map((item, index) => (
-            <p
-              key={index}
+          {data2?.map((item) => (
+            <button
+              key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={()=> navigate(item.path)}
-
+              onClick={() => navigate(item.path)}
             >
               {item.label}
               <span
@@ -79,7 +88,7 @@ const EditAccount:React.FC = () => {
                 {item.value}
                 <img src={arrowright} alt="imgs" />
               </span>
-            </p>
+            </button>
           ))}
         </div>
       </div>

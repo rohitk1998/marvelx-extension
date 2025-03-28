@@ -2,9 +2,10 @@
 interface NavigationBarTitleProps {
   callback?: Function;
   title: string;
+  titleClass?: string
 }
 
-export const NavigationBarTitle: React.FC<NavigationBarTitleProps> = ({ callback, title }) => {
+export const NavigationBarTitle: React.FC<NavigationBarTitleProps> = ({ callback, title, titleClass }) => {
   return (
     <div className="relative flex items-center w-full">
       <button className="absolute text-white cursor-pointer" onClick={() => callback && callback()}>
@@ -23,7 +24,7 @@ export const NavigationBarTitle: React.FC<NavigationBarTitleProps> = ({ callback
           />
         </svg>
       </button>
-      <h1 className="w-full text-[20px] font-[700] text-center text-white">{title}</h1>
+      <h3 className={titleClass ? titleClass : "w-full text-[24px] font-[700] text-center text-white"}>{title}</h3>
     </div>
   );
 };

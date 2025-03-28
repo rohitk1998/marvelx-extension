@@ -59,24 +59,24 @@ const RevealRecoveryPhrase: React.FC<SecureWalletMainProps> = ({
   
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[855px] bg-no-repeat bg-cover bg-center rounded-xl gap-8"
+      className="relative flex flex-col items-center w-full max-w-[375px] max-h-[800px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
       style={{ backgroundImage: `url(${BgRecoveryPhrase})` }}
     >
-      <div className="w-[90%] flex flex-col gap-8">
-        <NavigationBarTitle
-          title="Add a wallet"
-          callback={() => {
-            setSubActive(0);
-          }}
-        />
+
+      <NavigationBarTitle
+        title="Add a wallet"
+        callback={() => {
+          setSubActive(0);
+        }}
+      />
+      <div className="w-full overflow-auto pt-[32px]">
         <Stepper steps={steps} active={active} done={done} />
         <div className="text-center">
-          <h2 className="text-[20px] font-[400] text-white letter-space-2">
-            Write down your Secret Recovery Phrase
+          <h2 className="text-[20px] font-medium text-white letter-space-2 pb-[12px]">
+            Write down your Secret <br /> Recovery Phrasess
           </h2>
           <p
-            className="px-4 text-[14px] text-start text-white"
-            style={{ marginTop: '10px' }}
+            className="text-[14px] text-start text-white max-w-[328px] w-full pb-[12px]"
           >
             Write down the 12-word Secret Recovery Phrase and save it in a place
             you trust and only you can access.
@@ -85,17 +85,19 @@ const RevealRecoveryPhrase: React.FC<SecureWalletMainProps> = ({
         <div className="w-full max-w-md text-left">
           <h3 className="mb-2 text-[14px] font-semibold text-white">Tips:</h3>
           <ul className="text-[12px] text-white font-[400] list-disc list-inside">
-            <li style={{ marginLeft: '10px', lineHeight: '20px' }}>
+            <li className='pb-[5px]'>
               Write down and store in multiple secret places
             </li>
-            <li style={{ marginLeft: '10px', lineHeight: '20px' }}>
+            <li className='pb-[10px]'>
               Store in a safe deposit box
             </li>
           </ul>
         </div>
-        <MnemonicsBox
-          isBlur={true}
-        />
+        <div className='pb-[10px]'>
+          <MnemonicsBox
+            isBlur={true}
+          />
+        </div>
         <PrimaryButton
           onClick={() => setSubActive(2)}
           title={'Reveal Secret Recovery Phrase'}

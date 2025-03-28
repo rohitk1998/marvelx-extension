@@ -10,13 +10,14 @@ const RecoverWallet: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-xl"
+      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px]"
       style={{ backgroundImage: `url(${SplashImg})` }}
     >
       <div className="w-[90%] flex flex-col gap-5">
         <NavigationBarTitle
           title="Your Keys, Your Crypto"
           callback={() => navigate(ROUTES.ADD_WALLET)}
+          titleClass="w-full text-[16px] font-[600] text-center text-white"
         />
         <div className="relative flex justify-center">
           <img src={AddWalletIcon} alt="" />
@@ -32,15 +33,15 @@ const RecoverWallet: React.FC = () => {
                 setPath(option.path);
               }}
             >
-              <div className="flex items-center justify-center w-8 h-8 p-4 bg-[#D9D9D9] rounded-full">
-                <img src={option.icon} alt="" />
+              <div className="flex items-center justify-center p-1 rounded-full bg-[#D9D9D9] w-[35px] h-[35px]">
+                <img src={option.icon} className='w-[16px] h-[16px]' alt="" />
               </div>
               <div className="">
                 <h3 className="text-[16px] font-medium">
                   {option.title}
                 </h3>
                 {option.description && (
-                  <p className="text-[12px] font-[100]">
+                  <p className="text-[11px] font-[400] tex-[#BDBDBD]">
                     {option.description}
                   </p>
                 )}

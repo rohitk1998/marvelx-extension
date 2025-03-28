@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BgSecureWallet } from '../../assets';
-import { NavigationBarTitle } from '../common/navigationbartitle';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
+import DashboardLayout from '../dashboardLayout/index';
+import { copysmallNew } from '../../assets';
 
 const PrivateKeyDisplay: React.FC = () => {
   const [key, setKey] = useState('');
+  const [copytext, setCopyText] = useState('Copy');
 
   const navigate = useNavigate();
 
@@ -24,47 +25,48 @@ const PrivateKeyDisplay: React.FC = () => {
     setWalletInLocal();
   }, []);
 
-  return (
-    <div
-      className="flex flex-col h-screen text-white bg-no-repeat"
-      style={{
-        backgroundImage: `url(${BgSecureWallet})`,
-        padding: '1rem',
-        height: '600px',
-        width: '375px',
-        maxWidth: '375px',
-        margin: '0px',
-      }}
-    >
-      <NavigationBarTitle
-        title="Show Private Key"
-        callback={() => navigate(ROUTES.EDIT_ACCOUNT)}
-      />
+  const copyToClipBoard = () => {
+    navigator.clipboard.writeText(key);
+    setCopyText('Copied');
+    setTimeout(() => {
+      setCopyText('Copy');
+    }, 5000);
+  };
 
-      <div
-        className="text-red-300 bg-red-900 bg-opacity-50 rounded-xl"
-        style={{
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          paddingTop: '12px',
-          paddingBottom: '12px',
-          marginBottom: '16px',
-          marginTop: '40px',
-        }}
-      >
-        <p className="text-sm">
-          Do not share your Private Key. Anyone with your Private Key can have
-          access to your account.
+  return (
+    <DashboardLayout
+      title="Your Recovery Phrase"
+      backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
+      navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
+      graybuttonWithoutBorder={true}
+      graywithoutBorderCallback={()=> navigate(ROUTES.EDIT_ACCOUNT)}
+      grayWithoutBorderTitle='Done'
+      graybuttonWithoutBorderClass='w-[326px] h-[54px] mx-auto mb-[18px]'
+    >
+      <div className="text-red-300 border border-[#F66868] rounded-xl w-[320px] h-[84px] mx-auto mt-[30px] items-center justify-center flex flex-col p-10">
+        <h6 className="text-[16px] font-[500] text-[#F66868] text-center">
+          Do not share your private Key!
+        </h6>
+        <p className="text-[11px] font-[400] text-[#F66868] text-center">
+          They will have full access and control to your account
         </p>
+
       </div>
-      <div className="border-[rgba(255,255,255,0.6)] justify-between rounded-[10px] border p-4 space-y-4 flex flex-wrap gap-y-4 gap-x-1 w-full max-w-full"
-      style={{padding:"16px 16px"}}
-      >
-        <p className="text-white text-[14px] font-bold w-full break-words">
-          {key}
-        </p>
+      <div className="bg-[#4B50661A] rounded-[10px] border-[0.5px] border-[#222326] w-[321px] h-[160px] flex flex-col items-center justify-center mx-auto mt-[65px] p-1">
+        <div style={{ padding: '16px 16px' }} className="w-[100%] text-center">
+          <p className="text-white text-[15px] font-[500] w-full break-words">
+            {key}
+          </p>
+        </div>
+        <div className="w-[100%] text-[#3A3C48] border mb-1"></div>
+        <div className="w-[30%] flex justify-center text-white gap-2 mt-1 cursor-pointer" onClick={()=> copyToClipBoard()}>
+          <p>{copytext}</p>
+          <div className="w-[24px] h-[24px] rounded-[6px] bg-[#3A3C48] p-1">
+            <img src={copysmallNew} alt="" />
+          </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

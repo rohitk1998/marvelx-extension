@@ -68,7 +68,7 @@ const Auth2FA: React.FC<Auth2FAProps> = ({ setSelectedMenu }) => {
       setSuccess(false);
       setError('');
     };
-  }, [user]);
+  }, []);
 
   const fetch2FaData = async () => {
     let password: any = localStorage.getItem('password');

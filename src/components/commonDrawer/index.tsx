@@ -12,7 +12,7 @@ const CommonDrawer: React.FC<CommonDrawerProps> = ({ content, isOpen, closeDrawe
 	return (
 		<div
 			id="drawer"
-			className="fixed top-0 left-[190px] transform -translate-x-1/2 max-h-[600px] h-full  bg-[#232532bf] bg-opacity-50 flex justify-center items-center w-[100%] max-w-[375px]"
+			className="fixed top-0 left-[50%] transform -translate-x-1/2 max-h-[600px] h-full  bg-[#232532bf] bg-opacity-50 flex justify-center items-center w-[100%] max-w-[360px]"
 		>
 			<div className="relative bg-[#000]  overflow-y-auto max-w-[362px] w-full rounded-tl-[20px] rounded-tr-[20px] rounded-bl-none rounded-br-none" style={{ marginTop: 'auto' }}>
 				{/* Close Button */}
@@ -23,7 +23,7 @@ const CommonDrawer: React.FC<CommonDrawerProps> = ({ content, isOpen, closeDrawe
 					<CrossIcon />
 				</button>
 				{/* Drawer Content */}
-				<div className="drawer-content" style={{ padding: '20px 15px 15px' }}>
+				<div className="drawer-content" style={{ padding: '20px 15px 5px' }}>
 					{content}
 				</div>
 			</div>

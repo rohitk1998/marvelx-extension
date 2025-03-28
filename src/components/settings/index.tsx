@@ -16,7 +16,7 @@ import {
 } from '../../assets/index';
 import { useNavigate } from 'react-router-dom';
 
-const Settings = ()=> {
+const Settings = () => {
 	const navigate = useNavigate();
 	const data = [
 		{
@@ -79,11 +79,11 @@ const Settings = ()=> {
 		},
 	];
 	return (
-		<DashboardLayout title="Settings" graybutton={true} btntitle="Lock Wallet" backCallback={()=> navigate('/')}>
-			<div className="flex items-center justify-center p-4">
-				<div className="relative w-full max-w-md">
+		<DashboardLayout title="Settings" graybutton={true} btntitle="Lock Wallet" backCallback={() => navigate('/')}>
+			<div className="flex items-center justify-center pb-[12px] pl-[17px] pr-[17px]">
+				<div className="relative w-full max-w-md  mt-[20px]">
 					{/* Search Icon */}
-					<div className="absolute inset-y-0 left-[15px] pl-3 flex items-center pointer-events-none">
+					<div className="absolute inset-y-0 left-[15px] flex items-center pointer-events-none">
 						<SearchIcon />
 					</div>
 					<input
@@ -93,7 +93,7 @@ const Settings = ()=> {
 					/>
 				</div>
 			</div>
-			<div className="flex flex-col gap-[12px] pt-[15px]" style={{ paddingTop: '15px' }}>
+			<div className="flex flex-col gap-[12px] pr-[17px] pb-[17px] pl-[17px]">
 				<div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
 					{data.map((item, index) => (
 						<p

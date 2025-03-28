@@ -69,12 +69,12 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   };
 
   const handlePinValidation = () => {
-    if(!pin.join('') || !confirmPin.join('')){
+    if (!pin.join('') || !confirmPin.join('')) {
       setError('Please fill in both PIN fields');
     }
     else if (pin.join('') !== confirmPin.join('')) {
       setError('Pin does not match');
-    } 
+    }
     else {
       handlePinCreation();
     }
@@ -122,21 +122,24 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
 
   return (
     <div
-      className="relative flex flex-col items-start justify-start w-full max-w-[375px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center text-white"
+      className="relative flex flex-col items-start justify-start w-full max-w-[360px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center text-white"
       style={{
         padding: '20px',
         maxHeight: '600px',
-        maxWidth: '375px',
+        maxWidth: '360px',
         backgroundImage: `url(${BgSecureWallet})`,
+        backgroundSize: '100% 100%',
+        margin: ' 0 auto'
+
       }}
     >
       <NavigationBarTitle
-        title="Transaction Pin"
+        title="Transaction PIN"
         callback={() => setSelectedMenu('')}
       />
 
       <div style={{ marginBottom: '24px', marginTop: '20px' }}>
-        <p className="text-gray-400" style={{ marginBottom: '12px' }}>
+        <p className="text-[#fff] text-[14px]" style={{ marginBottom: '6px' }}>
           Enter transaction PIN
         </p>
         <div
@@ -153,14 +156,14 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
                 maxLength={1}
                 value={pin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value, false)}
-                onKeyDown={(e)=> handlePinBackspace(index,e)}
+                onKeyDown={(e) => handlePinBackspace(index, e)}
                 className="w-[56px] h-[46px] text-xl text-center bg-transparent border border-gray-600 rounded-xl focus:border-gray-600 focus:outline-none text-white"
-                style={{ padding: '12px',marginLeft:'5px' }}
+                style={{ padding: '12px', marginLeft: '5px' }}
               />
             ))}
         </div>
 
-        <p className="text-gray-400" style={{ marginBottom: '12px' }}>
+        <p className="text-[#fff] text-[14px]" style={{ marginBottom: '6px' }}>
           Confirm transaction PIN
         </p>
         <div className="flex justify-between w-full gap-1">
@@ -174,9 +177,9 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
                 maxLength={1}
                 value={confirmPin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value, true)}
-                onKeyDown={(e)=> handleConfirmPinBackspace(index,e)}
+                onKeyDown={(e) => handleConfirmPinBackspace(index, e)}
                 className="w-[56px] h-[46px] text-xl text-center bg-transparent border border-gray-600 rounded-xl focus:border-gray-600 focus:outline-none text-white"
-                style={{ padding: '12px',marginLeft:'5px' }}
+                style={{ padding: '12px', marginLeft: '5px' }}
               />
             ))}
         </div>
@@ -190,7 +193,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
         title="Create transaction PIN"
         onClick={handlePinValidation}
       />
-    </div>
+    </div >
   );
 };
 
