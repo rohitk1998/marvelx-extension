@@ -49,7 +49,7 @@ const RecoverWallet: React.FC = () => {
             </div>
           ))}
         </div>
-        <PrimaryButton title={'Confirm'} onClick={() => navigate(path)} />
+        <PrimaryButton title={'Confirm'} onClick={() => path === '/recover-secret-phrase' ? navigate(path) : console.log("not clicked") } />
       </div>
     </div>
   );
