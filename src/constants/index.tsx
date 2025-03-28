@@ -45,21 +45,21 @@ const RECOVER_WALLET_OPTIONS = [
     icon: KeySmall,
     title: 'By Private Key',
     description: '',
-    path:'/recover-private-key'
+    path:'1'
   },
   {
     id: 3,
     icon: CloudSmall,
     title: 'iCloud or Google Backup',
     description: 'Restore wallet from iCloud or Google',
-     path:'/recover-google'
+     path:'2'
   },
   {
     id: 4,
     icon: EyeSmall,
     title: 'Watch Wallet',
     description: 'Observe or track assets of other SOL wallet',
-    path:'/watch-wallet'
+    path:'3'
   },
 ];
 
