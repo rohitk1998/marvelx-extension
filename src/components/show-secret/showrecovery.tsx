@@ -18,7 +18,7 @@ const RecoveryPhraseDisplay: React.FC = () => {
   }, []);
 
   const copyToClipBoard = () => {
-    navigator.clipboard.writeText(arr.join(''));
+    navigator.clipboard.writeText(arr.join(' '));
     setCopyText('Copied');
     setTimeout(() => {
       setCopyText('Copy to clipboard');
@@ -27,7 +27,7 @@ const RecoveryPhraseDisplay: React.FC = () => {
 
   return (
     <DashboardLayout
-      title="Your Recovery Phrase"
+      title="Secret Recovery Phrase"
       backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
       navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
       graybuttonWithoutBorder={true}

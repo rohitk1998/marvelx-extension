@@ -1,10 +1,13 @@
+import Spinner from "./spinner";
+
 interface PrimaryButtonProps {
     title: string;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     isDisabled?: boolean;
+    isLoading?:boolean;
 }
 
-export const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onClick, isDisabled = false }) => {
+export const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onClick, isDisabled = false,isLoading = false }) => {
     return (
         <button
             disabled={isDisabled}
@@ -12,7 +15,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onClick, is
             style={{ marginBottom: "10px" }}
             onClick={onClick}
         >
-            {title}
+            {!isLoading ? title : <Spinner loading={isLoading} />}
         </button>
     );
 };

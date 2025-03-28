@@ -58,6 +58,8 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
   }
 
   useEffect(() => {
+    setAmount('');
+    setUsdAmount('');
     setError('');
   }, []);
 
@@ -85,14 +87,14 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
             <span>Send to:</span>
             <input
               type="text"
-              value={DotFormatAddress(receiveraddress)}
+              value={inputdisabled ? DotFormatAddress(receiveraddress): receiveraddress}
               onChange={(e) => setReceiverAddress(e.target.value)}
               className="text-sm text-[#fff] font-medium bg-transparent border-none outline-none"
               style={{ marginLeft: '4px', width: 'calc(100% - 60px)' }}
               disabled={inputdisabled}
             />
           </div>
-          <button className="text-gray-400 cursor-pointer" onClick={() => setInputDisabled(false)}>
+          <button className="text-gray-400 cursor-pointer" onClick={() => setInputDisabled(!inputdisabled)}>
             <img src={EditSmall} alt='' className='w-[20px] h-[20px]' />
           </button>
         </div>

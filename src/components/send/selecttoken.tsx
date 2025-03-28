@@ -42,7 +42,9 @@ const SelectToken: React.FC<SelectTokenProps> = ({
       backCallback={() => navigate('/wallet-board')}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
+    <div className='mt-[250px]'>
     <Spinner loading={loading}/>
+    </div>
     </DashboardLayout>
     )
   }

@@ -134,7 +134,7 @@ const DashLayout = ({
         <div className="flex-1 mx-auto overflow-auto w-[100%]">{children}</div>
         {showFooter && <DashFooter />}
         {showButton && (
-          <div style={{ padding: '10px 15px 5px' }}>
+          <div style={{ padding: '10px 15px 8px' }}>
             <PrimaryButton title={btntitle} onClick={onClick} />
           </div>
         )}

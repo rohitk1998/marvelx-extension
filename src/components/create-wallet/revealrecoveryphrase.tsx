@@ -1,11 +1,7 @@
-import { useEffect } from 'react';
 import { BgRecoveryPhrase } from '../../assets';
 import { PrimaryButton, NavigationBarTitle } from '../index';
 import MnemonicsBox from './mnemonicsbox';
 import Stepper from './stepper';
-import { useAppContext } from '../../context/useappcontext';
-import axios from "axios";
-import { API_URL } from '../../constants';
 
 interface StepType {
   id: number;
@@ -34,28 +30,6 @@ const RevealRecoveryPhrase: React.FC<SecureWalletMainProps> = ({
   done,
   setSubActive,
 }) => {
-
-  const {password,setSecretPhrase,setMnemonicsArr,setPrivateKey,setWallet,setPrivateKeyArr} = useAppContext();
-  const generateWallet = async () =>{
-    try {
-      const response = await axios.post(API_URL.createWallet,{
-        password: password
-      });
-      console.log("Wallet Created:", response.data?.data);
-      setSecretPhrase(response.data?.data?.secretPhrase);
-      setMnemonicsArr(response.data?.data?.secretPhrase.split(" "));
-      setPrivateKey(response.data?.data?.privateKey);
-      setWallet(response.data?.data?.walletAddress);
-      setPrivateKeyArr(response.data?.data?.privateKeyArr);
-    } catch (error) {
-      console.error("Error creating wallet:", error);
-      return { success: false, error: "Failed to create wallet" };
-    }
-  }
-
-  useEffect(()=>{
-    generateWallet();
-  },[])
   
   return (
     <div

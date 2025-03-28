@@ -29,6 +29,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   error
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
+  const [loading,setLoading]=useState(false);
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1) {
       const newCode = [...code];
@@ -44,6 +45,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   };
 
   const sendTransaction = async () => {
+    setLoading(true)
     try {
       console.log(token, receiveraddress, usdamount, amount);
       const privateKeyArr = getPrivateKeyLocalStorage();
@@ -56,10 +58,12 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
       if (result) {
         setActive(6);
         setSuccess(true);
+        setLoading(false)
       }
     } catch (error) {
       console.log(error);
       setError(`Failed to send ${amount} ${token.symbol}`);
+      setLoading(false);
     }
   };
 
@@ -105,7 +109,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px] text-white mx-auto"
+      className="flex flex-col items-center justify-center w-full min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px] text-white mx-auto"
       style={{
         backgroundImage: `url(${BgSecureWallet})`,
         padding: '20px',
@@ -162,6 +166,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
       <div className="flex-grow"></div>
       <PrimaryButton
         title="Confirm"
+        isLoading={loading}
         onClick={handleValidationTransactionCode}
       />
     </div>

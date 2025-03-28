@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { BgSecureWallet, copysmallNew,SolanaTokenImg } from '../../assets/index';
 import useTokenBalance from '../../hooks/usetokensandbalances';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
+import DashboardLayout from "../dashboardLayout/index"
+import Spinner from '../common/spinner';
 
 interface SelectTokenProps {
   active: number;
@@ -14,7 +16,7 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   setActive,
   setToken,
 }) => {
-  const { setAddress, tokens } = useTokenBalance();
+  const { setAddress, tokens ,loading } = useTokenBalance();
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
@@ -41,6 +43,20 @@ const SelectToken: React.FC<SelectTokenProps> = ({
       setCopied(false);
     }, 3000);
   };
+
+  if (loading) {
+    return(
+    <DashboardLayout
+      title="Select Token"
+      backCallback={() => navigate('/wallet-board')}
+      navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
+    >
+    <div className='mt-[250px]'>
+    <Spinner loading={loading}/>
+    </div>
+    </DashboardLayout>
+    )
+  }
 
   return (
     <div
@@ -71,37 +87,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({
           Receive token
         </h3>
       </div>
-      {/* <div className="relative" style={{ marginBottom: '1.5rem' }}>
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full text-gray-100 bg-[#4B50661A] border border-[#222326] rounded-xl focus:outline-none h-[44px]"
-          style={{
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem',
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-          }}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <div className="absolute transform -translate-y-1/2 right-4 top-1/2">
-          <svg
-            className="w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-        </div>
-      </div> */}
       <div className="space-y-3">
         {tokens.map((token: any) => (
           <div
