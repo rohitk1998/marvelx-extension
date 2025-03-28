@@ -128,7 +128,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
         maxHeight: '600px',
         maxWidth: '360px',
         backgroundImage: `url(${BgSecureWallet})`,
-        backgorundSize: '100% 100%',
+        backgroundSize: '100% 100%',
         margin: ' 0 auto'
 
       }}

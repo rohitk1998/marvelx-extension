@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BgSecureWallet, SOL, copysmallNew,SolanaTokenImg } from '../../assets/index';
+import { BgSecureWallet, copysmallNew,SolanaTokenImg } from '../../assets/index';
 import useTokenBalance from '../../hooks/usetokensandbalances';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 
@@ -17,7 +17,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   const { setAddress, tokens } = useTokenBalance();
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
       setWalletInLocal();
