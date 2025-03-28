@@ -105,7 +105,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center w-full max-w-[375px] min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-xl text-white"
+      className="flex flex-col items-center justify-center w-full max-w-[375px] min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px] text-white mx-auto"
       style={{
         backgroundImage: `url(${BgSecureWallet})`,
         padding: '20px',
@@ -115,15 +115,16 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
     >
       <NavigationBarTitle
         title="Validate Two Factor"
-        callback={() => setActive(5)}
+        callback={() => setActive(4)}
+          titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
-      <div className="flex flex-col items-center" style={{ marginTop: '32px' }}>
+      <div className="flex flex-col items-center mt-[67px]">
         <h2 className="text-2xl font-[700] text-center text-white">
           Enter the code on your verification app
         </h2>
         <p
-          className="text-sm text-center text-gray-400"
-          style={{ marginBottom: '32px' }}
+           className="text-sm text-center text-[#6B6D76] w-[311px] mt-[15px]"
+           style={{ marginBottom: '32px' }}
         >
           This is required to complete this transaction safely
         </p>

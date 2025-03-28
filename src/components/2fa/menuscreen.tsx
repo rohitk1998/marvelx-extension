@@ -1,5 +1,5 @@
 import React from 'react';
-import {ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { BgSecureWallet } from '../../assets';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -19,8 +19,9 @@ const TwoFactorAuthenticatorMenu: React.FC<MenuProps> = ({
       style={{
         padding: '20px',
         maxHeight: '600px',
-        maxWidth: '375px',
+        maxWidth: '360px',
         backgroundImage: `url(${BgSecureWallet})`,
+        margin: 'auto',
       }}
     >
       <NavigationBarTitle
@@ -34,6 +35,7 @@ const TwoFactorAuthenticatorMenu: React.FC<MenuProps> = ({
             navigate(-1);
           }
         }}
+        titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
       <div className="flex flex-col" style={{ marginTop: '20px' }}>
         <button

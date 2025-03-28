@@ -6,7 +6,7 @@ interface ErrorProps{
 
 const ValidationError:React.FC<ErrorProps> = ({error})=>{
     return(
-        <p className='text-red-800 text-[14px] font-normal' style={{marginTop:"5px"}}>{error}</p>
+        <p className='text-red-800 text-[13px] font-[100]' style={{marginTop:"5px"}}>{error}</p>
     )
 }
 

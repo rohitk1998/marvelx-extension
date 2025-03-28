@@ -27,6 +27,7 @@ import MenuIcon2 from "./icons/menu-2-icon.png"
 import MenuIcon3 from "./icons/menu-3-icon.png"
 import MenuIcon4 from "./icons/menu-last-icon.png";
 import MenuButtonIcon from "./icons/swap-button-icon.png";
+import copysmallNew from './icons/copysmallnew.png'
 import NavigationBarImg from "./icons/navigation-bar-img.png";
 import SOL from "./crypto-icons/SOL.svg";
 import ExportIcon from './icons/export.svg'
@@ -41,9 +42,12 @@ import ExpFeature from './icons/command-square.svg'
 import HelpSupport from './icons/message-question.svg'
 import AboutMarve from './icons/Asset 1 1.svg'
 import GreenTickImg from "./icons/green-tick.png";
-import Profile from "./icons/profile.jpg";
+import Profile from "./icons/Ellipse 3.png";
 import Shild from "./icons/shield-slash.png";
 import KeySquare from "./icons/key-square.png";
+import MnemonicsBoxBlur from "./mnemonicsboxblur.png";
+import BgDashboardLayout from "./dashboard_layout.png";
+import SolanaTokenImg from "./icons/summaysol.svg";
 
 export {
     SendIcon,
@@ -58,6 +62,7 @@ export {
     DeveloperSetting,
     Connectedapp,
     AddressBook,
+    copysmallNew,
     ReceiveIcon,
     SwapIcon,
     SolanaImg,
@@ -91,5 +96,8 @@ export {
     GreenTickImg,
     Profile,
     Shild,
-    KeySquare
+    KeySquare,
+    MnemonicsBoxBlur,
+    BgDashboardLayout,
+    SolanaTokenImg
 }

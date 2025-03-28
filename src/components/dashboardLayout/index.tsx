@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import bgsecure from '../../assets/Dashboard.png';
 import CustomDropdown from '../common/CustomDropdown';
 import DashFooter from '../dashFooter/index';
 import firsttimeprofile from '../../assets/icons/firsttimepro.svg';
@@ -8,10 +7,12 @@ import firsttimeprofiles from '../../assets/icons/firsttimeprofile.svg';
 import settings from '../../assets/icons/setting.svg';
 import addwallet from '../../assets/icons/add-square.svg';
 import { SearchIcon } from '../../assets/SvgIcon';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { GrayButton } from '../common/graybutton';
 import useUserProfile from '../../hooks/useprofile';
+import { BgSecureWallet } from '../../assets';
+
 interface DashLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -24,6 +25,11 @@ interface DashLayoutProps {
   onClick?: () => void;
   backCallback?: Function;
   graybutton?: boolean;
+  navigationBarTitleClass?: string;
+  graybuttonWithoutBorder?:boolean;
+  graywithoutBorderCallback?:Function;
+  grayWithoutBorderTitle?:string;
+  graybuttonWithoutBorderClass?:string;
 }
 
 const DashLayout = ({
@@ -33,20 +39,28 @@ const DashLayout = ({
   showFooter = false,
   showButton = false,
   showDoubleBtn = false,
-  graybutton=false,
+  graybutton = false,
   onClick = () => {},
   transbtn = '',
   btntitle = '',
   backCallback,
+  navigationBarTitleClass,
+  graybuttonWithoutBorder = false,
+  graywithoutBorderCallback,
+  grayWithoutBorderTitle,
+  graybuttonWithoutBorderClass
 }: DashLayoutProps) => {
   const navigate = useNavigate();
-  const { user,setWalletAddress }:any = useUserProfile();
-  const [profile,setProfile]:any=useState(null);
-  const [defaultAccount,setDefaultAccount]=useState('Account 1');
+  const location = useLocation();
+  const { user, setWalletAddress }: any = useUserProfile();
+  const [profile, setProfile]: any = useState(null);
+  const [defaultAccount, setDefaultAccount] = useState('Account 1');
 
   useEffect(() => {
-    setWalletInLocal();
-    if(user !== null){
+    if (location.pathname === '/wallet-board') {
+      setWalletInLocal();
+    }
+    if (user !== null) {
       setProfile(user);
     }
   }, [user]);
@@ -57,7 +71,7 @@ const DashLayout = ({
     if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
     const firstAccountKey = Object.keys(defaults)[0];
-    console.log('firstAccountKey',firstAccountKey)
+    console.log('firstAccountKey', firstAccountKey);
     setDefaultAccount(firstAccountKey);
     const defaultAccount = defaults[firstAccountKey];
     setWalletAddress(defaultAccount?.publicKey);
@@ -81,27 +95,26 @@ const DashLayout = ({
     },
   ];
 
-  console.log('user',user)
   return (
-    <div className="flex justify-center w-full m-auto h-screen min-h-[600px] max-w-[375px]">
+    <div className="flex justify-center w-full m-auto h-screen min-h-[600px] max-w-[360px]">
       <div
         className="flex flex-col max-h-[600px] h-screen w-full bg-no-repeat bg-cover mx-auto"
         style={{
-          backgroundImage: `url(${bgsecure})`,
+          backgroundImage: `url(${BgSecureWallet})`,
           backgroundSize: '100% 100%',
         }}
       >
         {showSearchCoin && (
-          <div
-            className="flex gap-[10px] justify-between"
-            style={{ padding: '23px 15px 12px 15px' }}
-          >
+          <div className="flex gap-[10px] justify-between pt-[23px] pr-[15px] pb-[20px] pl-[15px]">
             <div className="flex gap-[7px] max-w-[300px] w-full">
               <img src={firsttimeprofile} alt="imgs" />
               <p className="text-[10px] font-normal text-[#A5A5A5] flex flex-col">
                 @{profile?.username}
                 <div className="flex items-center justify-center">
-                  <CustomDropdown label={defaultAccount} items={dropdownItems} />
+                  <CustomDropdown
+                    label={defaultAccount}
+                    items={dropdownItems}
+                  />
                 </div>
               </p>
             </div>
@@ -110,16 +123,15 @@ const DashLayout = ({
         )}
 
         {!showSearchCoin && (
-          <div style={{ padding: '23px 15px 12px 15px' }}>
-            <NavigationBarTitle title={title} callback={backCallback} />
+          <div className="pt-[23px] pr-[17px} pl-[17px]">
+            <NavigationBarTitle
+              title={title}
+              callback={backCallback}
+              titleClass={navigationBarTitleClass}
+            />
           </div>
         )}
-        <div
-          className="flex-1 overflow-auto"
-          style={{ padding: '10px 16px 10px' }}
-        >
-          {children}
-        </div>
+        <div className="flex-1 mx-auto overflow-auto w-[100%]">{children}</div>
         {showFooter && <DashFooter />}
         {showButton && (
           <div style={{ padding: '10px 15px 5px' }}>
@@ -134,6 +146,15 @@ const DashLayout = ({
             className="border-t border-[#3A3C48]"
           >
             <GrayButton title={btntitle} />
+          </div>
+        )}
+
+        {graybuttonWithoutBorder && (
+          <div
+          className={graybuttonWithoutBorderClass ?? ''}
+            onClick={()=> graywithoutBorderCallback ? graywithoutBorderCallback() : null }
+          >
+            <GrayButton title={grayWithoutBorderTitle ?? ''} />
           </div>
         )}
 

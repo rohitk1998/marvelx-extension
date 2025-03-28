@@ -4,9 +4,9 @@ import footerbg from "../../assets/footerbg.png"
 
 function DashFooter() {
 	return (
-		<div className=" bg-cover bg-no-repeat px-[40px] h-[68px]" style={{ backgroundImage: `url(${footerbg})`, backgroundSize: '100% 100%' }}
+		<div className="bg-cover bg-no-repeat px-[40px] h-[68px]" style={{ backgroundImage: `url(${footerbg})`, backgroundSize: '100% 100%' }}
 		>
-			<div className="relative flex items-center justify-between" style={{ padding: '0 40px' }}>
+			<div className="relative flex items-center justify-between">
 				<Link to="#"> <Wallet /></Link>
 				<Link to="#"> <FooterElement /> </Link>
 				<Link to="#" className="bg-[#1142C7] flex justify-center items-center w-[61px] h-[61px] rounded-full relative top-[-18px]"> <FooterSwapIcon /></Link>

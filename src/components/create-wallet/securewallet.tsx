@@ -69,7 +69,7 @@ const SecureWallet: React.FC<SecureWalletProps> = ({
 
   return (
     <div>
-    {substeps.map((substep : any) => {
+    {substeps?.map((substep : any) => {
       const { Component, id } = substep;
       return (
         <>

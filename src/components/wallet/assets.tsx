@@ -5,7 +5,7 @@ interface AssetsProps {
 }
 const Assets: React.FC<AssetsProps> = ({ tokens }) => {
   return (
-    <div className="">
+    <div className=" mx-auto w-[329px]">
       <h4
         className="text-[#fff] text-[16px] font-extrabold "
         style={{

@@ -34,27 +34,27 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
   setSubActive,
 }) => {
   console.log(steps, active, done, setDone, setActive, setSubActive);
-  const [isBlur,setBlur]=useState(false);
+  const [isBlur, setBlur] = useState(false);
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[855px] bg-no-repeat bg-cover bg-center rounded-xl gap-8"
+      className="relative flex flex-col items-center w-full max-w-[375px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
       style={{ backgroundImage: `url(${BgRecoveryPhrase})` }}
     >
-      <div className="w-[90%] flex flex-col gap-8">
-        <NavigationBarTitle
-          title="Add a wallet"
-          callback={() => {
-            setSubActive(0);
-          }}
-        />
+      <NavigationBarTitle
+        title="Add a wallet"
+        callback={() => {
+          setSubActive(0);
+        }}
+      />
+      <div className="w-full overflow-auto pt-[32px]">
         <Stepper steps={steps} active={active} done={done} />
         <div className="text-center">
-          <h2 className="text-[20px] font-[400] text-white letter-space-2">
-            Write down your Secret Recovery Phrase
+          <h2 className="text-[20px] font-medium text-white letter-space-2">
+            Write down your Secret <br /> Recovery Phrase
           </h2>
           <p
-            className="px-4 text-[14px] text-start text-white"
+            className="text-[14px] text-start text-white"
             style={{ marginTop: '10px' }}
           >
             Write down the 12-word Secret Recovery Phrase and save it in a place
@@ -62,7 +62,9 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
           </p>
         </div>
         <div className="w-full max-w-md text-left">
-          <h3 className="mb-2 text-[14px] font-semibold text-white">Tips:</h3>
+          <h3 className="mb-2 pt-[12px] text-[14px] font-semibold text-white">
+            Tips:
+          </h3>
           <ul className="text-[12px] text-white font-[400] list-disc list-inside">
             <li style={{ marginLeft: '10px', lineHeight: '20px' }}>
               Write down and store in multiple secret places
@@ -72,10 +74,9 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
             </li>
           </ul>
         </div>
-        <MnemonicsBox
-          isBlur={isBlur}
-          setBlur={setBlur}
-        />
+        <div className="pb-[10px]">
+          <MnemonicsBox isBlur={isBlur} setBlur={setBlur} />
+        </div>
 
         <PrimaryButton
           onClick={() => {

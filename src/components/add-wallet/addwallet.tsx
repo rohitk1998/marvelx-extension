@@ -10,39 +10,37 @@ const AddWallet: React.FC = () => {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center w-full max-w-[375px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-xl"
+      className="relative flex flex-col items-center w-full max-w-[375px] bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
       style={{ backgroundImage: `url(${SplashImg})` }}
     >
-      <div className="w-[90%] flex flex-col">
-        <NavigationBarTitle
-          title="Add a wallet"
-          callback={() => {
-          }}
-        />
-        <div className="relative flex justify-center pt-8 my-6">
-          <img src={AddWalletIcon} alt="" />
-        </div>
-        <div className="flex-grow px-6 mt-6">
-          {ADD_WALLET_FEATURES.map((item) => {
-            return (
-              <InfoCard
-                key={item.id}
-                img={item.img}
-                heading={item.heading}
-                description={item.description}
-              />
-            );
-          })}
-        </div>
+      <NavigationBarTitle
+        title="Add a wallet"
+        callback={() => {
+        }} />
+      <div className="w-full overflow-auto">
+        <div className='flex justify-center pt-[5px]'>  <img src={AddWalletIcon} alt="" /></div>
+        {ADD_WALLET_FEATURES.map((item) => {
+          return (
+            <InfoCard
+              key={item.id}
+              img={item.img}
+              heading={item.heading}
+              description={item.description}
+            />
+          );
+        })}
 
-        <PrimaryButton
-          title={'Create a new wallet'}
-          onClick={() => navigate(ROUTES.CREATE_WALLET)}
-        />
-        <SecondaryButton
-          title={'I already have a wallet'}
-          onClick={() => navigate(ROUTES.RECOVER_WALLET)}
-        />
+
+        <div className='pt-[12px]'>
+          <PrimaryButton
+            title={'Create a new wallet'}
+            onClick={() => navigate(ROUTES.CREATE_WALLET)}
+          />
+          <SecondaryButton
+            title={'I already have a wallet'}
+            onClick={() => navigate(ROUTES.RECOVER_WALLET)}
+          />
+        </div>
       </div>
     </div>
   );

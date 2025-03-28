@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BgSecureWallet, CopySmall, SOL } from '../../assets/index';
+import { BgSecureWallet, SOL, copysmallNew,SolanaTokenImg } from '../../assets/index';
 import useTokenBalance from '../../hooks/usetokensandbalances';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 
@@ -20,7 +20,7 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setWalletInLocal();
+      setWalletInLocal();
   }, []);
 
   const setWalletInLocal = async () => {
@@ -35,7 +35,7 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   };
 
 
-  const copyToClipBoard = (address:string ) => {
+  const copyToClipBoard = (address: string) => {
     navigator.clipboard.writeText(address);
     setCopied(true);
     setTimeout(() => {
@@ -45,10 +45,10 @@ const SelectToken: React.FC<SelectTokenProps> = ({
 
   return (
     <div
-      className="h-screen text-white min-h-[600px] bg-no-repeat max-w-[375px]"
-      style={{ backgroundImage: `url(${BgSecureWallet})`, padding: '1rem' }}
+      className="h-screen text-white max-h-[600px] bg-no-repeat max-w-[360px]  mx-auto"
+      style={{ backgroundImage: `url(${BgSecureWallet})`, backgroundSize: '100% 100%', padding: '1rem' }}
     >
-      <div className="flex items-center" style={{ marginBottom: '1.5rem' }}>
+      <div className="flex items-center pt-[5px]" style={{ marginBottom: '1.5rem' }}>
         <button style={{ marginRight: '1rem' }} onClick={() => navigate(-1)}>
           <svg
             className="w-6 h-6 cursor-pointer"
@@ -65,14 +65,14 @@ const SelectToken: React.FC<SelectTokenProps> = ({
             ></path>
           </svg>
         </button>
-        <h1
-          className="flex-1 text-xl font-medium text-center"
+        <h3
+          className="flex-1 text-[16px] text-center font-[600]"
           style={{ marginRight: '1.5rem' }}
         >
           Receive token
-        </h1>
+        </h3>
       </div>
-      <div className="relative" style={{ marginBottom: '1.5rem' }}>
+      {/* <div className="relative" style={{ marginBottom: '1.5rem' }}>
         <input
           type="text"
           placeholder="Search"
@@ -102,33 +102,33 @@ const SelectToken: React.FC<SelectTokenProps> = ({
             ></path>
           </svg>
         </div>
-      </div>
+      </div> */}
       <div className="space-y-3">
         {tokens.map((token: any) => (
           <div
             key={token?.symbol}
-            className="flex items-center cursor-pointer bg-[#4B50661A] border border-[#222326] rounded-xl"
-            style={{ padding: '1rem', marginTop: '10px' }}
+            className="flex items-center cursor-pointer bg-[#4B50661A] border border-[#222326b0] rounded-xl"
+            style={{ padding: '14px', marginTop: '32px' }}
             onClick={() => {
               setToken(token);
               setActive(1);
             }}
           >
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold`}
+              className={`w-[42px] h-[42px] rounded-full flex items-center justify-center text-lg font-bold`}
               style={{ marginRight: '0.75rem' }}
             >
-              <img src={SOL} alt="" />
+              <img src={SolanaTokenImg} alt="" className='w-[42px] h-[42px]' />
             </div>
             <div className="flex-1">
-              <div className="font-medium">{token.name}</div>
-              <div className="text-[14px] font-[400] text-white">
+              <div className="font-extrabold text-[16px] text-white">{token.name}</div>
+              <div className="text-[10px] font-semibold text-[#6E7186] pt-[2px] ">
                 {DotFormatAddress(token?.associatedTokenAddress)}
               </div>
             </div>
-            <div className="w-[35px] h-[35px] rounded-lg bg-gray-400 flex items-center justify-center">
-              {!copied && <button onClick={()=> copyToClipBoard(token?.associatedTokenAddress)} ><img src={CopySmall} alt="copy icon"/></button>}
-              {copied && <img src={CopySmall} alt="copied icon" />}
+            <div className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center">
+              {!copied && <button onClick={() => copyToClipBoard(token?.associatedTokenAddress)} ><img src={copysmallNew} alt="copy icon" /></button>}
+              {copied && <img src={copysmallNew} alt="copied icon" />}
             </div>
           </div>
         ))}

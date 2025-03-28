@@ -19,7 +19,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
     <div
       className="relative inline-block text-left"
       onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      // onMouseLeave={() => setIsOpen(false)}
     >
       {/* Dropdown Button */}
       <button className="flex items-center gap-2 text-[#CECED1] transition-all duration-300 ease-in-out focus:outline-none font-semibold rounded-lg text-sm">
@@ -42,7 +42,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
                 >
                   {item.icon && <span className="mr-2">{item.icon}</span>}
                   {item.label}
-                  <FaChevronRight className="absolute right-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                  <FaChevronRight className="absolute transition-opacity duration-200 opacity-0 right-2 group-hover:opacity-100" />
                 </button>
               </li>
             ))}

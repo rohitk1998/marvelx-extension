@@ -11,7 +11,7 @@ interface Verify2FAProps {
   setSuccess: Function;
   setError: Function;
   setActive: Function;
-  error:string;
+  error: string;
 }
 
 const Verify2FA: React.FC<Verify2FAProps> = ({
@@ -81,7 +81,7 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
       style={{
         padding: '20px',
         maxHeight: '600px',
-        maxWidth: '375px',
+        maxWidth: '360px',
         backgroundImage: `url(${BgSecureWallet})`,
         backgroundSize: '100% 100%',
       }}
@@ -89,19 +89,20 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
       <NavigationBarTitle
         title="Two Factor Authenticator"
         callback={() => setActive(0)}
+        titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
 
       <div style={{ marginTop: '32px' }}>
         <h2
-          className="text-2xl font-semibold text-white"
-          style={{ marginBottom: '8px' }}
+          className="text-[24px] font-[500] text-white pt-[30px]"
+          style={{ marginBottom: '3px' }}
         >
           Validate authenticator app
         </h2>
-        <p className="text-sm text-gray-400" style={{ marginBottom: '24px' }}>
+        <p className="text-sm text-[#6B6D76]" style={{ marginBottom: '24px' }}>
           Enter the code from your authenticator app
         </p>
-        <div className="relative">
+        <div className="relative pt-[40px]">
           <div
             className="flex justify-between"
             style={{ marginBottom: '16px' }}

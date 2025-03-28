@@ -15,6 +15,7 @@ interface EnterAddressProps {
 
 const EnterAddress: React.FC<EnterAddressProps> = ({
   setActive,
+  active,
   token,
   setReceiverAddress,
   receiveraddress,
@@ -31,10 +32,14 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
         setActive(2);
       }
     }
+    else{
+      setError('Please enter a valid Solana Address');
+    }
   };
 
   useEffect(() => {
     setError('');
+    setReceiverAddress('')
   }, []);
 
   return (
@@ -42,18 +47,21 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
       className="flex flex-col h-screen text-white bg-no-repeat"
       style={{
         backgroundImage: `url(${BgSecureWallet})`,
-        padding:"1rem",
+        padding: "1rem",
+        paddingBottom: '7px',
         height: '600px',
-        width: '375px',
-        maxWidth: '375px',
-        margin: '0px'
+        maxWidth: '360px',
+        margin: '0px auto',
+        backgroundSize: '100% 100%'
+
       }}
     >
       <NavigationBarTitle
         title={token?.symbol}
         callback={() => {
-          setActive(0);
+          setActive(active -1);
         }}
+          titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
       {/* Send To Input */}
       <div className="w-[100%]" style={{ marginTop: '1.5rem' }}>
@@ -77,9 +85,9 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
 
       {/* Confirm Button */}
       <div
-        className="px-4 mt-auto mb-4"
+        className="mt-auto"
         style={{
-          marginTop:"25rem"
+          marginTop: "auto"
         }}
       >
         <PrimaryButton title="Confirm" onClick={() => handleConfirmAddress()} />
