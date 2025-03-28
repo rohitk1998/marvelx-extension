@@ -41,6 +41,7 @@ const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
           logoPaddingStyle="circle"
           logoWidth={50}
           logoHeight={50}
+          style={{width:"213px",height:"212px"}}
         />
         <p
           className="text-[14px]font-semi text-[#fff] w-full max-w-[301px] m-auto whitespace-normal break-words text-center"
@@ -48,7 +49,7 @@ const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
         >
           {token.associatedTokenAddress}
         </p>
-        <div className="flex gap-[5px] pl-[16px] pr-[16px]">
+        <div className="flex gap-[5px] pl-[16px] pr-[16px] mt-[25px]">
           {' '}
           <img src={warning} alt="imgs" className="w-[18px] h-[18px]" />{' '}
           <span className="text-[#9D9EA4] text-[10px]">

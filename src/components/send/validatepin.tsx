@@ -113,7 +113,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
         </h2>
         <div
           className="flex justify-center"
-          style={{ marginBottom: '80px', gap: '12px' }}
+          style={{ marginBottom: '10px', gap: '12px' }}
         >
           {Array(4)
             .fill(0)

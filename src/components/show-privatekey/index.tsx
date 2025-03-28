@@ -35,7 +35,7 @@ const PrivateKeyDisplay: React.FC = () => {
 
   return (
     <DashboardLayout
-      title="Your Recovery Phrase"
+      title="Secret Private Key"
       backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
       navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
       graybuttonWithoutBorder={true}

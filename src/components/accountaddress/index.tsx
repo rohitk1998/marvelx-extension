@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CopySmall, SOL } from '../../assets/index';
+import { CopySmall, SolanaTokenImg } from '../../assets/index';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 import DashboardLayout from "../dashboardLayout/index";
 
@@ -39,7 +39,7 @@ const AccountAddresses: React.FC<AccountAddressesProps> = () => {
         {addresses.map((token: any) => (
           <div key={token} className="flex items-center cursor-pointer bg-[#4B50661A] border border-[#222326] rounded-xl p-4 mt-2 w-[325px] mx-auto">
             <div className="flex items-center justify-center w-10 h-10 mr-3 text-lg font-bold rounded-full">
-              <img src={SOL} alt="" />
+              <img src={SolanaTokenImg} alt="" />
             </div>
             <div className="flex-1">
               <div className="font-extrabold text-[16px] text-white">Solana</div>
@@ -47,7 +47,7 @@ const AccountAddresses: React.FC<AccountAddressesProps> = () => {
                 {DotFormatAddress(token)}
               </div>
             </div>
-            <div className="w-[35px] h-[35px] rounded-lg bg-gray-400 flex items-center justify-center">
+            <div className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center">
               {!copied && (
                 <button onClick={() => copyToClipBoard(token)}>
                   <img src={CopySmall} alt="copy icon" />

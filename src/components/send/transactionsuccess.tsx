@@ -18,10 +18,10 @@ const TransactionSuccess: React.FC<TransactionSuccessProps> = ({receiveraddress,
   const navigate = useNavigate();
   return (
     <div
-      className="flex flex-col w-full items-center justify-center h-screen text-white min-h-[600px] bg-gray-900 max-h-[600px] max-w-[375px]"
-      style={{ backgroundImage: `url(${BgSecureWallet})`,padding:"20px" }}
+      className="flex flex-col w-full items-center justify-center h-screen text-white min-h-[600px] bg-gray-900 max-h-[600px] max-w-[360px] mx-auto p-3"
+      style={{ backgroundImage: `url(${BgSecureWallet})`}}
     >
-      <div className="flex flex-col w-[90%] min-h-[600px] items-center justify-between">
+      <div className="flex flex-col min-h-[600px] items-center justify-between">
         <h2
           className="mb-4 text-[16px] gray-400 text-white font-[600]"
           style={{ marginTop: '15px' }}
@@ -35,18 +35,17 @@ const TransactionSuccess: React.FC<TransactionSuccessProps> = ({receiveraddress,
           <img src={GreenTickImg} className='w-[144px] h-[132px]' alt={''} />
         </div>
         <h1
-          className="mb-2 text-[32px] font-[700] text-center"
-          style={{ marginBottom: '10px' }}
+          className="text-[32px] font-[700] text-center"
         >
           Your transaction has been processed
         </h1>
         <p
-          className="mb-6 text-[14px] text-center text-[#9D9EA4]"
+          className="mb-6 text-[14px] text-center text-[#9D9EA4] font-[400]"
           style={{ marginBottom: '20px' }}
         >
           {amount} {token.symbol} has been transferred to the {DotFormatAddress(receiveraddress)} wallet address.
         </p>
-        <div className="flex items-center justify-around gap-4 w-[100%]" style={{marginBottom:"10px"}}>
+        <div className="flex items-center justify-around gap-4 w-[100%]" style={{marginBottom:"15px"}}>
           <SecondaryButton
             title="Send again"
             onClick={() => setActive(0)}
