@@ -19,7 +19,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
   const { setIsOutside, isoutside } = useOutsideAlerter(wrapperRef);
   console.log('isOutside', isoutside);
   useEffect(() => {
-    setIsOpen(!isoutside);
+    if(isoutside){
+      setIsOpen(!isoutside);
+    }
   }, [isoutside]);
   return (
     <div
