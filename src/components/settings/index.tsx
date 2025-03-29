@@ -15,6 +15,7 @@ import {
   AddressBook,
 } from '../../assets/index';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -103,10 +104,15 @@ const Settings = () => {
       <div className="flex flex-col gap-[12px] pr-[17px] pb-[17px] pl-[17px]">
         <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
           {data.map((item, index) => (
-            <p
+            <button
               key={index}
               className="flex justify-between w-full border-b border-[#3A3C48] last:border-b-0 items-center text-[16px] font-medium cursor-pointer p-[10px_20px] "
               style={{ padding: '14px 16px' }}
+              onClick={()=> {
+                 if(item.label === 'Security and Privacy'){
+                  navigate(ROUTES.SECURITYANDPRIVACY)
+                 }
+              }}
             >
               <span className="text-[16px] text-[#fff] font-medium flex gap-[7px] items-center">
                 {item.icon && (
@@ -125,7 +131,7 @@ const Settings = () => {
                   className="w-[22px] h-[22px]"
                 />
               )}
-            </p>
+            </button>
           ))}
         </div>
 

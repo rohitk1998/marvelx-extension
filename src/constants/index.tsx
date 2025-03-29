@@ -69,7 +69,8 @@ const ROUTES = {
   CREATE_WALLET: '/create-wallet',
   WALLET_ONBOARD: '/wallet-board',
   RECOVER_BY_PHRASE:'/recover-secret-phrase',
-  EDIT_ACCOUNT:'/edit-account'
+  EDIT_ACCOUNT:'/edit-account',
+  SECURITYANDPRIVACY:'/security-and-privacy'
 };
 
 const BASE_URL='https://walletback-mnlv.onrender.com';

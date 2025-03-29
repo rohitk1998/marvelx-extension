@@ -95,12 +95,11 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
         className="text-xl font-semibold text-center mb-4 text-[#fff]"
         style={{ padding: '6px 0 20px 0	' }}
       >
-
         {!profile?.google2FaStatus && profile?.transactionPin === ''
           ? `Enable 2-FA`
           : !profile?.google2FaStatus && profile?.transactionPin !== ''
-            ? `Enable 2-FA`
-            : profile?.google2FaStatus &&
+          ? `Enable 2-FA`
+          : profile?.google2FaStatus &&
             profile?.transactionPin === '' &&
             `Set transaction PIN`}
       </h3>
@@ -109,9 +108,9 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
           ? `Two factor authenticator (2-FA) is required before sending funds. Set up
         2-FA now to safely continue`
           : !profile?.google2FaStatus && profile?.transactionPin !== ''
-            ? `Two factor authenticator (2-FA) is required before sending funds. Set up
+          ? `Two factor authenticator (2-FA) is required before sending funds. Set up
         2-FA now to safely continue`
-            : profile?.google2FaStatus &&
+          : profile?.google2FaStatus &&
             profile?.transactionPin === '' &&
             `Transaction PIN is a unique 4-digit PIN set by you make your transactions secure. It can be changed later.`}
       </span>
@@ -121,8 +120,8 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
             !profile?.google2FaStatus && profile?.transactionPin === ''
               ? 'Setup 2-FA'
               : !profile?.google2FaStatus && profile?.transactionPin !== ''
-                ? 'Setup 2-FA'
-                : profile?.google2FaStatus &&
+              ? 'Setup 2-FA'
+              : profile?.google2FaStatus &&
                 profile?.transactionPin === '' &&
                 'Set Transaction PIN'
           }
@@ -134,7 +133,15 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
                 usdamount,
                 receiveraddress,
                 amount,
-                toCompleteStep: 'transaction_pin',
+                toCompleteStep:
+                  !profile?.google2FaStatus && profile?.transactionPin === ''
+                    ? '2fa'
+                    : !profile?.google2FaStatus &&
+                      profile?.transactionPin !== ''
+                    ? '2fa'
+                    : profile?.google2FaStatus &&
+                      profile?.transactionPin === '' &&
+                      'transaction_pin',
                 redirectPath: '/send',
               },
             });
@@ -145,61 +152,60 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   );
 
   return (
-      <DashboardLayout
-        title="Summary"
-        showButton={!isDrawerOpen}
-        btntitle="Next"
-        onClick={() => {
-          console.log(profile?.google2FaStatus, profile?.transactionPin);
-          if (!profile?.google2FaStatus || profile?.transactionPin === '') {
-            openDrawer();
-          } else {
-            setActive(4);
-          }
-        }}
-        backCallback={()=> setActive(active - 1)}
-        navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
+    <DashboardLayout
+      title="Summary"
+      showButton={!isDrawerOpen}
+      btntitle="Next"
+      onClick={() => {
+        console.log(profile?.google2FaStatus, profile?.transactionPin);
+        if (!profile?.google2FaStatus || profile?.transactionPin === '') {
+          openDrawer();
+        } else {
+          setActive(4);
+        }
+      }}
+      backCallback={() => setActive(active - 1)}
+      navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
+    >
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{ padding: '52px 0 13px 0' }}
       >
-        <div
-          className="flex flex-col items-center justify-center"
-          style={{ padding: '52px 0 13px 0' }}
+        <img src={solIcon} alt="imgs" className="w-[73px] h-[73px]" />
+        <h2
+          className="text-[48px] font-extrabold text-[#fff]"
+          style={{ paddingTop: '10px' }}
         >
-          <img src={solIcon} alt="imgs" className="w-[73px] h-[73px]" />
-          <h2
-            className="text-[48px] font-extrabold text-[#fff]"
-            style={{ paddingTop: '10px' }}
-          >
-            {Number(amount)} SOL
-          </h2>
-          <p className="text-[15px] font-normal text-[#fff]">
-            ~${Number(usdamount)}
-          </p>
-        </div>
-        <div className='pl-[20px] pr-[20px]'>
-          <div className="flex flex-col gap-[12px]">
-            {data.map((item) => (
-              <p
-                key={item.label}
-                className="flex justify-between text-[12px] text-[#fff] w-full"
+          {Number(amount)} SOL
+        </h2>
+        <p className="text-[15px] font-normal text-[#fff]">
+          ~${Number(usdamount)}
+        </p>
+      </div>
+      <div className="pl-[20px] pr-[20px]">
+        <div className="flex flex-col gap-[12px]">
+          {data.map((item) => (
+            <p
+              key={item.label}
+              className="flex justify-between text-[12px] text-[#fff] w-full"
+            >
+              <span
+                className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}
               >
-                <span
-                  className={`${item.subText} text-[12px] text-white opacity-60 font-normal`}
-                >
-                  {item.label}
-                </span>
-                {item.value}
-              </p>
-            ))}
-          </div>
+                {item.label}
+              </span>
+              {item.value}
+            </p>
+          ))}
         </div>
+      </div>
 
-        <CommonDrawer
-          content={drawerContent}
-          isOpen={isDrawerOpen}
-          closeDrawer={closeDrawer}
-        />
-      </DashboardLayout>
-    
+      <CommonDrawer
+        content={drawerContent}
+        isOpen={isDrawerOpen}
+        closeDrawer={closeDrawer}
+      />
+    </DashboardLayout>
   );
 };
 

@@ -37,7 +37,9 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
       backCallback={() => setSelectedMenu('')}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
+    <div className='mt-[250px]'>
     <Spinner loading={true}/>
+    </div>
     </DashLayout>
     )
   }
