@@ -20,6 +20,7 @@ import EditAccount from "./editaccount/index";
 import TwoFactorAuthenticator from "./2fa";
 import TwoFaQrCode from "./2fa/auth2Fa";
 import ValidatePin from "./send/validatepin";
+import SecurityAndPrivacy from './securityandprivacy/index'
 
 export {
     Splash,
@@ -43,5 +44,6 @@ export {
     EditAccount,
     TwoFactorAuthenticator,
     TwoFaQrCode,
-    ValidatePin
+    ValidatePin,
+    SecurityAndPrivacy
 }

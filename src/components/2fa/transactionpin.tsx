@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { ValidationError } from '../common/errortext';
 import { PrimaryButton } from '../common/primary-button';
+import toast from 'react-hot-toast';
 
 interface PinProps {
   setSelectedMenu: Function;
@@ -17,6 +18,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   const [pin, setPin] = useState<string[]>(Array(4).fill(''));
   const [confirmPin, setConfirmPin] = useState<string[]>(Array(4).fill(''));
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -71,34 +73,42 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   const handlePinValidation = () => {
     if (!pin.join('') || !confirmPin.join('')) {
       setError('Please fill in both PIN fields');
-    }
-    else if (pin.join('') !== confirmPin.join('')) {
+    } else if (pin.join('') !== confirmPin.join('')) {
       setError('Pin does not match');
-    }
-    else {
+    } else {
       handlePinCreation();
     }
   };
 
   const handlePinCreation = async () => {
+    setLoading(true);
     try {
       const isPinCreated = await setTransactionPin(
         profile?.wallets[0],
         pin.join('')
       );
-      if (isPinCreated) {
-        if (location.state.toCompleteStep === 'transaction_pin') {
-          navigate('/send', { state: { ...location.state } });
+      console.log('isPinCreated', isPinCreated);
+      if (isPinCreated?.message === 'Transaction PIN set successfully') {
+        toast.success('Transaction pin set successfully');
+        setError('');
+        setLoading(false);
+        if (location?.state?.toCompleteStep === 'transaction_pin') {
+          setTimeout(
+            () => navigate('/send', { state: { ...location?.state } }),
+            3000
+          );
+        } else {
+          setLoading(false);
+          setTimeout(() => setSelectedMenu(''), 3000);
         }
-      } else {
-        setError('Error in creating pin');
       }
     } catch (error) {
+      setLoading(false);
+      console.log('error', error);
       setError('Error in creating pin');
     }
     console.log('error set pin', error);
   };
-
 
   const handlePinBackspace = (index: number, e: React.KeyboardEvent) => {
     if (e.key === 'Backspace' && !pin[index] && index > 0) {
@@ -129,13 +139,13 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
         maxWidth: '360px',
         backgroundImage: `url(${BgSecureWallet})`,
         backgroundSize: '100% 100%',
-        margin: ' 0 auto'
-
+        margin: ' 0 auto',
       }}
     >
       <NavigationBarTitle
         title="Transaction PIN"
         callback={() => setSelectedMenu('')}
+        titleClass='w-full text-[16px] font-[600] text-center text-white'
       />
 
       <div style={{ marginBottom: '24px', marginTop: '20px' }}>
@@ -192,8 +202,9 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
       <PrimaryButton
         title="Create transaction PIN"
         onClick={handlePinValidation}
+        isLoading={loading}
       />
-    </div >
+    </div>
   );
 };
 

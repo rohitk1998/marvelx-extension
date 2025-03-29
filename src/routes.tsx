@@ -7,7 +7,8 @@ import {
   RecoverByPhrase,
   Send,
   EditAccount,
-  TwoFactorAuthenticator
+  TwoFactorAuthenticator,
+  SecurityAndPrivacy
 } from './components/index';
 import OnBoardingLayout from './components/onboarding-layout';
 import PublicRoute from './publicroute';
@@ -156,6 +157,14 @@ const routes = [
     element: (
       <PrivateRoute>
         <AccountAddresses />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/security-and-privacy',
+    element: (
+      <PrivateRoute>
+        <SecurityAndPrivacy />
       </PrivateRoute>
     ),
   },

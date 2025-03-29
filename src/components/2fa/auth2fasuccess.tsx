@@ -5,10 +5,12 @@ import { PrimaryButton } from '../common/primary-button';
 
 interface AuthenticatorSuccessScreenProps {
   success: boolean;
+  setSelectedMenu:Function;
 }
 
 const AuthenticatorSuccessScreen: React.FC<AuthenticatorSuccessScreenProps> = ({
   success,
+  setSelectedMenu
 }) => {
   console.log('success', success);
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const AuthenticatorSuccessScreen: React.FC<AuthenticatorSuccessScreenProps> = ({
         style={{ marginTop: '40px', marginBottom: '40px' }}
       >
         <div
-          className="flex items-center justify-center"
+          className="flex items-center justify-center mb-6"
           style={{ marginTop: '40px' }}
         >
           <img src={GreenTickImg} className="w-[144px] h-[132px]" alt={''} />
@@ -56,9 +58,13 @@ const AuthenticatorSuccessScreen: React.FC<AuthenticatorSuccessScreenProps> = ({
       <PrimaryButton
         title="Done"
         onClick={() => {
-          navigate('/send', {
-            state: location?.state,
-          });
+          if (location?.state?.toCompleteStep === '2fa') {
+            navigate('/send', {
+              state: location?.state,
+            });
+          } else {
+            setSelectedMenu('');
+          }
         }}
       />
     </div>
