@@ -42,7 +42,7 @@ const MnemonicsBox: React.FC<MnemonicsBoxProps> = ({ isBlur, setBlur }) => {
         {!isBlur && (
           <div>
             <div className="border-[rgba(255,255,255,0.6)] justify-evenly rounded-[10px] border flex flex-wrap pt-[23px] pb-[19px]">
-              {mnemonicsArr.map((item, index) => (
+              {mnemonicsArr?.map((item, index) => (
                 <div key={item} className="flex items-center pb-[18px]">
                   <label className="text-white w-[21px] text-center text-[14px] font-[500]">
                     {index + 1}.

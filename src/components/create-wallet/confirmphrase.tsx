@@ -5,7 +5,7 @@ import Stepper from './stepper';
 import { useAppContext } from '../../context/useappcontext';
 import { useNavigate } from 'react-router-dom';
 import { BgRecoveryPhrase } from '../../assets';
-
+import toast from 'react-hot-toast';
 interface StepType {
   id: number;
   value: number;
@@ -42,7 +42,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   } = useAppContext();
 
   const [error, setError] = useState('');
-  const [typedSeed, setTypedSeed] = useState('');
+  const [typedSeed, setTypedSeed] = useState([]);
 
   const navigate = useNavigate();
 
@@ -82,12 +82,12 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', secretphrase);
-    localStorage.setItem('network','devnet');
+    localStorage.setItem('network', 'devnet');
     closeTab();
   }
 
   const closeTab = () => {
-    alert('Please pin your extension and open your dashboard');
+    toast.success('Congratulations! you have successfully created wallet. Pin your marvelX extension');
     setTimeout(() => {
       navigate('/#/wallet-board');
       chrome.tabs.getCurrent(function (tab: any) {
@@ -97,16 +97,20 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   };
 
   const handleSecretPhraseComparison = () => {
-    if (typedSeed.length !== 12) {
+    console.log('secretphrase:typedSeed', secretphrase, typedSeed);
+    const isNotCompleted = typedSeed?.some((word: string) => word.trim() === '');
+    console.log("isNotCompleted",isNotCompleted)
+    if (typedSeed.length !== 12 || isNotCompleted) {
       setError('Please complete your secret phrase');
-    }
-    if (secretphrase !== typedSeed) {
+    } else if (secretphrase !== typedSeed?.join(' ')) {
       setError('Your secret phrase is not correct');
+    } else {
+      setError('')
+      handleWalletCreation();
     }
-    handleWalletCreation();
-    console.log('Error in confirm phrase:', error);
   };
 
+  console.log('Error in confirm phrase:', error);
   return (
     <div
       className="relative flex flex-col items-center w-full max-w-[375px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
@@ -128,8 +132,11 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
             Confirm Secret Recovery Phrase
           </p>
         </div>
-        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
-
+        <MnemonicsInputBox
+          mnemonic={mnemonicsArr}
+          setMnemonics={setTypedSeed}
+          error={error}
+        />
         <PrimaryButton
           onClick={() => handleSecretPhraseComparison()}
           title={'Confirm'}

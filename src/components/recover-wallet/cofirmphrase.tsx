@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, NavigationBarTitle } from '../index';
-import MnemonicsInputBox from '../create-wallet/mnemonicsinputbox';
+import MnemonicsInputBox from './mnemonicsinputbox';
 import { useAppContext } from '../../context/useappcontext';
 import axios from 'axios';
 import { API_URL } from '../../constants';
