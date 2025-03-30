@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
-import { BgSecureWallet, KeySquare } from '../../assets';
-import { NavigationBarTitle } from '../common/navigationbartitle';
-import { PrimaryButton } from '../common/primary-button';
+import {
+  EllipseRedImg,
+  LockGrayIcon,
+  RedEyeSlashIcon,
+  RedKeyIcon,
+  RedSafeIcon,
+} from '../../assets';
+import DashboardLayout from '../dashboardLayout/index';
 
 interface PasswordProps {
   setActive: Function;
 }
+
+const Instructions = [
+  {
+    id: 0,
+    img: RedKeyIcon,
+    text: 'Your Recover Phrase is like a login and password combined in one that provides access to this account',
+  },
+  {
+    id: 1,
+    img: RedEyeSlashIcon,
+    text: 'Anyone with this Recovery Phrase will have full access to your funds in this account.',
+  },
+  {
+    id: 2,
+    img: RedSafeIcon,
+    text: 'Do not share your Recovery Phrase with anyone, website, 3rd party or application',
+  },
+];
 
 const RecoveryPhraseWarningScreen: React.FC<PasswordProps> = ({
   setActive,
@@ -13,79 +36,62 @@ const RecoveryPhraseWarningScreen: React.FC<PasswordProps> = ({
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div
-      className="flex flex-col h-screen text-white bg-no-repeat"
-      style={{
-        backgroundImage: `url(${BgSecureWallet})`,
-        padding: '1rem',
-        height: '600px',
-        width: '375px',
-        maxWidth: '375px',
-        margin: '0px',
-      }}
+    <DashboardLayout
+      title=""
+      backCallback={() => setActive(0)}
+      graybuttonWithoutBorder={!isChecked}
+      grayWithoutBorderTitle='Continue'
+      graybuttonWithoutBorderClass='w-[329px] mx-auto mb-[8px]'
+      graywithoutBorderCallback={()=>{}}
+      showButton={isChecked}
+      onClick={()=> setActive(2)}
+      btntitle="Continue"
     >
-      <NavigationBarTitle
-        title="Show Recovery Phrase"
-        callback={() => setActive(0)}
-      />
       <div
-        className="flex flex-col items-center px-4"
-        style={{
-          paddingTop: '0px',
-          paddingBottom: '16px',
-          marginBottom: '16px',
-        }}
+        className="w-[55px] h-[55px] rounded-full items-center justify-center flex mt-[10px] mx-auto"
+        style={{ backgroundImage: `url(${EllipseRedImg})` }}
+      >
+        <img src={LockGrayIcon} alt="" />
+      </div>
+
+      <div className="text-center w-[317px] h-[54px] mx-auto mt-[10px]">
+        <p className="text-base text-white text-[24px] font-[800]">
+          Keep your Recovery Phrase Secret
+        </p>
+      </div>
+
+      <div className='w-[317px] mx-auto mt-[45px]'>
+        {Instructions.map((item) => (
+          <div className="flex flex-row items-start max-w-lg gap-[15px] mt-[25px] mx-auto w-[317px] h-[60px]">
+            <img src={item.img} alt="Crypto Wallet" className="w-8 h-8 mt-0.5" />
+
+            <div className="">
+              <p className="text-[14px] font-[500] text-white">
+                {item.text}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div  className="border-t border-[#3A3C48] mt-[10px]">
+
+      </div>
+      <div
+        className="flex items-start gap-1 mt-[25px] mb-6 space-x-2 text-sm mx-auto w-[317px]"
       >
         <div
-          className="p-4 mb-6"
-          style={{
-            marginTop: '24px',
-          }}
-        >
-          <img src={KeySquare} alt="" />
-        </div>
-      </div>
-
-      <div
-        className="mb-6 text-start text-white text-[13px] font-[400]"
-        style={{ marginTop: '20px' }}
-      >
-        <p className="text-base text-white">
-          Do not share your Recovery Phrase. Anyone with your recovery phrase
-          can have access to your account.
-        </p>
-
-        <p className="text-base text-white">
-          If you lose your recovery phrase, your funds may be lost.
-        </p>
-      </div>
-
-      <div
-        className="flex items-start gap-4 mt-8 mb-6 space-x-2 text-sm text-white"
-        style={{ marginTop: '140px' }}
-      >
-        <input
-          onChange={() => {
+          onClick={() => {
             setIsChecked(!isChecked);
           }}
-          type="checkbox"
-          className="flex items-center justify-center w-6 h-4 bg-transparent border border-white-600 appearance-none rounded-[3px] checked:bg-[#1142C7] checked:border-transparent focus:ring-0 after:content-['✔'] after:text-white after:text-[12px] after:font-bold after:flex after:items-center after:justify-center checked:after:opacity-100 after:opacity-0"
-        />
+          className={`${isChecked ? 'cursor-pointer w-[20px] p-2 h-[20px] bg-[#1142C7] mt-[1px] rounded-[4px]': 'w-[20px] h-[20px] bg-[#3A3C48] p-2 mt-[1px] rounded-[4px] cursor-pointer'}`}
+        ></div>
 
-        <p className="text-[14px] text-white font-[400]">
+        <p className="text-[12px] text-white font-[500]">
           I will not share my Recovery Phrase with anyone, website, or third
           party.
         </p>
       </div>
-
-      <div
-        style={{
-          marginTop: '10px',
-        }}
-      >
-        <PrimaryButton title="Continue" onClick={() => setActive(1)} />
-      </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
