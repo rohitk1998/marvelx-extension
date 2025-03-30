@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-// import ValidatePassword from './enterpass';
-// import RecoveryPhraseWarningScreen from './confirmscreen';
+import ValidatePassword from './enterpass';
+import RecoveryPhraseWarningScreen from './confirmscreen';
 import RecoveryPhraseDisplay from './showrecovery';
 
 interface StepType {
@@ -17,16 +17,16 @@ interface StepType {
 }
 
 const ShowRecoveryProps: StepType[] = [
-  // {
-  //   id: 0,
-  //   value: 1,
-  //   Component: ValidatePassword,
-  // },
-  // {
-  //   id: 1,
-  //   value: 2,
-  //   Component: RecoveryPhraseWarningScreen,
-  // },
+  {
+    id: 0,
+    value: 1,
+    Component: ValidatePassword,
+  },
+  {
+    id: 1,
+    value: 2,
+    Component: RecoveryPhraseWarningScreen,
+  },
   {
     id: 2,
     value: 3,
@@ -36,17 +36,17 @@ const ShowRecoveryProps: StepType[] = [
 
 const RecoveryPhrase: React.FC = () => {
   const [steps] = useState<StepType[]>(ShowRecoveryProps);
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(0);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-      setActive(2);
+      setActive(0);
       setSuccess(false);
       setError('');
     return () => {
       console.log('component unmounted');
-      setActive(2);
+      setActive(0);
       setSuccess(false);
       setError('');
     };
