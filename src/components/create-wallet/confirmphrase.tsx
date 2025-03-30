@@ -82,6 +82,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', secretphrase);
+    localStorage.setItem('network','devnet');
     closeTab();
   }
 

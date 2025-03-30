@@ -165,10 +165,15 @@ const Settings = () => {
         </div>
         <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
           {data3.map((item, index) => (
-            <p
+            <button
               key={index}
               className="flex justify-between w-full border-b border-[#3A3C48] last:border-b-0 items-center text-[16px] font-medium cursor-pointer p-[10px_20px] "
               style={{ padding: '14px 16px' }}
+              onClick={()=> {
+                if(item.label === 'Developer settings'){
+                 navigate('/developer-settings')
+                }
+             }}
             >
               <span className="text-[16px] text-[#fff] font-medium flex gap-[7px] items-center">
                 {item.icon && (
@@ -187,7 +192,7 @@ const Settings = () => {
                   className="w-[22px] h-[22px]"
                 />
               )}
-            </p>
+            </button>
           ))}
         </div>
         <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">

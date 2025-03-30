@@ -9,21 +9,26 @@ interface SelectTokenProps {
   active: number;
   setActive: Function;
   setToken: Function;
+  setSelectedTokenUsdPrice:Function;
 }
 
 const SelectToken: React.FC<SelectTokenProps> = ({
   active,
   setActive,
   setToken,
+  setSelectedTokenUsdPrice
 }) => {
-  const { setAddress, tokens, loading } = useTokenBalance();
+  const { setAddress, tokens, loading }:any = useTokenBalance();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   console.log(active, setActive);
 
   useEffect(() => {
     setWalletInLocal();
-  }, []);
+    if(tokens?.length > 0 ){
+      setSelectedTokenUsdPrice(tokens[0]?.price)
+    }
+  }, [tokens]);
 
   const setWalletInLocal = async () => {
     let password: any = localStorage.getItem('password');

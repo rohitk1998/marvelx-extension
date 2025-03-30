@@ -48,6 +48,9 @@ import KeySquare from "./icons/key-square.png";
 import MnemonicsBoxBlur from "./mnemonicsboxblur.png";
 import BgDashboardLayout from "./dashboard_layout.png";
 import SolanaTokenImg from "./icons/summaysol.svg";
+import toggleOffIcon from "./icons/toggle-off-circle.png";
+import toggleONIcon from "./icons/toggle-on-circle.png";
+
 
 export {
     SendIcon,
@@ -99,5 +102,7 @@ export {
     KeySquare,
     MnemonicsBoxBlur,
     BgDashboardLayout,
-    SolanaTokenImg
+    SolanaTokenImg,
+    toggleOffIcon,
+    toggleONIcon
 }
