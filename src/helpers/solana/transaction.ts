@@ -11,9 +11,9 @@ const validateSolanaAddress = (address:string) => {
 };
 
 const sendSolanaTransactionAndConfirm = async (privatekeyarr:Uint8Array,recipientaddress:string,amount:number) => {
-
+    const newtwork:any = localStorage.getItem('network');
     // ✅ Connect to Solana Devnet
-    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+    const connection = new Connection(clusterApiUrl(newtwork), "confirmed");
   
     console.log('connection',connection,privatekeyarr,recipientaddress);
   

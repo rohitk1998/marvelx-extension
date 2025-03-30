@@ -8,7 +8,7 @@ const useTokenBalance = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [address,setAddress]=useState('');
-    const [selectedNetwork,setSelectedNetwork]=useState('devnet');
+    const [selectedNetwork,setSelectedNetwork]:any=useState(localStorage.getItem('network'));
 
     useEffect(() => {
         console.log('tokens',tokens);

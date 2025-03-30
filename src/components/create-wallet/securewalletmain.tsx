@@ -55,7 +55,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
     setPrivateKeyArr,
   } = useAppContext();
 
-
   const handleWalletCreation = async () => {
     setWalletAndMnemonic(password);
   };
@@ -92,6 +91,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', secretphrase);
+    localStorage.setItem('network', 'devnet');
     closeTab();
   }
 

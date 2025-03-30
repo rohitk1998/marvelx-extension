@@ -8,7 +8,9 @@ import {
   Send,
   EditAccount,
   TwoFactorAuthenticator,
-  SecurityAndPrivacy
+  SecurityAndPrivacy,
+  DeveloperSettings,
+  DeveloperTestNetworks
 } from './components/index';
 import OnBoardingLayout from './components/onboarding-layout';
 import PublicRoute from './publicroute';
@@ -165,6 +167,22 @@ const routes = [
     element: (
       <PrivateRoute>
         <SecurityAndPrivacy />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/developer-settings',
+    element: (
+      <PrivateRoute>
+        <DeveloperSettings />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/developer-networks',
+    element: (
+      <PrivateRoute>
+        <DeveloperTestNetworks />
       </PrivateRoute>
     ),
   },

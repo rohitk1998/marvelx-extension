@@ -26,6 +26,8 @@ interface StepType {
     setSuccess: Function;
     error: string;
     setError: Function;
+    setSelectedTokenUsdPrice:Function;
+    selectedTokenUsdPrice:string;
   }>;
 }
 
@@ -71,6 +73,7 @@ const Send: React.FC = () => {
   const [steps] = useState<StepType[]>(SendProps);
   const [active, setActive] = useState(0);
   const [selectedToken, setSelectedToken] = useState(null);
+  const [selectedTokenUsdPrice, setSelectedTokenUsdPrice] = useState('');
   const [amount, setAmount] = useState('');
   const [usdamount, setUsdAmount] = useState('');
   const [receiveraddress, setReceiverAddress] = useState('');
@@ -132,6 +135,8 @@ const Send: React.FC = () => {
                 setSuccess={setSuccess}
                 error={error}
                 setError={setError}
+                setSelectedTokenUsdPrice={setSelectedTokenUsdPrice}
+                selectedTokenUsdPrice={selectedTokenUsdPrice}
               />
             )}
           </>
