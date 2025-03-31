@@ -133,7 +133,7 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
             </span>
           </p>
         </div>
-        <div className="pt-[5px]">
+        <div className="mt-[10px]">
           <PrimaryButton onClick={savePasswordAndProceed} title={'Proceed'} />
         </div>
       </div>

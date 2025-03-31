@@ -10,7 +10,9 @@ import {
   TwoFactorAuthenticator,
   SecurityAndPrivacy,
   DeveloperSettings,
-  DeveloperTestNetworks
+  DeveloperTestNetworks,
+  SetWalletDetails,
+  EditAccountName,
 } from './components/index';
 import OnBoardingLayout from './components/onboarding-layout';
 import PublicRoute from './publicroute';
@@ -183,6 +185,22 @@ const routes = [
     element: (
       <PrivateRoute>
         <DeveloperTestNetworks />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/wallet-account',
+    element: (
+      <OnBoardingLayout>
+        <SetWalletDetails />
+      </OnBoardingLayout>
+    ),
+  },
+  {
+    path: '/edit-accountname',
+    element: (
+      <PrivateRoute>
+        <EditAccountName />
       </PrivateRoute>
     ),
   },

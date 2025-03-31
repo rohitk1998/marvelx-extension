@@ -3,9 +3,9 @@ import { PrimaryButton, NavigationBarTitle } from '../index';
 import MnemonicsInputBox from './mnemonicsinputbox';
 import Stepper from './stepper';
 import { useAppContext } from '../../context/useappcontext';
-import { useNavigate } from 'react-router-dom';
 import { BgRecoveryPhrase } from '../../assets';
-import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 interface StepType {
   id: number;
   value: number;
@@ -43,8 +43,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
   const [error, setError] = useState('');
   const [typedSeed, setTypedSeed] = useState([]);
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleWalletCreation = async () => {
     setWalletAndMnemonic(password);
@@ -80,21 +79,10 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
-    localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', secretphrase);
     localStorage.setItem('network', 'devnet');
-    closeTab();
+    setTimeout(()=> navigate(ROUTES.WALLET_ACCOUNT) , 1000)
   }
-
-  const closeTab = () => {
-    toast.success('Congratulations! you have successfully created wallet. Pin your marvelX extension');
-    setTimeout(() => {
-      navigate('/#/wallet-board');
-      chrome.tabs.getCurrent(function (tab: any) {
-        chrome.tabs.remove(tab?.id);
-      });
-    }, 2000);
-  };
 
   const handleSecretPhraseComparison = () => {
     console.log('secretphrase:typedSeed', secretphrase, typedSeed);

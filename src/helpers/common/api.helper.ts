@@ -50,7 +50,7 @@ const validate2FACode = async ( token:string , walletAddress:string) => {
       token,
       walletAddress
     });
-    console.log('is 2FA verified repsonse:',response?.data);
+    console.log('2FA validated :',response?.data);
     return response?.data;
   } catch (error) {
     console.log('error validate 2fa', error);
@@ -58,9 +58,24 @@ const validate2FACode = async ( token:string , walletAddress:string) => {
   }
 };
 
+const updateProfile = async (walletAddress:string,username:string) => {
+  try {
+    const response = await axios.post(API_URL.updateProfile,{
+      walletAddress,
+      username
+    });
+    console.log('update Profile:',response?.data);
+    return response?.data;
+  } catch (error) {
+    console.log('error updating profile', error);
+    return false;
+  }
+}
+
 export {
   setTransactionPin,
   generate2FA,
   verify2FA,
-  validate2FACode
+  validate2FACode,
+  updateProfile
 }

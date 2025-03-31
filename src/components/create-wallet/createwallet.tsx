@@ -30,7 +30,7 @@ const createWalletSteps: StepType[] = [
     id: 2,
     value: 3,
     Component: ConfirmPhrase,
-  },
+  }
 ];
 
 const CreateWallet: React.FC = () => {
