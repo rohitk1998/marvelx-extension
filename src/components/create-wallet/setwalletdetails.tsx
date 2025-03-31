@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import editIcon from '../../assets/icons/edit-small.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Profile, SplashImg } from '../../assets/index';
 import { useEffect, useState } from 'react';
 import { updateProfile } from '../../helpers/common/api.helper';
@@ -11,6 +11,8 @@ const SetWalletDetails: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [accountName, setAccountName] = useState('');
+
+  const location = useLocation();
 
   const password: any = localStorage.getItem('password') ?? '';
   const account: any = localStorage.getItem(password) ?? '{}';
@@ -25,9 +27,11 @@ const SetWalletDetails: React.FC = () => {
   }, [defaultAccountName]);
 
   const closeTab = () => {
-    toast.success(
-      'Congratulations! you have successfully created wallet. Pin your marvelX extension'
-    );
+    let text = 'Congratulations! you have successfully created wallet. Pin your marvelX extension'
+    if(location?.state?.isRcovered){
+      text = 'Congratulations! you have successfully recovered wallet. Pin your marvelX extension'
+    }
+    toast.success(text);
     setTimeout(() => {
       localStorage.setItem('marvel-wallet-exist', 'true');
       navigate('/#/wallet-board');

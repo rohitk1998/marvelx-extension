@@ -157,7 +157,7 @@ const routes = [
     ),
   },
   {
-    path: '/accounts',
+    path: '/account-addresses',
     element: (
       <PrivateRoute>
         <AccountAddresses />

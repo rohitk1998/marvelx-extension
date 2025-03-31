@@ -33,7 +33,7 @@ const DeveloperTestNetworks: React.FC = () => {
         {data2.map((item, index) => (
           <div
             key={index}
-            className="flex justify-between w-full border-b border-[#3A3C48] last:border-b-0 items-center text-[16px] font-medium cursor-pointer p-[10px_20px] "
+            className="flex justify-between w-full border-b border-[#3A3C48] last:border-b-0 items-center text-[16px] font-medium p-[10px_20px] "
             style={{ padding: '14px 16px' }}
           >
             <span className="text-[16px] text-[#fff] font-medium flex gap-[7px] items-center">
@@ -47,7 +47,7 @@ const DeveloperTestNetworks: React.FC = () => {
               }
               checked={activeCheckbox === item.value}
               type="checkbox"
-              className={`w-[20px] h-[20px] flex items-center justify-center bg-gray-800 appearance-none rounded-[6px]
+              className={`w-[20px] h-[20px] flex items-center justify-center bg-gray-800 appearance-none rounded-[6px] cursor-pointer
                 ${
                   activeCheckbox === item.value &&
                   "checked:bg-[#1142C7] checked:border-transparent focus:ring-0 after:content-['✔'] after:text-white after:text-[12px] cursor-pointer after:font-bold after:flex after:items-center after:justify-center checked:after:opacity-100 after:opacity-0"
