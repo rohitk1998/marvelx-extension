@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CopySmall, SolanaTokenImg } from '../../assets/index';
-import { DotFormatAddress } from '../../helpers/common/dotformataddress';
+import {  SolanaTokenImg } from '../../assets/index';
 import DashboardLayout from '../dashboardLayout/index';
 import { QRCode } from 'react-qrcode-logo';
 import { copysmallNew } from '../../assets';
