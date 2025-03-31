@@ -20,7 +20,7 @@ const EditAccount: React.FC = () => {
     {
       label: 'Account addresses',
       value: '1',
-      path: '/accounts',
+      path: '/account-addresses',
     },
   ];
 

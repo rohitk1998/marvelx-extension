@@ -6,6 +6,7 @@ import { useAppContext } from '../../context/useappcontext';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 interface StepType {
   id: number;
   value: number;
@@ -56,7 +57,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   } = useAppContext();
 
   const handleWalletCreation = async () => {
-    setWalletAndMnemonic(password);
+    setTimeout(()=> setWalletAndMnemonic(password),1000)
   };
 
   function setWalletAndMnemonic(password: string) {
@@ -89,13 +90,16 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
 
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
+    localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', secretphrase);
     localStorage.setItem('network', 'devnet');
     closeTab();
   }
 
   const closeTab = () => {
-    alert('Please pin your extension and open your dashboard');
+    toast.success(
+      'Congratulations! you have successfully created wallet. Pin your marvelX extension'
+    );
     setTimeout(() => {
       navigate('/#/wallet-board');
       chrome.tabs.getCurrent(function (tab: any) {
