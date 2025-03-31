@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PrimaryButton } from '../index';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../dashboardLayout/index';
 import toast from 'react-hot-toast';
 import { ValidationError } from '../common/errortext';
@@ -9,6 +9,7 @@ interface EditAccountNameProps {}
 
 const EditAccountName: React.FC<EditAccountNameProps> = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [accountname, setAccountName] = useState('');
   const [error, setError] = useState('');
   const password: any = localStorage.getItem('password') ?? '';
@@ -57,7 +58,9 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
   return (
     <DashboardLayout
       title="Edit account name"
-      backCallback={() => navigate('/edit-account')}
+      backCallback={() => navigate('/edit-account',{
+        state : location?.state
+      })}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
       <div className="w-[329px] mx-auto mt-[35px] border border-gray-800 rounded-[10px] h-[52px]">

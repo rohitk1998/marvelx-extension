@@ -22,6 +22,7 @@ import Settings from './components/settings';
 import RecoveryPhrase from './components/show-secret';
 import PrivateKeyDisplay from './components/show-privatekey';
 import AccountAddresses from './components/accountaddress';
+import ManageAccountSetting from './components/manageaccount';
 
 const routes = [
   {
@@ -201,6 +202,14 @@ const routes = [
     element: (
       <PrivateRoute>
         <EditAccountName />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/manage-account',
+    element: (
+      <PrivateRoute>
+        <ManageAccountSetting />
       </PrivateRoute>
     ),
   },

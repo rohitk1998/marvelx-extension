@@ -112,6 +112,9 @@ const Settings = () => {
                  if(item.label === 'Security and Privacy'){
                   navigate(ROUTES.SECURITYANDPRIVACY)
                  }
+                 if(item.label === 'Manage account'){
+                  navigate('/manage-account')
+                 }
               }}
             >
               <span className="text-[16px] text-[#fff] font-medium flex gap-[7px] items-center">

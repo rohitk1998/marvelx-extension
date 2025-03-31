@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import DashboardLayout from '../dashboardLayout/index';
 import { copysmallNew } from '../../assets';
@@ -9,6 +9,7 @@ const RecoveryPhraseDisplay: React.FC = () => {
   const [copytext, setCopyText] = useState('Copy to clipboard');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const phrase: any = localStorage.getItem('secretphrase');
@@ -28,10 +29,10 @@ const RecoveryPhraseDisplay: React.FC = () => {
   return (
     <DashboardLayout
       title="Secret Recovery Phrase"
-      backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
+      backCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
       navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
       graybuttonWithoutBorder={true}
-      graywithoutBorderCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
+      graywithoutBorderCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
       grayWithoutBorderTitle="Done"
       graybuttonWithoutBorderClass="w-[326px] h-[54px] mx-auto mb-[18px]"
     >

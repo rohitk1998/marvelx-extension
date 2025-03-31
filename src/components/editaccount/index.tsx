@@ -2,10 +2,11 @@ import DashboardLayout from '../dashboardLayout/index';
 import editIcon from '../../assets/icons/edit-small.png';
 import { Profile } from '../../assets/index';
 import arrowright from '../../assets/icons/arrow-right.svg';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditAccount: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const password: any = localStorage.getItem('password') ?? '';
   const account: any = localStorage.getItem(password) ?? '{}';
   const parsedAccount = JSON.parse(account) || {};
@@ -36,11 +37,18 @@ const EditAccount: React.FC = () => {
       path: '/secret-key',
     },
   ];
-
+  console.log('location?.state?.path',location?.state?.path)
   return (
     <DashboardLayout
       title="Edit account"
-      backCallback={() => navigate('/')}
+      backCallback={() => {
+        if(location?.state?.path === '/manage-account'){
+          navigate('/manage-account')
+        }
+        else{
+          navigate('/')
+        }
+      }}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
       <div
@@ -65,7 +73,7 @@ const EditAccount: React.FC = () => {
               key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={() => navigate(item.path)}
+              onClick={() => navigate(item.path , { state : location?.state })}
             >
               {item.label}
               <span
@@ -83,7 +91,7 @@ const EditAccount: React.FC = () => {
               key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={() => navigate(item.path)}
+              onClick={() => navigate(item.path,{ state : location?.state })}
             >
               {item.label}
               <span

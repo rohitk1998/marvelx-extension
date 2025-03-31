@@ -82,3 +82,9 @@ button{
   -webkit-animation-delay: -0.8s;
   animation-delay: -0.8s;
 }
+
+input:-webkit-autofill {
+  background: transparent !important;
+  color: inherit !important;
+  -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
