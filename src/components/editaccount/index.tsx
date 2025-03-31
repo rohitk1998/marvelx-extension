@@ -4,6 +4,18 @@ import { Profile } from '../../assets/index';
 import arrowright from '../../assets/icons/arrow-right.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+function getInitials(name: string) {
+  if (!name || typeof name !== 'string') return ''; // Return empty string if no data
+
+  const words = name.trim().split(/\s+/); // Split by spaces and remove extra spaces
+
+  if (words.length > 1) {
+    return words[0][0] + words[1][0]; // First letter of the first two words
+  }
+
+  return words[0][0]; // First letter of a single word
+}
+
 const EditAccount: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,16 +49,15 @@ const EditAccount: React.FC = () => {
       path: '/secret-key',
     },
   ];
-  console.log('location?.state?.path',location?.state?.path)
+  console.log('location?.state?.path', location?.state?.path);
   return (
     <DashboardLayout
       title="Edit account"
       backCallback={() => {
-        if(location?.state?.path === '/manage-account'){
-          navigate('/manage-account')
-        }
-        else{
-          navigate('/')
+        if (location?.state?.path === '/manage-account') {
+          navigate('/manage-account');
+        } else {
+          navigate('/');
         }
       }}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
@@ -59,8 +70,9 @@ const EditAccount: React.FC = () => {
           className="w-[148px] h-[148px] rounded-full bg-cover bg-no-repeat flex items-center justify-center"
           style={{ backgroundImage: `url(${Profile})` }}
         >
-          <h1 className="text-[42px] font-[800] text-white">A</h1>
-          <h1 className="text-[42px] font-[800] text-white">1</h1>
+          <h1 className="text-[42px] font-[800] text-white">
+            {getInitials(defaultAccountName).toUpperCase()}
+          </h1>
         </div>
         <span className="absolute right-0 bg-[#3A3C48] rounded-full w-[38px] h-[38px] flex justify-center items-center left-[59%] bottom-[15%] border-3 border-[#0C0E1E]">
           <img src={editIcon} alt="imgs" className="w-[18px] h-[18px] " />
@@ -73,7 +85,7 @@ const EditAccount: React.FC = () => {
               key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={() => navigate(item.path , { state : location?.state })}
+              onClick={() => navigate(item.path, { state: location?.state })}
             >
               {item.label}
               <span
@@ -91,7 +103,7 @@ const EditAccount: React.FC = () => {
               key={item.value}
               className="flex justify-between text-xs text-[#fff] w-full border-b border-[#3A3C48] last:border-b-0 text-[16px] font-medium cursor-pointer"
               style={{ padding: '16px 20px' }}
-              onClick={() => navigate(item.path,{ state : location?.state })}
+              onClick={() => navigate(item.path, { state: location?.state })}
             >
               {item.label}
               <span

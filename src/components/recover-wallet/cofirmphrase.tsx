@@ -80,7 +80,9 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
     localStorage.setItem('password', password);
     localStorage.setItem('secretphrase', typedSeed);
     localStorage.setItem('network','devnet');
-    navigate('/wallet-account');
+    navigate('/wallet-account',{ 
+      state : { isRcovered : true }
+    });
   }
 
   const handleSecretPhraseComparison = () => {

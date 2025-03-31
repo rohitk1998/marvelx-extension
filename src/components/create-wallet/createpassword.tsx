@@ -71,6 +71,15 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({
     }
   }
 
+  useEffect(() => {
+    const input:any = document.getElementById("password");
+    if (input) {
+      setTimeout(() => {
+        input.value = ""; // Clear the autofilled value
+      }, 100); // Delay to allow autofill to take effect
+    }
+  }, []);
+
   return (
     <div
       className="relative flex flex-col items-center  w-full max-w-[375px] bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[23px] pb-[19px] pl-[20px]"
@@ -112,6 +121,8 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({
                 }
                 passAdjust(e);
               }}
+              id="password"
+              autoComplete='new-password'
               type={showPassword ? 'text' : 'password'}
               className="w-full h-[46px] px-4 py-2 text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-0"
             />
@@ -129,6 +140,8 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({
               }
               confirmpassAdjust(e);
             }}
+             autoComplete='new-password'
+            id='password'
             type={showPassword ? 'text' : 'password'}
             className="w-full h-[46px] px-4 py-2 text-white bg-transparent border border-white rounded-lg focus:outline-none focus:ring-0"
           />
