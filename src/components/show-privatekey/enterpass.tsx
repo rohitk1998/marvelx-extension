@@ -31,10 +31,8 @@ const ValidatePassword: React.FC<PasswordProps> = ({
 
   useEffect(() => {
     const input:any = document.getElementById("password");
-    if (input  && input.matches(":-webkit-autofill")) {
+    if (input) {
       setTimeout(() => {
-        input.style.backgroundColor = "black";
-        input.style.WebkitTextFillColor = "white";
         input.value = ""; // Clear the autofilled value
       }, 100); // Delay to allow autofill to take effect
     }
