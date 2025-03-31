@@ -6,12 +6,16 @@ import { useNavigate } from 'react-router-dom';
 
 const EditAccount: React.FC = () => {
   const navigate = useNavigate();
+  const password: any = localStorage.getItem('password') ?? '';
+  const account: any = localStorage.getItem(password) ?? '{}';
+  const parsedAccount = JSON.parse(account) || {};
+  const defaultAccountName = Object.keys(parsedAccount)[0] || '';
 
   const data = [
     {
       label: 'Account name',
-      value: 'Account 1',
-      path: '/',
+      value: defaultAccountName,
+      path: '/edit-accountname',
     },
     {
       label: 'Account addresses',

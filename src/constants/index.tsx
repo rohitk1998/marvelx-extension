@@ -2,10 +2,8 @@ import {
   keyIcon,
   lockIcon,
   solanaIcon,
-  KeySmall,
-  EditSmall,
-  EyeSmall,
-  CloudSmall,
+  EditIconWhite,
+  WhiteEyeIcon
 } from '../assets';
 
 const ADD_WALLET_FEATURES = [
@@ -35,28 +33,21 @@ const ADD_WALLET_FEATURES = [
 const RECOVER_WALLET_OPTIONS = [
   {
     id: 1,
-    icon: EditSmall,
+    icon: EditIconWhite,
     title: 'Import Secret Recovery Key Phrase',
     description: 'Use a 12 word seed phrase',
     path:'/recover-secret-phrase'
   },
   {
     id: 2,
-    icon: KeySmall,
+    icon: keyIcon,
     title: 'By Private Key',
-    description: '',
+    description: 'Restore with your private key',
     path:'1'
   },
   {
     id: 3,
-    icon: CloudSmall,
-    title: 'iCloud or Google Backup',
-    description: 'Restore wallet from iCloud or Google',
-     path:'2'
-  },
-  {
-    id: 4,
-    icon: EyeSmall,
+    icon: WhiteEyeIcon,
     title: 'Watch Wallet',
     description: 'Observe or track assets of other SOL wallet',
     path:'3'
@@ -70,12 +61,13 @@ const ROUTES = {
   WALLET_ONBOARD: '/wallet-board',
   RECOVER_BY_PHRASE:'/recover-secret-phrase',
   EDIT_ACCOUNT:'/edit-account',
-  SECURITYANDPRIVACY:'/security-and-privacy'
+  SECURITYANDPRIVACY:'/security-and-privacy',
+  WALLET_ACCOUNT:'/wallet-account'
 };
 
-const BASE_URL='https://walletback-mnlv.onrender.com';
+// const BASE_URL='https://walletback-mnlv.onrender.com';
 
-// const BASE_URL='http://localhost:5000';
+const BASE_URL='http://localhost:5000';
 
 
 const API_URL={
@@ -86,7 +78,8 @@ const API_URL={
   setPin:`${BASE_URL}/user/set-transaction-pin`,
   generate2FA:`${BASE_URL}/user/generate-2fa`,
   verify2FA:`${BASE_URL}/user/verify-2fa`,
-  validate2FA:`${BASE_URL}/user/validate-2fa`
+  validate2FA:`${BASE_URL}/user/validate-2fa`,
+   updateProfile:`${BASE_URL}/user/update-profile`
 }
 
 

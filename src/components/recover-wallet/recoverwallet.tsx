@@ -33,8 +33,8 @@ const RecoverWallet: React.FC = () => {
                 setPath(option.path);
               }}
             >
-              <div className="flex items-center justify-center p-1 rounded-full bg-[#D9D9D9] w-[35px] h-[35px]">
-                <img src={option.icon} className='w-[16px] h-[16px]' alt="" />
+              <div className="flex items-center justify-center p-1 rounded-full bg-transparent w-[35px] h-[35px]">
+                <img src={option.icon} className='w-[24px] h-[24px]' alt="" />
               </div>
               <div className="">
                 <h3 className="text-[16px] font-medium">
@@ -49,7 +49,9 @@ const RecoverWallet: React.FC = () => {
             </div>
           ))}
         </div>
-        <PrimaryButton title={'Confirm'} onClick={() => path === '/recover-secret-phrase' ? navigate(path) : console.log("not clicked") } />
+       <div className='w-[full] mt-[60px]'>
+       <PrimaryButton title={'Confirm'} onClick={() => path === '/recover-secret-phrase' ? navigate(path) : console.log("not clicked") } />
+       </div>
       </div>
     </div>
   );

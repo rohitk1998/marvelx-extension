@@ -7,7 +7,7 @@ interface MnemonicsInputBoxProps {
 
 const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
   mnemonics,
-  setMnemonics
+  setMnemonics,
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -29,29 +29,18 @@ const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
   console.log(mnemonics);
 
   return (
-    <div className="p-[9px]">
-      <div
-        className={`relative flex flex-col items-center justify-center h-[351px] max-w-md  rounded-xl bg-cover overflow-hidden`}
-        style={{
-          marginInline: 'auto',
-        }}
-      >
-        <div>
-          <div className="border-[rgba(255,255,255,0.6)] justify-evenly rounded-[10px] border flex flex-wrap pt-[23px] pb-[19px]">
-            {arr?.map((item, index) => (
-              <div key={item} className="flex items-center pb-[18px]">
-                <label className="text-white w-[21px] text-center text-[14px] font-[500]">
-                  {index + 1}.
-                </label>
-                <input
-                  className="p-0 border-[rgba(255,255,255,0.6)] border-1 rounded-[3px] w-[85px] h-[21px] text-center text-white outline-[0] text-[14px] font-[500] input-mnemonic"
-                  onChange={seedAdjust}
-                />
-              </div>
-            ))}
-          </div>
+    <div className="border border-[rgba(255,255,255,0.6)] rounded-[10px] flex flex-wrap gap-y-4 gap-x-5 w-[310px] h-[286px] mx-auto mt-1.5 p-[30px_29px]">
+      {arr?.map((item, index) => (
+        <div key={item} className="flex items-center gap-1">
+          <label className="text-white w-[21px] text-center">
+            {index + 1}.
+          </label>
+          <input
+            className="p-2 border rounded-[3px] w-[85px] h-[23px] text-center text-white outline-none text-[12px] input-mnemonic"
+            onChange={seedAdjust}
+          />
         </div>
-      </div>
+      ))}
     </div>
   );
 };

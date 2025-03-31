@@ -23,6 +23,8 @@ import ValidatePin from "./send/validatepin";
 import SecurityAndPrivacy from './securityandprivacy/index';
 import DeveloperSettings from "./developersettings/index";
 import DeveloperTestNetworks from "./developersettings/networks";
+import SetWalletDetails from "./create-wallet/setwalletdetails";
+import EditAccountName from "./editaccount/editaccountname";
 
 export {
     Splash,
@@ -49,5 +51,7 @@ export {
     ValidatePin,
     SecurityAndPrivacy,
     DeveloperSettings,
-    DeveloperTestNetworks
+    DeveloperTestNetworks,
+    SetWalletDetails,
+    EditAccountName
 }

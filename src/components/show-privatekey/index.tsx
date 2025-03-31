@@ -1,73 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../constants';
-import DashboardLayout from '../dashboardLayout/index';
-import { copysmallNew } from '../../assets';
+import { useEffect, useState } from 'react';
+import ValidatePassword from './enterpass';
+import PrivateKeyWarningScreen from './confirm';
+import PrivateKeyDisplay from './privatekeydisplay';
 
-const PrivateKeyDisplay: React.FC = () => {
-  const [key, setKey] = useState('');
-  const [copytext, setCopyText] = useState('Copy');
+interface StepType {
+  id: number;
+  value: number;
+  Component: React.FC<{
+    active: number;
+    setActive: Function;
+    success: boolean;
+    setSuccess: Function;
+    error: string;
+    setError: Function;
+  }>;
+}
 
-  const navigate = useNavigate();
+const ShowRecoveryProps: StepType[] = [
+  {
+    id: 0,
+    value: 1,
+    Component: ValidatePassword,
+  },
+  {
+    id: 1,
+    value: 2,
+    Component: PrivateKeyWarningScreen,
+  },
+  {
+    id: 2,
+    value: 3,
+    Component: PrivateKeyDisplay,
+  }
+];
 
-  const setWalletInLocal = async () => {
-    let password: any = localStorage.getItem('password');
-    let accounts: any = localStorage.getItem(password);
-    if (!accounts) return;
-    let defaults: any = JSON.parse(accounts);
-    const firstAccountKey = Object.keys(defaults)[0];
-    console.log('firstAccountKey', firstAccountKey);
-    const defaultAccount = defaults[firstAccountKey];
-    setKey(defaultAccount?.key);
-  };
+const RecoveryPhrase: React.FC = () => {
+  const [steps] = useState<StepType[]>(ShowRecoveryProps);
+  const [active, setActive] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    setWalletInLocal();
+      setActive(0);
+      setSuccess(false);
+      setError('');
+    return () => {
+      setActive(0);
+      setSuccess(false);
+      setError('');
+    };
   }, []);
 
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(key);
-    setCopyText('Copied');
-    setTimeout(() => {
-      setCopyText('Copy');
-    }, 5000);
-  };
-
   return (
-    <DashboardLayout
-      title="Secret Private Key"
-      backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
-      navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
-      graybuttonWithoutBorder={true}
-      graywithoutBorderCallback={()=> navigate(ROUTES.EDIT_ACCOUNT)}
-      grayWithoutBorderTitle='Done'
-      graybuttonWithoutBorderClass='w-[326px] h-[54px] mx-auto mb-[18px]'
-    >
-      <div className="text-red-300 border border-[#F66868] rounded-xl w-[320px] h-[84px] mx-auto mt-[30px] items-center justify-center flex flex-col p-10">
-        <h6 className="text-[16px] font-[500] text-[#F66868] text-center">
-          Do not share your private Key!
-        </h6>
-        <p className="text-[11px] font-[400] text-[#F66868] text-center">
-          They will have full access and control to your account
-        </p>
-
-      </div>
-      <div className="bg-[#4B50661A] rounded-[10px] border-[0.5px] border-[#222326] w-[321px] h-[160px] flex flex-col items-center justify-center mx-auto mt-[65px] p-1">
-        <div style={{ padding: '16px 16px' }} className="w-[100%] text-center">
-          <p className="text-white text-[15px] font-[500] w-full break-words">
-            {key}
-          </p>
-        </div>
-        <div className="w-[100%] text-[#3A3C48] border mb-1"></div>
-        <div className="w-[30%] flex justify-center text-white gap-2 mt-1 cursor-pointer" onClick={()=> copyToClipBoard()}>
-          <p>{copytext}</p>
-          <div className="w-[24px] h-[24px] rounded-[6px] bg-[#3A3C48] p-1">
-            <img src={copysmallNew} alt="" />
-          </div>
-        </div>
-      </div>
-    </DashboardLayout>
+    <div>
+      {steps.map((step) => {
+        const { Component, id } = step;
+        return (
+          <>
+            {active === id && (
+              <Component
+                active={active}
+                setActive={setActive}
+                success={success}
+                setSuccess={setSuccess}
+                error={error}
+                setError={setError}
+              />
+            )}
+          </>
+        );
+      })}
+    </div>
   );
 };
 
-export default PrivateKeyDisplay;
+export default RecoveryPhrase;

@@ -86,7 +86,7 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
         >
           Or copy the code below and paste on your authenticator app
         </p>
-        <div className="flex items-center" style={{ marginTop: '8px' }}>
+        <div className="flex items-center" style={{ marginTop: '10px' }}>
           <div
             className="flex items-center flex-grow text-gray-300 bg-[#3A3C48] border border-[#6B6D76] rounded -[7px] overflow-hidden h-[35px] pl-[12px] pr-[12px"
             style={{ marginRight: '8px', borderRadius: '7px' }}
@@ -102,7 +102,7 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
             {copytext}
           </button>
         </div>
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ marginTop: "35px" }}>
           <PrimaryButton title="Next" onClick={() => setActive(1)} />
         </div>
       </div>

@@ -78,21 +78,10 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
-    localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', typedSeed);
     localStorage.setItem('network','devnet');
-    closeTab();
+    navigate('/wallet-account');
   }
-
-  const closeTab = () => {
-    alert('Please pin your extension and open your dashboard');
-    setTimeout(() => {
-      navigate('/#/wallet-board');
-      chrome.tabs.getCurrent(function (tab: any) {
-        chrome.tabs.remove(tab?.id);
-      });
-    }, 2000);
-  };
 
   const handleSecretPhraseComparison = () => {
     if (typedSeed.length !== 12) {
@@ -120,12 +109,17 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
             Enter Secret Recovery Phrase to access your wallet
           </h2>
         </div>
-        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
 
+        <div className='mt-[35px]'>
+        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
+        </div>
+
+        <div className='w-full mt-[20px]'>
         <PrimaryButton
           onClick={() => handleSecretPhraseComparison()}
           title={'Confirm'}
         />
+        </div>
       </div>
     </div>
   );
