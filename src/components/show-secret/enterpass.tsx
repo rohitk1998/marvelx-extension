@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EyeGrayIconOpen } from '../../assets';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import DashboardLayout from "../dashboardLayout/index";
 import { ValidationError } from '../common/errortext';
@@ -17,6 +17,7 @@ const ValidatePassword: React.FC<PasswordProps> = ({
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleConfirmPassword = ()=> {
     if(localStorage.getItem('password') === password){
@@ -28,10 +29,19 @@ const ValidatePassword: React.FC<PasswordProps> = ({
     }
   }
 
+  useEffect(() => {
+    const input:any = document.getElementById("password");
+    if (input) {
+      setTimeout(() => {
+        input.value = ""; // Clear the autofilled value
+      }, 100); // Delay to allow autofill to take effect
+    }
+  }, []);
+
   return (
     <DashboardLayout
     title="Show Recovery Phrase"
-    backCallback={() => navigate(ROUTES.EDIT_ACCOUNT)}
+    backCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
     navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
     showButton={true}
     onClick={()=> handleConfirmPassword()}
@@ -42,20 +52,22 @@ const ValidatePassword: React.FC<PasswordProps> = ({
       >
         <p>Please enter your password to unlock your Recovery Phrase</p>
       </div>
-        <div className="w-[329px] h-[52px] mx-auto mt-[24px] border border-[#6B6D76] outline-0 rounded-[10px] flex items-center justify-between pr-4">
+        <div className="relative w-[329px] h-[52px] mx-auto mt-[24px] border border-[#6B6D76] outline-0 rounded-[10px] flex items-center justify-between overflow-hidden">
           <input
             type={passwordVisible ? 'text' : 'password'}
             placeholder="Password"
-            className="space-x-1 text-white focus:outline-none"
+            className=" text-white bg-transparent focus:outline-none w-[100%]"
             style={{
               padding: '12px',
               margin: '0px',
               paddingRight: '40px',
             }}
+            id='password'
+            autoComplete="new-password"
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
           />
-         <button onClick={()=> setPasswordVisible(!passwordVisible)}>
+         <button onClick={()=> setPasswordVisible(!passwordVisible)} className='absolute right-4'>
          <img src={EyeGrayIconOpen} alt='' className='w-[24px] h-[24px]' />
          </button>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {  SolanaTokenImg } from '../../assets/index';
 import DashboardLayout from '../dashboardLayout/index';
 import { QRCode } from 'react-qrcode-logo';
@@ -11,6 +11,7 @@ const AccountAddresses: React.FC<AccountAddressesProps> = () => {
   const [addresses, setAddresses]: any = useState([]);
   const [copytext, setCopyText] = useState('Copy');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setWalletInLocal();
@@ -37,7 +38,7 @@ const AccountAddresses: React.FC<AccountAddressesProps> = () => {
   return (
     <DashboardLayout
       title="Account Address"
-      backCallback={() => navigate('/edit-account')}
+      backCallback={() => navigate('/edit-account',{ state : location?.state })}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
       <div className="text-center mt-[35px]">
