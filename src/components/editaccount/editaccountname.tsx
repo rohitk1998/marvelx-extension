@@ -48,7 +48,9 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
       toast.success('Successfully updated account name');
       setTimeout(() => {
         localStorage.setItem(password, JSON.stringify(newObj));
-        navigate('/edit-account');
+        navigate('/edit-account',{
+          state : location?.state
+        });
       }, 2000);
     } else {
       setError('Account name is required');
