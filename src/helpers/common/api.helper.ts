@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../../constants";
+import toast from "react-hot-toast";
 
 const setTransactionPin = async (walletAddress: string, pin: string) => {
   try {
@@ -66,8 +67,11 @@ const updateProfile = async (walletAddress:string,username:string) => {
     });
     console.log('update Profile:',response?.data);
     return response?.data;
-  } catch (error) {
-    console.log('error updating profile', error);
+  } catch (error:any) {
+    console.log('error updating profile', error?.response?.data?.error?.errorResponse?.errmsg);
+    if(error?.response?.data?.error?.errorResponse?.errmsg.includes('duplicate key')){
+     toast.error(`@${username} is taken already`)
+    }
     return false;
   }
 }

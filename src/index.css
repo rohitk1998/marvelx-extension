@@ -83,8 +83,12 @@ button{
   animation-delay: -0.8s;
 }
 
-input:-webkit-autofill {
-  background: transparent !important;
-  color: inherit !important;
-  -webkit-text-fill-color: rgb(255, 255, 255) !important;
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 0s, color 0s 0s;
+  transition-delay: calc(infinity * 1s);
 }
