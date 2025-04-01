@@ -6,6 +6,7 @@ import { PrimaryButton } from '../common/primary-button';
 import CommonDrawer from '../commonDrawer';
 import { useNavigate } from 'react-router-dom';
 import useUserProfile from '../../hooks/useprofile';
+import { convertExponentialToDecimal } from '../../helpers/common/exponentialvalue';
 
 interface TokenSummaryProps {
   active: number;
@@ -62,7 +63,7 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
     },
     {
       label: 'Max Total',
-      value: `$${Number(usdamount)}`,
+      value: `$${convertExponentialToDecimal(Number(usdamount))}`,
       subText: 'text-end',
     },
   ];
@@ -176,10 +177,10 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
           className="text-[48px] font-extrabold text-[#fff]"
           style={{ paddingTop: '10px' }}
         >
-          {Number(amount)} SOL
+          {convertExponentialToDecimal(Number(amount))} SOL
         </h2>
         <p className="text-[15px] font-normal text-[#fff]">
-          ~${Number(usdamount)}
+          ~${convertExponentialToDecimal(Number(usdamount))}
         </p>
       </div>
       <div className="pl-[20px] pr-[20px]">

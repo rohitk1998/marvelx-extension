@@ -91,13 +91,15 @@ const SelectToken: React.FC<SelectTokenProps> = ({
         {tokens.map((token: any) => (
           <div
             key={token?.symbol}
-            className="flex items-center cursor-pointer bg-[#4B50661A] border border-[#222326b0] rounded-xl"
+            className="relative flex items-center bg-[#4B50661A] border border-[#222326b0] rounded-xl"
             style={{ padding: '14px', marginTop: '32px' }}
-            onClick={() => {
+          >
+            <div className="w-[100%] flex flex-row items-center cursor-pointer"
+             onClick={() => {
               setToken(token);
               setActive(1);
             }}
-          >
+            >
             <div
               className={`w-[42px] h-[42px] rounded-full flex items-center justify-center text-lg font-bold`}
               style={{ marginRight: '0.75rem' }}
@@ -106,11 +108,12 @@ const SelectToken: React.FC<SelectTokenProps> = ({
             </div>
             <div className="flex-1">
               <div className="font-extrabold text-[16px] text-white">{token.name}</div>
-              <div className="text-[10px] font-semibold text-[#6E7186] pt-[2px] ">
+              <div className="text-[10px] font-semibold text-[#6E7186] pt-[2px]">
                 {DotFormatAddress(token?.associatedTokenAddress)}
               </div>
             </div>
-            <div className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center">
+            </div>
+            <div className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center absolute right-4 cursor-pointer">
               {!copied && <button onClick={() => copyToClipBoard(token?.associatedTokenAddress)} ><img src={copysmallNew} alt="copy icon" /></button>}
               {copied && <img src={copysmallNew} alt="copied icon" />}
             </div>

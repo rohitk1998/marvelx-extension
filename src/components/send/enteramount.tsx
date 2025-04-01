@@ -145,6 +145,7 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
             <input
               type="text"
               value={amount}
+              maxLength={7}
               onChange={(e) => {
                 setAmount(e.target.value);
                 handleUsdAmount(e.target.value);
