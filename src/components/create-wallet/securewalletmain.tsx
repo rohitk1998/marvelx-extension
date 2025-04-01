@@ -6,7 +6,6 @@ import { useAppContext } from '../../context/useappcontext';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 interface StepType {
   id: number;
   value: number;
