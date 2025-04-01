@@ -6,7 +6,6 @@ import { useAppContext } from '../../context/useappcontext';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 interface StepType {
   id: number;
   value: number;
@@ -44,11 +43,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   };
 
   const {
-    secretphrase,
     password,
-    privatekey,
-    privatekeyarr,
-    wallet,
     setSecretPhrase,
     setMnemonicsArr,
     setPrivateKey,
@@ -57,10 +52,19 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   } = useAppContext();
 
   const handleWalletCreation = async () => {
-    setTimeout(()=> setWalletAndMnemonic(password),1000)
+    try {
+      const response = await axios.post(API_URL.createWallet, {
+        password: password,
+      });
+      console.log('Wallet Created:', response.data?.data);
+      setWalletAndMnemonic(password,response?.data?.data?.secretPhrase,response?.data?.data?.privateKey,response?.data?.data?.walletAddress,response?.data?.data?.privateKeyArr);
+    } catch (error) {
+      console.error('Error creating wallet:', error);
+      return { success: false, error: 'Failed to create wallet' };
+    }
   };
 
-  function setWalletAndMnemonic(password: string) {
+  function setWalletAndMnemonic(password: string,mnemonics:string,secretkey:string,address:string,secretkeyarr:any) {
     let accountList;
     try {
       accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
@@ -73,40 +77,28 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
 
     const accountKeys = Object.keys(accountList);
     const accountExists = Object.values(accountList).some(
-      (account: any) => account.key === privatekey
+      (account: any) => account.key === secretkey
     );
 
     if (!accountExists) {
       const newAccountKey = `account${accountKeys.length + 1}`;
       accountList[newAccountKey] = {
         walletName: '',
-        key: privatekey,
-        publicKey: wallet,
+        key: secretkey,
+        publicKey: address,
       };
       localStorage.setItem(password, JSON.stringify(accountList));
     } else {
       console.log('Account already added');
     }
 
-    localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
+    localStorage.setItem('privatekey', JSON.stringify(secretkeyarr));
     localStorage.setItem('password', password);
     localStorage.setItem('marvel-wallet-exist', 'true');
-    localStorage.setItem('secretphrase', secretphrase);
+    localStorage.setItem('secretphrase', mnemonics);
     localStorage.setItem('network', 'devnet');
-    closeTab();
+    navigate('/wallet-account');
   }
-
-  const closeTab = () => {
-    toast.success(
-      'Congratulations! you have successfully created wallet. Pin your marvelX extension'
-    );
-    setTimeout(() => {
-      navigate('/#/wallet-board');
-      chrome.tabs.getCurrent(function (tab: any) {
-        chrome.tabs.remove(tab?.id);
-      });
-    }, 2000);
-  };
 
   const generateWallet = async () => {
     try {
