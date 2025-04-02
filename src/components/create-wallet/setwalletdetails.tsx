@@ -98,7 +98,7 @@ const SetWalletDetails: React.FC = () => {
       <div className="w-full">
         <NavigationBarTitle
           title="Create Wallet Name"
-          callback={() => navigate('/create-wallet')}
+          callback={() => navigate('/add-wallet')}
         />
       </div>
       <div
