@@ -34,7 +34,7 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
   setSubActive,
 }) => {
   console.log(steps, active, done, setDone, setActive, setSubActive);
-  const [isBlur, setBlur] = useState(false);
+  const [isBlur, setBlur] = useState(true);
 
   return (
     <div
@@ -80,10 +80,14 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
 
         <PrimaryButton
           onClick={() => {
-            setActive(2);
-            setDone((prev: number[]) => [...prev, 1]);
+            if (isBlur) {
+              setBlur(false);
+            } else {
+              setActive(2);
+              setDone((prev: number[]) => [...prev, 1]);
+            }
           }}
-          title={'Proceed'}
+          title={isBlur ? 'Reveal Secret Recovery Phrase' : 'Proceed'}
         />
       </div>
     </div>

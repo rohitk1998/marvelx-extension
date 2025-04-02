@@ -10,14 +10,14 @@ const secureWalletSubSteps: SubStepType[] = [
     value: 1,
     Component: SecureWalletMain,
   },
+  // {
+  //   id: 1,
+  //   value: 2,
+  //   Component: RevealRecoveryPhrase,
+  // },
   {
     id: 1,
     value: 2,
-    Component: RevealRecoveryPhrase,
-  },
-  {
-    id: 2,
-    value: 3,
     Component: RevealedRecoveryPhrase,
   },
 ];

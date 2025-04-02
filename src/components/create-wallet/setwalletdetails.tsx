@@ -7,6 +7,18 @@ import { updateProfile } from '../../helpers/common/api.helper';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { PrimaryButton } from '../common/primary-button';
 
+function getInitials(name: string) {
+  if (!name || typeof name !== 'string') return ''; // Return empty string if no data
+
+  const words = name.trim().split(/\s+/); // Split by spaces and remove extra spaces
+
+  if (words.length > 1) {
+    return words[0][0] + words[1][0]; // First letter of the first two words
+  }
+
+  return words[0][0]; // First letter of a single word
+}
+
 const SetWalletDetails: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -38,7 +50,7 @@ const SetWalletDetails: React.FC = () => {
       chrome.tabs.getCurrent(function (tab: any) {
         chrome.tabs.remove(tab?.id);
       });
-    }, 2000);
+    }, 3000);
   };
 
   const handleWalletDetails = async () => {
@@ -97,8 +109,7 @@ const SetWalletDetails: React.FC = () => {
           className="w-[148px] h-[148px] rounded-full bg-cover bg-no-repeat flex items-center justify-center"
           style={{ backgroundImage: `url(${Profile})` }}
         >
-          <h1 className="text-[42px] font-[800] text-white">A</h1>
-          <h1 className="text-[42px] font-[800] text-white">1</h1>
+          <h1 className="text-[42px] font-[800] text-white">{accountName ? getInitials(accountName).toUpperCase() : ''}</h1>
         </div>
         <span className="absolute right-0 bg-[#3A3C48] rounded-full w-[38px] h-[38px] flex justify-center items-center left-[59%] bottom-[15%] border-3 border-[#0C0E1E]">
           <img src={editIcon} alt="imgs" className="w-[18px] h-[18px] " />
