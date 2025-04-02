@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BgSecureWallet, copysmallNew,SolanaTokenImg } from '../../assets/index';
+import { BgSecureWallet, CopySmall, copysmallNew,SolanaTokenImg } from '../../assets/index';
 import useTokenBalance from '../../hooks/usetokensandbalances';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 import DashboardLayout from "../dashboardLayout/index"
@@ -114,8 +114,9 @@ const SelectToken: React.FC<SelectTokenProps> = ({
             </div>
             </div>
             <div className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center absolute right-4 cursor-pointer">
-              {!copied && <button onClick={() => copyToClipBoard(token?.associatedTokenAddress)} ><img src={copysmallNew} alt="copy icon" /></button>}
-              {copied && <img src={copysmallNew} alt="copied icon" />}
+              {!copied && <button onClick={() => copyToClipBoard(token?.associatedTokenAddress)} >
+                <img src={copysmallNew} alt="copy icon" className='w-[24px] h-[24px]' /></button>}
+              {copied && <img src={CopySmall} alt="copied icon" className='w-[24px] h-[24px]' />}
             </div>
           </div>
         ))}
