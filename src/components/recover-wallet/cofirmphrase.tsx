@@ -49,6 +49,7 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
     publickey: string,
     privatekeyarr: Array<any>
   ) {
+    localStorage.clear();
     let accountList;
     try {
       accountList = JSON.parse(localStorage.getItem(password) ?? '{}');

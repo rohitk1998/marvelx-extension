@@ -50,6 +50,7 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   };
 
   function setWalletAndMnemonic(password: string) {
+    localStorage.clear();
     let accountList;
     try {
       accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
