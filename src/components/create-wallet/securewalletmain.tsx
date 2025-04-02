@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, SecondaryButton, NavigationBarTitle } from '../index';
 import Stepper from '../create-wallet/stepper';
@@ -35,6 +35,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   setActive,
   setSubActive,
 }) => {
+  const [secretphrase,setPsecretPhrases]=useState('');
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -105,6 +106,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
         password: password,
       });
       console.log('Wallet Created:', response.data?.data);
+      setPsecretPhrases(response.data?.data?.secretPhrase);
       setSecretPhrase(response.data?.data?.secretPhrase);
       setMnemonicsArr(response.data?.data?.secretPhrase.split(' '));
       setPrivateKey(response.data?.data?.privateKey);
@@ -181,7 +183,11 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
           />
         </div>
         <PrimaryButton
-          onClick={handleNext}
+          onClick={()=>{
+            if(secretphrase){
+              handleNext();
+            }
+          }}
           title={'Secure my wallet (recommended)'}
         />
       </div>
