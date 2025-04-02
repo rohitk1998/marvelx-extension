@@ -38,9 +38,11 @@ const routes = [
   {
     path: '/add-wallet',
     element: (
-      <OnBoardingLayout>
+      <PublicRoute>
+        <OnBoardingLayout>
         <AddWallet />
       </OnBoardingLayout>
+      </PublicRoute>
     ),
   },
   {
@@ -192,9 +194,11 @@ const routes = [
   {
     path: '/wallet-account',
     element: (
+      <PublicRoute>
       <OnBoardingLayout>
         <SetWalletDetails />
       </OnBoardingLayout>
+      </PublicRoute>
     ),
   },
   {

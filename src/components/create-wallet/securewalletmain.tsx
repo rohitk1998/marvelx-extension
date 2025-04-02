@@ -94,7 +94,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
 
     localStorage.setItem('privatekey', JSON.stringify(secretkeyarr));
     localStorage.setItem('password', password);
-    localStorage.setItem('marvel-wallet-exist', 'true');
     localStorage.setItem('secretphrase', mnemonics);
     localStorage.setItem('network', 'devnet');
     navigate('/wallet-account');

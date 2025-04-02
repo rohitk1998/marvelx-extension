@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SecureWalletMain from './securewalletmain';
-import RevealRecoveryPhrase from './revealrecoveryphrase';
 import RevealedRecoveryPhrase from './revealedrecoveryphrase';
 
 
@@ -13,11 +12,6 @@ const secureWalletSubSteps: SubStepType[] = [
   {
     id: 1,
     value: 2,
-    Component: RevealRecoveryPhrase,
-  },
-  {
-    id: 2,
-    value: 3,
     Component: RevealedRecoveryPhrase,
   },
 ];

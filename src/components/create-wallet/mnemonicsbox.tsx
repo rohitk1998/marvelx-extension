@@ -31,9 +31,9 @@ const MnemonicsBox: React.FC<MnemonicsBoxProps> = ({ isBlur, setBlur }) => {
       >
         {isBlur && (
           <div className="flex flex-col items-center justify-center">
-            <button onClick={() => (setBlur ? setBlur(!isBlur) : () => {})} className='cursor-pointer'>
+            <div className='cursor-pointer'>
               <img src={EyeFilled} alt="" className="" />
-            </button>
+            </div>
             <p className="mt-4 text-[10px] font-[400] text-white">
               Make sure nobody is looking
             </p>

@@ -33,7 +33,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
       // onMouseLeave={() => setIsOpen(false)}
     >
       {/* Dropdown Button */}
-      <button className="flex items-center gap-2 text-[#CECED1] transition-all duration-300 ease-in-out focus:outline-none font-semibold rounded-lg text-sm">
+      <button className="flex items-center gap-2 text-[#CECED1] transition-all duration-300 ease-in-out focus:outline-none font-semibold rounded-[12px] text-sm">
         <span>{label}</span>
         <FaChevronDown className="w-4 h-4 transition-transform duration-300" />
       </button>
