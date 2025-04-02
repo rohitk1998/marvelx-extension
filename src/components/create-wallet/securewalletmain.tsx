@@ -68,6 +68,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   function setWalletAndMnemonic(password: string,mnemonics:string,secretkey:string,address:string,secretkeyarr:any) {
     let accountList;
     try {
+      localStorage.clear();
       accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
       if (typeof accountList !== 'object' || accountList === null) {
         accountList = {};
