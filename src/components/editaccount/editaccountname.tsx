@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PrimaryButton, Spinner } from '../index';
+import { PrimaryButton } from '../index';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '../dashboardLayout/index';
 import toast from 'react-hot-toast';
@@ -10,12 +10,13 @@ import useUserProfile from '../../hooks/useprofile';
 interface EditAccountNameProps {}
 
 const EditAccountName: React.FC<EditAccountNameProps> = () => {
-  const { user ,setWalletAddress,loading }:any = useUserProfile();
+  const { user ,setWalletAddress }:any = useUserProfile();
   const navigate = useNavigate();
   const location = useLocation();
   const [accountname, setAccountName] = useState('');
   const [error] = useState('');
   const [username, setUsername] = useState('');
+  const [loading,setLoading]=useState(false);
 
   const password: any = localStorage.getItem('password') ?? '';
   const account: any = localStorage.getItem(password) ?? '{}';
@@ -35,6 +36,7 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
 
   const handleWalletDetails = async () => {
     if(accountname !== '' || username !== ''){
+      setLoading(true)
       const newObj: any = renameKey(
         parsedAccount,
         defaultAccountName,
@@ -50,10 +52,14 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
         localStorage.setItem(password, JSON.stringify(newObj));
         toast.success('Successfully updated account name');
         setTimeout(() => {
+          setLoading(false)
           navigate('/edit-account',{
             state : location?.state
           });
         }, 2000);
+      }
+      else{
+        setLoading(false);
       }
     }
   };
@@ -72,22 +78,6 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
     
     return newObj;
   };
-
-  if (loading) {
-    return(
-    <DashboardLayout
-    title="Edit account name"
-    backCallback={() => navigate('/edit-account',{
-      state : location?.state
-    })}
-    navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
-    >
-    <div className='mt-[250px]'>
-    <Spinner loading={loading}/>
-    </div>
-    </DashboardLayout>
-    )
-  }
   
 
   return (
@@ -130,7 +120,11 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
         />
       </div>
       <div className="w-[329px] mx-auto mt-[318px]">
-        <PrimaryButton onClick={handleWalletDetails} title={'Save Changes'} />
+        <PrimaryButton onClick={()=> {
+          if(!loading){
+            handleWalletDetails();
+          }
+        }} title={'Save Changes'} />
       </div>
     </DashboardLayout>
   );
