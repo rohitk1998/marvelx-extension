@@ -9,10 +9,12 @@ import { ValidationError } from '../common/errortext';
 
 interface RecoverWalletCreatePasswordProps {
   setActive: Function;
+  byPrivateKey:boolean;
 }
 
 const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = ({
   setActive,
+  byPrivateKey = false
 }) => {
   const navigate = useNavigate();
   const { password, setPassword, confirmpassword, setConfirmPassword } =
@@ -66,7 +68,7 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
     >
       <div className="w-full">
         <NavigationBarTitle
-          title="By Secret Key Phrase"
+          title={ byPrivateKey ? "By Private Key" : "By Secret Key Phrase"}
           callback={() => navigate(ROUTES.RECOVER_WALLET)}
           titleClass="w-full text-[16px] font-[600] text-center text-white"
         />

@@ -13,6 +13,7 @@ import {
   DeveloperTestNetworks,
   SetWalletDetails,
   EditAccountName,
+  RecoveWalletByPrivateKey,
 } from './components/index';
 import OnBoardingLayout from './components/onboarding-layout';
 import PublicRoute from './publicroute';
@@ -61,6 +62,16 @@ const routes = [
       <PublicRoute>
         <OnBoardingLayout>
           <RecoverByPhrase />
+        </OnBoardingLayout>
+      </PublicRoute>
+    ),
+  },
+  {
+    path: '/recover-private-key',
+    element: (
+      <PublicRoute>
+        <OnBoardingLayout>
+          <RecoveWalletByPrivateKey />
         </OnBoardingLayout>
       </PublicRoute>
     ),

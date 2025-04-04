@@ -30,7 +30,9 @@ const RecoverWallet: React.FC = () => {
                 option.path === path ? 'text-blue-600' : 'text-white'
               }`}
               onClick={() => {
-                setPath(option.path);
+                if(option.path !== '3'){
+                  setPath(option.path);
+                }
               }}
             >
               <div className="flex items-center justify-center p-1 rounded-full bg-transparent w-[35px] h-[35px]">
@@ -50,7 +52,7 @@ const RecoverWallet: React.FC = () => {
           ))}
         </div>
        <div className='w-[full] mt-[60px]'>
-       <PrimaryButton title={'Confirm'} onClick={() => path === '/recover-secret-phrase' ? navigate(path) : console.log("not clicked") } />
+       <PrimaryButton title={'Confirm'} onClick={() => navigate(path) } />
        </div>
       </div>
     </div>
