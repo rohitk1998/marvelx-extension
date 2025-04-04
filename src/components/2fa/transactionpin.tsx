@@ -160,6 +160,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
                 key={`pin-${index}`}
                 id={`pin-${index}`}
                 type="tel"
+                 autoComplete="off"
                 maxLength={1}
                 value={pin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value, false)}
@@ -182,6 +183,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
                 id={`confirm-pin-${index}`}
                 type="tel"
                 maxLength={1}
+                autoComplete="off"
                 value={confirmPin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value, true)}
                 onKeyDown={(e) => handleConfirmPinBackspace(index, e)}

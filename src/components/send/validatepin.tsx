@@ -123,6 +123,7 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
                 id={`pin-${index}`}
                 type="tel"
                 maxLength={1}
+                autoComplete="off"
                 value={pin[index]}
                 onChange={(e) => handlePinChange(index, e.target.value)}
                 onKeyDown={(e) => handlePinBackspace(index, e)}

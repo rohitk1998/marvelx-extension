@@ -20,12 +20,15 @@ const ValidatePassword: React.FC<PasswordProps> = ({
   const location = useLocation();
 
   const handleConfirmPassword = ()=> {
-    if(localStorage.getItem('password') === password){
-      setError('')
-      setActive(1);
+    if(password === ''){
+      setError('Please enter your password')
+    }
+    else if(localStorage.getItem('password') !== password){
+      setError('Password is incorrect')
     }
     else{
-     setError('Password is incorrect')
+      setError('')
+      setActive(1);
     }
   }
 
