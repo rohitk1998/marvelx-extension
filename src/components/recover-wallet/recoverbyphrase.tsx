@@ -8,6 +8,7 @@ interface StepType {
   Component: React.FC<{
     active: number;
     setActive: Function;
+    byPrivateKey:boolean;
   }>;
 }
 
@@ -38,6 +39,7 @@ const RecoveWalletByPhrase: React.FC = () => {
               <Component
                 active={active}
                 setActive={setActive}
+                byPrivateKey={false}
               />
             )}
           </>
