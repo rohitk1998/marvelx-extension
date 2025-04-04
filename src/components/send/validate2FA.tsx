@@ -70,7 +70,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   const handleValidationTransactionCode = async () => {
     try {
       if(code.join('') === ''){
-        setError('Please enter the transaction pin')
+        setError('Please enter the 2FA code')
       }
       else{
         let password: any = localStorage.getItem('password');
