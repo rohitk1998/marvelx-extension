@@ -119,7 +119,7 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
         </div>
 
         <div className='mt-[35px] w-[310px] mx-auto'>
-        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
+        <MnemonicsInputBox setMnemonics={setTypedSeed} />
         <div className='w-[310px] mx-auto mt-[3px] h-[10px]'>
         <ValidationError error={error} />
         </div>
