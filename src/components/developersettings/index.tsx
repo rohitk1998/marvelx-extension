@@ -42,8 +42,6 @@ const DeveloperSettings: React.FC = () => {
     }
   };
 
-  console.log('activeToggles', activeToggles);
-
   return (
     <DashLayout
       title="Developer settings"

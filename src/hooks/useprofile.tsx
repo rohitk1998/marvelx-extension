@@ -18,10 +18,8 @@ const useUserProfile = () => {
 
     try {
       const response = await axios.get(API_URL.profile + `/${walletAddress}`);
-      console.log("response",response)
       setUser(response?.data?.user);
     } catch (err :any ) {
-      console.log("err",err)
       if(err?.response?.data?.message === 'User not found'){
         toast.error('wallet not found');
         setTimeout(()=> {
@@ -37,13 +35,12 @@ const useUserProfile = () => {
   };
 
   useEffect(() => {
-    if (!walletAddress) return; // Skip fetch if no wallet address
+    if (!walletAddress) return; 
     fetchUserProfile();
     setTimeout(()=>{
       setWalletAddress('');
     },1000)
-    console.log('address in user profile hook:',walletAddress)
-  }, [walletAddress]); // Re-run effect when walletAddress changes
+  }, [walletAddress]);
 
   return { user, loading, error, setWalletAddress };
 };

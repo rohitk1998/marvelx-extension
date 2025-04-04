@@ -11,7 +11,6 @@ const useTokenBalance = () => {
     const [selectedNetwork,setSelectedNetwork]:any=useState(localStorage.getItem('network'));
 
     useEffect(() => {
-        console.log('tokens',tokens);
         if(address !== '' && selectedNetwork !== '' && tokens.length === 0){
             fetchTokenAndBalance();
         }

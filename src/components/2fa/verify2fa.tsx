@@ -51,10 +51,8 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
   };
 
   const handleVerify2FA = async () => {
-    console.log('handle verify 2FA', code.join(''), address, qrCode);
     try {
       const result = await verify2FA(code.join(''), qrCode.secret, address);
-      console.log('result', result);
       if (result) {
         setSuccess(true);
         setActive(2);

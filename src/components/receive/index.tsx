@@ -35,7 +35,6 @@ const Receive : React.FC = () => {
     setActive(0);
     setSelectedToken(null);
      return(()=>{
-      console.log('component unmounted');
       setActive(0);
       setSelectedToken(null);
      })

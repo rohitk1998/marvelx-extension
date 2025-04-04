@@ -87,7 +87,6 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
         profile?.wallets[0],
         pin.join('')
       );
-      console.log('isPinCreated', isPinCreated);
       if (isPinCreated?.message === 'Transaction PIN set successfully') {
         toast.success('Transaction pin set successfully');
         setError('');
@@ -104,10 +103,8 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log('error', error);
       setError('Error in creating pin');
     }
-    console.log('error set pin', error);
   };
 
   const handlePinBackspace = (index: number, e: React.KeyboardEvent) => {

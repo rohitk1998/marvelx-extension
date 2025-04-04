@@ -28,8 +28,6 @@ const TwoFaQrCode: React.FC<QrCodeProps> = ({
     }, 5000);
   };
 
-  console.log('qrCode?.url', qrCode?.qrCodeUrl);
-
   if (!qrCode?.qrCodeUrl) {
     return(
     <DashLayout

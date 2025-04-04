@@ -40,7 +40,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
 
   const handleNext = () => {
     setSubActive(1);
-    console.log('Next');
   };
 
   const {
@@ -57,7 +56,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
       const response = await axios.post(API_URL.createWallet, {
         password: password,
       });
-      console.log('Wallet Created:', response.data?.data);
       setWalletAndMnemonic(password,response?.data?.data?.secretPhrase,response?.data?.data?.privateKey,response?.data?.data?.walletAddress,response?.data?.data?.privateKeyArr);
     } catch (error) {
       console.error('Error creating wallet:', error);

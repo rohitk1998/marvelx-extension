@@ -4,15 +4,12 @@ import { BgSecureWallet, GreenTickImg } from '../../assets';
 import { PrimaryButton } from '../common/primary-button';
 
 interface AuthenticatorSuccessScreenProps {
-  success: boolean;
   setSelectedMenu:Function;
 }
 
 const AuthenticatorSuccessScreen: React.FC<AuthenticatorSuccessScreenProps> = ({
-  success,
   setSelectedMenu
 }) => {
-  console.log('success', success);
   const navigate = useNavigate();
   const location = useLocation();
   return (

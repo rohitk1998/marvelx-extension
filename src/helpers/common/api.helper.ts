@@ -9,7 +9,6 @@ const setTransactionPin = async (walletAddress: string, pin: string) => {
       transactionPin: pin
     });
 
-    console.log(response.data.message);
     return response.data
   } catch (error: any) {
     console.error('Error:', error.response ? error.response.data.message : error.message);
@@ -21,8 +20,6 @@ const setTransactionPin = async (walletAddress: string, pin: string) => {
 const generate2FA = async () => {
   try {
     const response = await axios.post(API_URL.generate2FA);
-    console.log(response?.data?.data?.qrCodeUrl); // Show QR Code
-    console.log('2fa qr code url:',response?.data?.data);
     return response?.data?.data;
   } catch (error) {
     console.log('error generate 2fa', error);
@@ -37,7 +34,6 @@ const verify2FA = async ( token:string , userSecret:string ,walletAddress:string
       userSecret,
       walletAddress
     });
-    console.log('is 2FA verified repsonse:',response);
     return response?.data;
   } catch (error) {
     console.log('error verify 2fa', error);
@@ -51,7 +47,6 @@ const validate2FACode = async ( token:string , walletAddress:string) => {
       token,
       walletAddress
     });
-    console.log('2FA validated :',response?.data);
     return response?.data;
   } catch (error) {
     console.log('error validate 2fa', error);
@@ -65,7 +60,6 @@ const updateProfile = async (walletAddress:string,username:string) => {
       walletAddress,
       username
     });
-    console.log('update Profile:',response?.data);
     return response?.data;
   } catch (error:any) {
     console.log('error updating profile', error?.response?.data?.error?.errorResponse?.errmsg);

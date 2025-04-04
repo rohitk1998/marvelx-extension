@@ -23,7 +23,6 @@ const ConfirmPrivateKey: React.FC<ConfirmPhraseProps> = ({
   const recoverWallet = async () => {
     try {
       const response : any = await recoverByPrivateKey(key,password);
-      console.log('RESPONSE', response);
       if(response?.response?.data?.status === 400){
         setLoading(false);
         setError(response?.response?.data?.message)
@@ -101,7 +100,6 @@ const ConfirmPrivateKey: React.FC<ConfirmPhraseProps> = ({
     }
   };
   
-  console.log('Error in confirm private key:', error);
   return (
     <div
       className="relative flex flex-col items-center w-[375px] max-w-[375px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"

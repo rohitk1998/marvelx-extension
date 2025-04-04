@@ -32,8 +32,6 @@ const SetWalletDetails: React.FC = () => {
   const defaultAccountName = Object.keys(parsedAccount)[0] || '';
   const defaultAccount = parsedAccount;
 
-  console.log('defaultAccount', defaultAccount);
-
   useEffect(() => {
     setAccountName(defaultAccountName);
   }, [defaultAccountName]);
@@ -80,9 +78,7 @@ const SetWalletDetails: React.FC = () => {
   ) => {
     if (!obj[oldKey]) return obj;
     let newKeyVal = newKey ?? defaultAccountName;
-    console.log("new  key",newKeyVal)
     const newObj = { ...obj, [newKeyVal]: obj[oldKey] };
-    console.log(newObj,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     if(newKeyVal !== defaultAccountName){
       delete newObj[oldKey];
     }

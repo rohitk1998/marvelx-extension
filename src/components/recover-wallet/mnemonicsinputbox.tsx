@@ -1,12 +1,10 @@
 import React from 'react';
 
 interface MnemonicsInputBoxProps {
-  mnemonics: string;
   setMnemonics: Function;
 }
 
 const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
-  mnemonics,
   setMnemonics,
 }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -26,7 +24,6 @@ const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
     });
     setMnemonics(str);
   }
-  console.log(mnemonics);
 
   return (
     <div className="border border-[rgba(255,255,255,0.6)] rounded-[10px] flex flex-wrap gap-y-4 gap-x-5 w-[310px] h-[286px] mx-auto mt-1.5 p-[30px_29px]">
