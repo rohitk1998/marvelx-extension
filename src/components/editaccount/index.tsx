@@ -50,10 +50,8 @@ const EditAccount: React.FC = () => {
     },
   ];
 
-  console.log('location?.state?.path', location?.state?.path);
 
   useEffect(() => {
-    console.log('secret phrase:', localStorage.getItem('secretphrase'));
     if (localStorage.getItem('secretphrase') === null) {
       let newarr = data2.filter((item) => item.label !== 'Show recovery phrase');
       setData2(newarr);

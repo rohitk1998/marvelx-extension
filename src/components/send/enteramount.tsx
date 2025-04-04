@@ -32,7 +32,6 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
   const [inputdisabled, setInputDisabled] = useState(true);
   const [error, setError] = useState('');
   const [fundserror, setFundsError] = useState('');
-  console.log('error', error);
 
   const handleConfirmAddress = () => {
     if (receiveraddress) {
@@ -59,11 +58,12 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
 
   useEffect(() => {
     setError('');
+    setAmount('0');
+    setUsdAmount(0);
   }, []);
 
   const handleUsdAmount = (_amount: any) => {
     let amount = _amount ?? 0;
-    console.log('selectedTokenUsdPrice', selectedTokenUsdPrice);
     let usdPrice =
       Number(selectedTokenUsdPrice) > 0
         ? Number(selectedTokenUsdPrice)
@@ -144,7 +144,8 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
           <div className="flex items-center justify-center">
             <input
               type="text"
-              value={amount ?? 0}
+              value={amount}
+              onFocus={()=> setAmount('')}
               maxLength={7}
               onChange={(e) => {
                 setAmount(e.target.value);

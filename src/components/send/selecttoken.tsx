@@ -13,7 +13,6 @@ interface SelectTokenProps {
 }
 
 const SelectToken: React.FC<SelectTokenProps> = ({
-  active,
   setActive,
   setToken,
   setSelectedTokenUsdPrice
@@ -21,7 +20,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({
   const { setAddress, tokens, loading }:any = useTokenBalance();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  console.log(active, setActive);
 
   useEffect(() => {
     setWalletInLocal();

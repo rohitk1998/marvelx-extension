@@ -88,10 +88,8 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   }
 
   const handleSecretPhraseComparison = () => {
-    console.log('secretphrase:typedSeed', typedSeed);
     const typedSeedArr = typedSeed.split(" ") ?? [];
     const isNotCompleted = typedSeedArr?.some((word: string) => word.trim() === '');
-    console.log("isNotCompleted",isNotCompleted,typedSeedArr.length)
     if (typedSeedArr.length !== 12 || isNotCompleted) {
       setError('Please complete your secret phrase');
     }
@@ -121,7 +119,7 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
         </div>
 
         <div className='mt-[35px] w-[310px] mx-auto'>
-        <MnemonicsInputBox mnemonics={typedSeed} setMnemonics={setTypedSeed} />
+        <MnemonicsInputBox setMnemonics={setTypedSeed} />
         <div className='w-[310px] mx-auto mt-[3px] h-[10px]'>
         <ValidationError error={error} />
         </div>

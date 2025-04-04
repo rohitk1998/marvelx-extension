@@ -42,12 +42,10 @@ const EditAccountName: React.FC<EditAccountNameProps> = () => {
         defaultAccountName,
         accountname
       );
-      console.log('newObj', newObj);
       const result = await updateProfile(
         defaultAccount[defaultAccountName]?.publicKey,
         username
       );
-      console.log('result', result);
       if (result?.data) {
         localStorage.setItem(password, JSON.stringify(newObj));
         toast.success('Successfully updated account name');

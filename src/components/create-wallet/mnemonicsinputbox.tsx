@@ -12,7 +12,6 @@ const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
   setMnemonics,
   error
 }) => {
-  console.log('secretphrase:', mnemonic);
 
   if (mnemonic?.length !== 12) {
     throw new Error('Mnemonic must be exactly 12 words long');
@@ -23,12 +22,9 @@ const MnemonicsInputBox: React.FC<MnemonicsInputBoxProps> = ({
 
   const handleChange = (index: number, value: string) => {
     setInputs((prev) => ({ ...prev, [index]: value }));
-    console.log('secretphrase: Object.keys(inputs)?.length :',Object.keys(inputs)?.length)
   };
 
   useEffect(() => {
-    console.log("secretphrase: Object.keys(inputs)?.length:", Object.keys(inputs)?.length);
-  
     if (Object.keys(inputs).length === 3) {
       const userMnemonic = mnemonic.map((word, index) =>
         emptyIndexes.includes(index) ? inputs[index] || "" : word

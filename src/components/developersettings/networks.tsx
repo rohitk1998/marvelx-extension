@@ -14,14 +14,18 @@ const data2 = [
 ];
 
 const DeveloperTestNetworks: React.FC = () => {
-  const [activeCheckbox, setActiveCheckbox] = useState<string | null>(
-    localStorage.getItem('network') || null
-  );
+  let oldNetwork : any = localStorage.getItem('network')
+  const [activeCheckbox, setActiveCheckbox] = useState<string | null>(oldNetwork);
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('network', activeCheckbox ?? '');
-  }, [activeCheckbox]);
+    if(oldNetwork){
+      localStorage.setItem('network', activeCheckbox ?? oldNetwork);
+      if(activeCheckbox === null){
+        setActiveCheckbox(oldNetwork);
+      }
+    }
+  }, [activeCheckbox,oldNetwork]);
 
   return (
     <DashLayout
@@ -40,11 +44,11 @@ const DeveloperTestNetworks: React.FC = () => {
               {item.label}
             </span>
             <input
-              onChange={() =>
-                setActiveCheckbox(
-                  activeCheckbox === item.value ? null : item.value
-                )
-              }
+              onChange={() => {
+                  setActiveCheckbox(
+                    activeCheckbox === item.value ? null : item.value
+                  );
+              }}
               checked={activeCheckbox === item.value}
               type="checkbox"
               className={`w-[20px] h-[20px] flex items-center justify-center bg-gray-800 appearance-none rounded-[6px] cursor-pointer
