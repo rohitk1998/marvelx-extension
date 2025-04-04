@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { verify2FA } from '../../helpers/common/api.helper';
 import { BgSecureWallet } from '../../assets';
 import { PrimaryButton } from '../common/primary-button';
@@ -20,7 +20,7 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
   setSuccess,
   setError,
   setActive,
-  error
+  error,
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
   const handleCodeChange = (index: number, value: string) => {
@@ -52,12 +52,16 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
 
   const handleVerify2FA = async () => {
     try {
-      const result = await verify2FA(code.join(''), qrCode.secret, address);
-      if (result) {
-        setSuccess(true);
-        setActive(2);
+      if (code.join('') == '') {
+        setError('Please enter a 6-digit code');
       } else {
-        setError('Invalid 2FA code');
+        const result = await verify2FA(code.join(''), qrCode.secret, address);
+        if (result) {
+          setSuccess(true);
+          setActive(2);
+        } else {
+          setError('Invalid 2FA code');
+        }
       }
     } catch (error) {
       setError('Invalid 2FA code');
@@ -72,6 +76,10 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    setError('');
+  }, []);
 
   return (
     <div
@@ -90,7 +98,7 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
         titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
 
-      <div style={{ marginTop: '32px' }}>
+      <div className="w-[312px] h-[33px] mx-auto mt-[32px] text-center">
         <h2
           className="text-[24px] font-[500] text-white pt-[30px]"
           style={{ marginBottom: '3px' }}
@@ -100,7 +108,7 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
         <p className="text-sm text-[#6B6D76]" style={{ marginBottom: '24px' }}>
           Enter the code from your authenticator app
         </p>
-        <div className="relative pt-[40px]">
+        <div className="relative pt-[40px] gap-x-8">
           <div
             className="flex justify-between"
             style={{ marginBottom: '16px' }}
@@ -113,10 +121,11 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
                   id={`code-${index}`}
                   type="tel"
                   maxLength={1}
+                  autoComplete="off"
                   value={code[index]}
                   onChange={(e) => handleCodeChange(index, e.target.value)}
                   onKeyDown={(e) => handleCodeBackspace(index, e)}
-                  className="w-12 h-12 text-xl text-center bg-gray-800 border border-gray-700 rounded-md focus:border-blue-500 focus:outline-none"
+                  className="w-12 h-12 text-xl text-center bg-gray-800 border border-gray-700 rounded-md focus:border-gray-700 focus:outline-none"
                   style={{ padding: '8px' }}
                 />
               ))}
@@ -128,8 +137,8 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
               Paste
             </button>
           </div>
-          <ValidationError error={error} />
         </div>
+        <ValidationError error={error} />
       </div>
       <div className="flex-grow"></div>
       <div style={{ marginTop: '30px' }}>

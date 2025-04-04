@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { sendSolanaTransactionAndConfirm } from '../../helpers';
 import { getPrivateKeyLocalStorage } from '../../helpers/common/localstorage';
 import { validate2FACode } from '../../helpers/common/api.helper';
@@ -69,28 +69,33 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
 
   const handleValidationTransactionCode = async () => {
     try {
-      let password: any = localStorage.getItem('password');
-      let accounts: any = localStorage.getItem(password);
-      if (!accounts) return;
-      let defaults: any = JSON.parse(accounts);
-      const firstAccountKey = Object.keys(defaults)[0];
-      const defaultAccount = defaults[firstAccountKey];
-     
-      console.log(
-        'code , wallet address:',
-        code.join(''),
-        defaultAccount?.publicKey
-      );
-      const result = await validate2FACode(
-        code.join(''),
-        defaultAccount?.publicKey
-      );
-      console.log('result', result);
-      if (result) {
-        sendTransaction();
+      if(code.join('') === ''){
+        setError('Please enter the transaction pin')
       }
       else{
-        setError('Invalid 2FA code');
+        let password: any = localStorage.getItem('password');
+        let accounts: any = localStorage.getItem(password);
+        if (!accounts) return;
+        let defaults: any = JSON.parse(accounts);
+        const firstAccountKey = Object.keys(defaults)[0];
+        const defaultAccount = defaults[firstAccountKey];
+       
+        console.log(
+          'code , wallet address:',
+          code.join(''),
+          defaultAccount?.publicKey
+        );
+        const result = await validate2FACode(
+          code.join(''),
+          defaultAccount?.publicKey
+        );
+        console.log('result', result);
+        if (result) {
+          sendTransaction();
+        }
+        else{
+          setError('Invalid 2FA code');
+        }
       }
     } catch (error) {
       setError('Invalid 2FA code');
@@ -106,6 +111,26 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
       }
     }
   };
+
+  const handlePaste = () => {
+    navigator.clipboard.readText().then((text) => {
+      const digits = text.replace(/\D/g, '').slice(0, 6).split('');
+      const newCode = [...code];
+      digits.forEach((digit, index) => {
+        if (index < 6) {
+          newCode[index] = digit;
+        }
+      });
+      setCode(newCode);
+    });
+  };
+
+  useEffect(()=> {
+    setError('')
+    return()=> {
+      setError('')
+    }
+  },[])
 
   return (
     <div
@@ -146,19 +171,21 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
                   id={`code-${index}`}
                   type="tel"
                   maxLength={1}
+                  autoComplete="off"
                   value={code[index]}
                   onChange={(e) => handleCodeChange(index, e.target.value)}
                   onKeyDown={(e)=> handlePinBackspace(index,e)}
-                  className="w-12 h-12 text-xl text-center bg-gray-800 border border-gray-700 rounded-md focus:border-blue-500 focus:outline-none"
+                  className="w-12 h-12 text-xl text-center bg-gray-800 border border-gray-700 rounded-md focus:border-gray-700 focus:outline-none"
                   style={{ padding: '8px' }}
                 />
               ))}
-            {/* <button
+            <button
               className="absolute right-0 text-sm text-gray-300 -bottom-6"
               style={{ padding: '4px' }}
+              onClick={()=> handlePaste()}
             >
               Paste
-            </button> */}
+            </button>
           </div>
         </div>
         <ValidationError error={error} />
