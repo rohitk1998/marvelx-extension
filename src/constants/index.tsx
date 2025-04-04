@@ -65,9 +65,9 @@ const ROUTES = {
   WALLET_ACCOUNT: '/wallet-account',
 };
 
-// const BASE_URL = 'https://walletback-mnlv.onrender.com';
+const BASE_URL = 'https://walletback-mnlv.onrender.com';
 
-const BASE_URL='http://localhost:5000';
+// const BASE_URL='http://localhost:5000';
 
 const API_URL = {
   createWallet: `${BASE_URL}/user/create-wallet`,
