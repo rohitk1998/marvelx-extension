@@ -8,6 +8,8 @@ import  { Toaster } from 'react-hot-toast';
 const router = createHashRouter(routes);
 
 function App() {
+
+
   useEffect(() => {
     getSetLocalStorage();
   }, []);

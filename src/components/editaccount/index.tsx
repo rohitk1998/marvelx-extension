@@ -3,17 +3,18 @@ import editIcon from '../../assets/icons/edit-small.png';
 import { Profile } from '../../assets/index';
 import arrowright from '../../assets/icons/arrow-right.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function getInitials(name: string) {
-  if (!name || typeof name !== 'string') return ''; // Return empty string if no data
+  if (!name || typeof name !== 'string') return '';
 
-  const words = name.trim().split(/\s+/); // Split by spaces and remove extra spaces
+  const words = name.trim().split(/\s+/);
 
   if (words.length > 1) {
-    return words[0][0] + words[1][0]; // First letter of the first two words
+    return words[0][0] + words[1][0];
   }
 
-  return words[0][0]; // First letter of a single word
+  return words[0][0];
 }
 
 const EditAccount: React.FC = () => {
@@ -23,6 +24,18 @@ const EditAccount: React.FC = () => {
   const account: any = localStorage.getItem(password) ?? '{}';
   const parsedAccount = JSON.parse(account) || {};
   const defaultAccountName = Object.keys(parsedAccount)[0] || '';
+  const [data2,setData2]=useState([
+    {
+      label: 'Show recovery phrase',
+      value: '',
+      path: '/recovery-phrase',
+    },
+    {
+      label: 'Show private key',
+      value: '',
+      path: '/secret-key',
+    },
+  ]);
 
   const data = [
     {
@@ -37,19 +50,16 @@ const EditAccount: React.FC = () => {
     },
   ];
 
-  const data2 = [
-    {
-      label: 'Show recovery phrase',
-      value: '',
-      path: '/recovery-phrase',
-    },
-    {
-      label: 'Show private key',
-      value: '',
-      path: '/secret-key',
-    },
-  ];
   console.log('location?.state?.path', location?.state?.path);
+
+  useEffect(() => {
+    console.log('secret phrase:', localStorage.getItem('secretphrase'));
+    if (localStorage.getItem('secretphrase') === null) {
+      let newarr = data2.filter((item) => item.label !== 'Show recovery phrase');
+      setData2(newarr);
+    }
+  }, []);
+  
   return (
     <DashboardLayout
       title="Edit account"

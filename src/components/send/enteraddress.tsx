@@ -21,13 +21,21 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
   receiveraddress,
 }) => {
   const [error, setError] = useState('');
+  const password: any = localStorage.getItem('password') ?? '';
+  const account: any = localStorage.getItem(password) ?? '{}';
+  const parsedAccount = JSON.parse(account) || {};
+  const defaultAccountName = Object.keys(parsedAccount)[0] || '';
 
   const handleConfirmAddress = () => {
     if (receiveraddress) {
       const isValid = validateSolanaAddress(receiveraddress);
       if (!isValid) {
         setError('Invalid Solana Address');
-      } else {
+      } 
+      else if (parsedAccount[defaultAccountName]?.publicKey === receiveraddress) {
+        setError('You cannot send tokens to your own wallet address');
+      } 
+      else {
         setError('');
         setActive(2);
       }

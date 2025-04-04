@@ -76,10 +76,24 @@ const updateProfile = async (walletAddress:string,username:string) => {
   }
 }
 
+
+const recoverByPrivateKey = async (privateKey:string,password:string) => {
+  try {
+    const response = await axios.post(API_URL.recoverbyPrivateKey,{
+      privateKey,
+      password
+    });
+    return response;
+  } catch (error:any) {
+    return error;
+  }
+}
+
 export {
   setTransactionPin,
   generate2FA,
   verify2FA,
   validate2FACode,
-  updateProfile
+  updateProfile,
+  recoverByPrivateKey
 }

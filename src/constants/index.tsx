@@ -3,7 +3,7 @@ import {
   lockIcon,
   solanaIcon,
   EditIconWhite,
-  WhiteEyeIcon
+  WhiteEyeIcon,
 } from '../assets';
 
 const ADD_WALLET_FEATURES = [
@@ -36,21 +36,21 @@ const RECOVER_WALLET_OPTIONS = [
     icon: EditIconWhite,
     title: 'Import Secret Recovery Key Phrase',
     description: 'Use a 12 word seed phrase',
-    path:'/recover-secret-phrase'
+    path: '/recover-secret-phrase',
   },
   {
     id: 2,
     icon: keyIcon,
     title: 'By Private Key',
     description: 'Restore with your private key',
-    path:'1'
+    path: '/recover-private-key',
   },
   {
     id: 3,
     icon: WhiteEyeIcon,
     title: 'Watch Wallet',
     description: 'Observe or track assets of other SOL wallet',
-    path:'3'
+    path: '3',
   },
 ];
 
@@ -59,28 +59,27 @@ const ROUTES = {
   RECOVER_WALLET: '/recover-wallet',
   CREATE_WALLET: '/create-wallet',
   WALLET_ONBOARD: '/wallet-board',
-  RECOVER_BY_PHRASE:'/recover-secret-phrase',
-  EDIT_ACCOUNT:'/edit-account',
-  SECURITYANDPRIVACY:'/security-and-privacy',
-  WALLET_ACCOUNT:'/wallet-account'
+  RECOVER_BY_PHRASE: '/recover-secret-phrase',
+  EDIT_ACCOUNT: '/edit-account',
+  SECURITYANDPRIVACY: '/security-and-privacy',
+  WALLET_ACCOUNT: '/wallet-account',
 };
 
-const BASE_URL='https://walletback-mnlv.onrender.com';
+const BASE_URL = 'https://walletback-mnlv.onrender.com';
 
 // const BASE_URL='http://localhost:5000';
 
+const API_URL = {
+  createWallet: `${BASE_URL}/user/create-wallet`,
+  getTokens: `${BASE_URL}/getTokens`,
+  recoverWallet: `${BASE_URL}/user/recover-wallet`,
+  profile: `${BASE_URL}/user/profile`,
+  setPin: `${BASE_URL}/user/set-transaction-pin`,
+  generate2FA: `${BASE_URL}/user/generate-2fa`,
+  verify2FA: `${BASE_URL}/user/verify-2fa`,
+  validate2FA: `${BASE_URL}/user/validate-2fa`,
+  updateProfile: `${BASE_URL}/user/update-profile`,
+  recoverbyPrivateKey: `${BASE_URL}/user/recover-by-privatekey`,
+};
 
-const API_URL={
-  createWallet:`${BASE_URL}/user/create-wallet`,
-  getTokens:`${BASE_URL}/getTokens`,
-  recoverWallet:`${BASE_URL}/user/recover-wallet`,
-  profile:`${BASE_URL}/user/profile`,
-  setPin:`${BASE_URL}/user/set-transaction-pin`,
-  generate2FA:`${BASE_URL}/user/generate-2fa`,
-  verify2FA:`${BASE_URL}/user/verify-2fa`,
-  validate2FA:`${BASE_URL}/user/validate-2fa`,
-   updateProfile:`${BASE_URL}/user/update-profile`
-}
-
-
-export { ADD_WALLET_FEATURES, RECOVER_WALLET_OPTIONS, ROUTES,API_URL };
+export { ADD_WALLET_FEATURES, RECOVER_WALLET_OPTIONS, ROUTES, API_URL };

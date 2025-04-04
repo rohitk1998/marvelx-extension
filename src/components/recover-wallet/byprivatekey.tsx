@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RecoverWalletCreatePassword from './createpassword';
-import RecoverWalletComfirmPhrase from './cofirmphrase';
+import ConfirmPrivateKey from './confirmprivatekey';
 
 interface StepType {
   id: number;
@@ -12,7 +12,7 @@ interface StepType {
   }>;
 }
 
-const recoverWalletSteps: StepType[] = [
+const recoverByPhraseSteps: StepType[] = [
   {
     id: 0,
     value: 1,
@@ -21,12 +21,12 @@ const recoverWalletSteps: StepType[] = [
   {
     id: 1,
     value: 2,
-    Component: RecoverWalletComfirmPhrase,
+    Component: ConfirmPrivateKey,
   }
 ];
 
-const RecoveWalletByPhrase: React.FC = () => {
-  const [steps] = useState<StepType[]>(recoverWalletSteps);
+const RecoveWalletByPrivateKey: React.FC = () => {
+  const [steps] = useState<StepType[]>(recoverByPhraseSteps);
   const [active, setActive] = useState(0);
 
   return (
@@ -39,7 +39,7 @@ const RecoveWalletByPhrase: React.FC = () => {
               <Component
                 active={active}
                 setActive={setActive}
-                byPrivateKey={false}
+                byPrivateKey={true}
               />
             )}
           </>
@@ -49,4 +49,4 @@ const RecoveWalletByPhrase: React.FC = () => {
   );
 };
 
-export default RecoveWalletByPhrase;
+export default RecoveWalletByPrivateKey;

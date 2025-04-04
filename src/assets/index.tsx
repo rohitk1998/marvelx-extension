@@ -57,7 +57,8 @@ import RedKeyIcon from './icons/key-square-red.svg';
 import RedEyeSlashIcon from './icons/eye-slash-red.svg';
 import RedSafeIcon from './icons/security-safe-red.svg';
 import EditIconWhite from "./icons/edit-2.png"
-import WhiteEyeIcon from "./icons/eye-white.png"
+import WhiteEyeIcon from "./icons/eye-white.png";
+import BlueDangerIcon from "./icons/blue-danger.png";
 
 export {
   SendIcon,
@@ -119,5 +120,6 @@ export {
   RedSafeIcon,
   RedEyeSlashIcon,
   EditIconWhite,
-  WhiteEyeIcon
+  WhiteEyeIcon,
+  BlueDangerIcon
 };

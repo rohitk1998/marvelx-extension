@@ -25,7 +25,8 @@ import DeveloperSettings from "./developersettings/index";
 import DeveloperTestNetworks from "./developersettings/networks";
 import SetWalletDetails from "./create-wallet/setwalletdetails";
 import EditAccountName from "./editaccount/editaccountname";
-import ManageAccounts from "./manageaccount/index"
+import ManageAccounts from "./manageaccount/index";
+import RecoveWalletByPrivateKey from "./recover-wallet/byprivatekey";
 
 export {
     Splash,
@@ -55,5 +56,6 @@ export {
     DeveloperTestNetworks,
     SetWalletDetails,
     EditAccountName,
-    ManageAccounts
+    ManageAccounts,
+    RecoveWalletByPrivateKey
 }

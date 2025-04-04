@@ -144,13 +144,12 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
           <div className="flex items-center justify-center">
             <input
               type="text"
-              value={amount}
+              value={amount ?? 0}
               maxLength={7}
               onChange={(e) => {
                 setAmount(e.target.value);
                 handleUsdAmount(e.target.value);
               }}
-              placeholder="0"
               className="text-5xl font-bold text-center bg-transparent border-none outline-none"
               style={{
                 width: amount.length ? `${amount.length}ch` : '1ch',

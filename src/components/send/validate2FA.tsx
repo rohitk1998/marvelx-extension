@@ -109,7 +109,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center rounded-[20px] text-white mx-auto"
+      className="flex flex-col items-center justify-center w-[360px] min-h-[600px] h-screen max-h-[600px] bg-no-repeat bg-cover bg-center text-white mx-auto"
       style={{
         backgroundImage: `url(${BgSecureWallet})`,
         padding: '20px',
@@ -153,12 +153,12 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
                   style={{ padding: '8px' }}
                 />
               ))}
-            <button
+            {/* <button
               className="absolute right-0 text-sm text-gray-300 -bottom-6"
               style={{ padding: '4px' }}
             >
               Paste
-            </button>
+            </button> */}
           </div>
         </div>
         <ValidationError error={error} />
