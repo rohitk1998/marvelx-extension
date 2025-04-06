@@ -2,7 +2,35 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 import toast from "react-hot-toast";
 
-const setTransactionPin = async (walletAddress: string, pin: string) => {
+
+const generateWalletApi = async (): Promise<any> => {
+  try {
+    const response = await axios.get(API_URL.generateWallet);
+    return response
+  } catch (error: any) {
+    return false;
+  }
+};
+
+
+const createUserApi = async (walletAddress: string,password:string , username: string): Promise<any> => {
+  try {
+    const response = await axios.post(API_URL.createUser, {
+      walletAddress,
+      password,
+      username
+    });
+    return response;
+  } catch (error: any) {
+    console.log('error updating profile', error);
+    // if (error?.response?.data?.error?.errorResponse?.errmsg.includes('duplicate key')) {
+    //   toast.error(`@${username} is taken already`)
+    // }
+    return false;
+  }
+}
+
+const setTransactionPin = async (walletAddress: string, pin: string): Promise<any> => {
   try {
     const response = await axios.post(API_URL.setPin, {
       walletAddress,
@@ -17,7 +45,7 @@ const setTransactionPin = async (walletAddress: string, pin: string) => {
 };
 
 
-const generate2FA = async () => {
+const generate2FA = async (): Promise<any> => {
   try {
     const response = await axios.post(API_URL.generate2FA);
     return response?.data?.data;
@@ -27,9 +55,9 @@ const generate2FA = async () => {
 };
 
 
-const verify2FA = async ( token:string , userSecret:string ,walletAddress:string) => {
+const verify2FA = async (token: string, userSecret: string, walletAddress: string): Promise<any> => {
   try {
-    const response = await axios.post(API_URL.verify2FA,{
+    const response = await axios.post(API_URL.verify2FA, {
       token,
       userSecret,
       walletAddress
@@ -41,9 +69,9 @@ const verify2FA = async ( token:string , userSecret:string ,walletAddress:string
   }
 };
 
-const validate2FACode = async ( token:string , walletAddress:string) => {
+const validate2FACode = async (token: string, walletAddress: string): Promise<any> => {
   try {
-    const response = await axios.post(API_URL.validate2FA,{
+    const response = await axios.post(API_URL.validate2FA, {
       token,
       walletAddress
     });
@@ -54,36 +82,38 @@ const validate2FACode = async ( token:string , walletAddress:string) => {
   }
 };
 
-const updateProfile = async (walletAddress:string,username:string) => {
+const updateProfile = async (walletAddress: string, username: string): Promise<any> => {
   try {
-    const response = await axios.post(API_URL.updateProfile,{
+    const response = await axios.post(API_URL.updateProfile, {
       walletAddress,
       username
     });
     return response?.data;
-  } catch (error:any) {
+  } catch (error: any) {
     console.log('error updating profile', error?.response?.data?.error?.errorResponse?.errmsg);
-    if(error?.response?.data?.error?.errorResponse?.errmsg.includes('duplicate key')){
-     toast.error(`@${username} is taken already`)
+    if (error?.response?.data?.error?.errorResponse?.errmsg.includes('duplicate key')) {
+      toast.error(`@${username} is taken already`)
     }
     return false;
   }
 }
 
 
-const recoverByPrivateKey = async (privateKey:string,password:string) => {
+const recoverByPrivateKey = async (privateKey: string, password: string) => {
   try {
-    const response = await axios.post(API_URL.recoverbyPrivateKey,{
+    const response = await axios.post(API_URL.recoverbyPrivateKey, {
       privateKey,
       password
     });
     return response;
-  } catch (error:any) {
+  } catch (error: any) {
     return error;
   }
 }
 
 export {
+  generateWalletApi,
+  createUserApi,
   setTransactionPin,
   generate2FA,
   verify2FA,

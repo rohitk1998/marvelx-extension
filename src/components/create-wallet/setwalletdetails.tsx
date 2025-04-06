@@ -3,38 +3,39 @@ import editIcon from '../../assets/icons/edit-small.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Profile, SplashImg } from '../../assets/index';
 import { useEffect, useState } from 'react';
-import { updateProfile } from '../../helpers/common/api.helper';
+import { createUserApi, updateProfile } from '../../helpers/common/api.helper';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { PrimaryButton } from '../common/primary-button';
+import { useAppContext } from '../../context/useappcontext';
+import { ValidationError } from '../common/errortext';
 
 function getInitials(name: string) {
-  if (!name || typeof name !== 'string') return ''; // Return empty string if no data
+  if (!name || typeof name !== 'string') return '';
 
-  const words = name.trim().split(/\s+/); // Split by spaces and remove extra spaces
+  const words = name.trim().split(/\s+/);
 
   if (words.length > 1) {
-    return words[0][0] + words[1][0]; // First letter of the first two words
+    return words[0][0] + words[1][0];
   }
 
-  return words[0][0]; // First letter of a single word
+  return words[0][0];
 }
 
 const SetWalletDetails: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [accountName, setAccountName] = useState('');
+  const [error,setError]=useState('');
+
+  const {
+    privatekeyarr,
+    password,
+    secretphrase,
+    privatekey,
+    wallet
+  } = useAppContext();
 
   const location = useLocation();
-
-  const password: any = localStorage.getItem('password') ?? '';
-  const account: any = localStorage.getItem(password) ?? '{}';
-  const parsedAccount = JSON.parse(account) || {};
-  const defaultAccountName = Object.keys(parsedAccount)[0] || '';
-  const defaultAccount = parsedAccount;
-
-  useEffect(() => {
-    setAccountName(defaultAccountName);
-  }, [defaultAccountName]);
 
   const closeTab = () => {
     let text = 'Congratulations! you have successfully created wallet. Pin your marvelX extension'
@@ -52,39 +53,70 @@ const SetWalletDetails: React.FC = () => {
   };
 
   const handleWalletDetails = async () => {
-    if(accountName !== '' || username !== ''){
-      const newObj: any = renameKey(
-        parsedAccount,
-        defaultAccountName,
-        accountName
-      );
-      console.log('newObj', newObj);
-      const result = await updateProfile(
-        defaultAccount[defaultAccountName]?.publicKey,
+    setError('');
+    if(accountName === ''){
+      setError('Please enter account name')
+    }
+    else if(username === ''){
+      setError('Please enter username')
+    }
+    else{
+      const result = await createUserApi(
+        wallet,
+        password,
         username
       );
       console.log('result', result);
       if (result?.data) {
+        setWalletAndMnemonic(password);
         closeTab();
-        localStorage.setItem(password, JSON.stringify(newObj));
       }
     }
   };
 
-  const renameKey = (
-    obj: Record<string, any>,
-    oldKey: string,
-    newKey: string
-  ) => {
-    if (!obj[oldKey]) return obj;
-    let newKeyVal = newKey ?? defaultAccountName;
-    const newObj = { ...obj, [newKeyVal]: obj[oldKey] };
-    if(newKeyVal !== defaultAccountName){
-      delete newObj[oldKey];
+
+  function setWalletAndMnemonic(password: string) {
+    console.log('wallet 1',wallet)
+    localStorage.clear();
+    console.log('wallet 2',wallet)
+    let accountList;
+    try {
+      accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
+      if (typeof accountList !== 'object' || accountList === null) {
+        accountList = {};
+      }
+    } catch {
+      accountList = {};
     }
-    
-    return newObj;
-  };
+
+    const accountExists = Object.values(accountList).some(
+      (account: any) => account.key === privatekey
+    );
+
+    if (!accountExists) {
+      const newAccountKey = accountName;
+      accountList[newAccountKey] = {
+        walletName: '',
+        key: privatekey,
+        publicKey: wallet,
+      };
+      localStorage.setItem(password, JSON.stringify(accountList));
+    } else {
+      console.log('Account already added');
+    }
+
+    localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
+    localStorage.setItem('password', password);
+    localStorage.setItem('secretphrase', secretphrase);
+    localStorage.setItem('network', 'devnet');
+  }
+
+
+  useEffect(()=> {
+    return ()=> {
+      setError('')
+    }
+  },[])
 
   return (
     <div
@@ -141,6 +173,7 @@ const SetWalletDetails: React.FC = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
+      <ValidationError error={error} />
       <div className="w-[329px] mx-auto mt-[130px]">
         <PrimaryButton title="Continue" onClick={() => handleWalletDetails()} />
       </div>

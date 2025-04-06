@@ -65,14 +65,13 @@ const ROUTES = {
   WALLET_ACCOUNT: '/wallet-account',
 };
 
-const BASE_URL = 'https://walletback-mnlv.onrender.com';
+// const BASE_URL = 'https://walletback-mnlv.onrender.com';
 
-//le somethign new 
-
-// const BASE_URL='http://localhost:5000';
+const BASE_URL='http://localhost:5000/api/v1';
 
 const API_URL = {
-  createWallet: `${BASE_URL}/user/create-wallet`,
+  generateWallet: `${BASE_URL}/user/generate-wallet`,
+  createUser:`${BASE_URL}/user/create-user`,
   getTokens: `${BASE_URL}/getTokens`,
   recoverWallet: `${BASE_URL}/user/recover-wallet`,
   profile: `${BASE_URL}/user/profile`,

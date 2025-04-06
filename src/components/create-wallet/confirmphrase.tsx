@@ -34,72 +34,25 @@ const ComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 }) => {
   const {
     mnemonicsArr,
-    secretphrase,
-    password,
-    privatekey,
-    privatekeyarr,
-    wallet,
+    secretphrase
   } = useAppContext();
 
   const [error, setError] = useState('');
   const [typedSeed, setTypedSeed] = useState([]);
   const navigate = useNavigate()
 
-  const handleWalletCreation = async () => {
-    setWalletAndMnemonic(password);
-  };
-
-  function setWalletAndMnemonic(password: string) {
-    localStorage.clear();
-    let accountList;
-    try {
-      accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
-      if (typeof accountList !== 'object' || accountList === null) {
-        accountList = {};
-      }
-    } catch {
-      accountList = {};
-    }
-
-    const accountKeys = Object.keys(accountList);
-    const accountExists = Object.values(accountList).some(
-      (account: any) => account.key === privatekey
-    );
-
-    if (!accountExists) {
-      const newAccountKey = `account${accountKeys.length + 1}`;
-      accountList[newAccountKey] = {
-        walletName: '',
-        key: privatekey,
-        publicKey: wallet,
-      };
-      localStorage.setItem(password, JSON.stringify(accountList));
-    } else {
-      console.log('Account already added');
-    }
-
-    localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
-    localStorage.setItem('password', password);
-    localStorage.setItem('secretphrase', secretphrase);
-    localStorage.setItem('network', 'devnet');
-    setTimeout(()=> navigate(ROUTES.WALLET_ACCOUNT) , 1000)
-  }
-
   const handleSecretPhraseComparison = () => {
-    console.log('secretphrase:typedSeed', secretphrase, typedSeed);
     const isNotCompleted = typedSeed?.some((word: string) => word.trim() === '');
-    console.log("isNotCompleted",isNotCompleted)
     if (typedSeed.length !== 12 || isNotCompleted) {
       setError('Please complete your secret phrase');
     } else if (secretphrase !== typedSeed?.join(' ')) {
       setError('Your secret phrase is not correct');
     } else {
       setError('')
-      handleWalletCreation();
+      navigate(ROUTES.WALLET_ACCOUNT)
     }
   };
-
-  console.log('Error in confirm phrase:', error);
+  
   return (
     <div
       className="relative flex flex-col items-center w-full max-w-[375px] overflow-auto bg-no-repeat bg-cover bg-center rounded-[20px] pt-[26px] pr-[18px] pb-[19px] pl-[20px]"
