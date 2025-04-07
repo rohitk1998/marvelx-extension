@@ -53,6 +53,7 @@ const SetWalletDetails: React.FC = () => {
   };
 
   const handleWalletDetails = async () => {
+    let result = null ;
     setError('');
     if(accountName === ''){
       setError('Please enter account name')
@@ -61,12 +62,20 @@ const SetWalletDetails: React.FC = () => {
       setError('Please enter username')
     }
     else{
-      const result = await createUserApi(
-        wallet,
-        password,
-        username
-      );
-      console.log('result', result);
+      if(location?.state?.isRcovered){
+        result = await updateProfile(
+          wallet,
+          username
+        );
+      }
+      else{
+        result = await createUserApi(
+          wallet,
+          password,
+          username
+        );
+      }
+      console.log(`RESULT ON BOTH ${location?.state?.isRcovered ? 'RECOVRED':'CREATED'} :`, result);
       if (result?.data) {
         setWalletAndMnemonic(password);
         closeTab();
@@ -76,9 +85,7 @@ const SetWalletDetails: React.FC = () => {
 
 
   function setWalletAndMnemonic(password: string) {
-    console.log('wallet 1',wallet)
     localStorage.clear();
-    console.log('wallet 2',wallet)
     let accountList;
     try {
       accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
@@ -107,7 +114,9 @@ const SetWalletDetails: React.FC = () => {
 
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
-    localStorage.setItem('secretphrase', secretphrase);
+    if(secretphrase){
+      localStorage.setItem('secretphrase', secretphrase);
+    }
     localStorage.setItem('network', 'devnet');
   }
 

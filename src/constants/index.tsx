@@ -70,17 +70,17 @@ const ROUTES = {
 const BASE_URL='http://localhost:5000/api/v1';
 
 const API_URL = {
-  generateWallet: `${BASE_URL}/user/generate-wallet`,
-  createUser:`${BASE_URL}/user/create-user`,
-  getTokens: `${BASE_URL}/getTokens`,
-  recoverWallet: `${BASE_URL}/user/recover-wallet`,
-  profile: `${BASE_URL}/user/profile`,
-  setPin: `${BASE_URL}/user/set-transaction-pin`,
-  generate2FA: `${BASE_URL}/user/generate-2fa`,
-  verify2FA: `${BASE_URL}/user/verify-2fa`,
-  validate2FA: `${BASE_URL}/user/validate-2fa`,
-  updateProfile: `${BASE_URL}/user/update-profile`,
-  recoverbyPrivateKey: `${BASE_URL}/user/recover-by-privatekey`,
+  generateWallet: `${BASE_URL}/user/generate-wallet`, // done
+  createUser:`${BASE_URL}/user/create-user`, // done
+  getTokens: `${BASE_URL}/user/tokens`, //done
+  recoverWalletByPhrase: `${BASE_URL}/user/recover-by-phrase`, //done
+  profile: `${BASE_URL}/user/user`, //done
+  setPin: `${BASE_URL}/user/transaction-pin`, // done
+  generate2FA: `${BASE_URL}/user/generate-2fa`, // done
+  verify2FA: `${BASE_URL}/user/verify-2fa`, // done
+  validate2FA: `${BASE_URL}/user/validate-2fa`, //done
+  updateProfile: `${BASE_URL}/user/update-username`, //done
+  recoverbyPrivateKey: `${BASE_URL}/user/recover-by-private-key`, //done
 };
 
 export { ADD_WALLET_FEATURES, RECOVER_WALLET_OPTIONS, ROUTES, API_URL };

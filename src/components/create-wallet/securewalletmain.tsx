@@ -42,7 +42,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   };
 
   const {
-    password,
     setSecretPhrase,
     setMnemonicsArr,
     setPrivateKey,
@@ -53,14 +52,16 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   const handleWalletCreation = async () => {
     try {
       const response = await generateWalletApi();
-      setWalletAndMnemonic(
-        password,
-        response?.data?.response?.data?.secretPhrase,
-        response?.data?.response?.data?.privateKey,
-        response?.data?.response?.data?.publicKey,
-        response?.data?.response?.data?.privateKeyArr
-      );
-      navigate('/wallet-account');
+      if (response?.data?.response?.status === 200) {
+        setSecretPhrase(response?.data?.response?.data?.secretPhrase);
+        setMnemonicsArr(
+          response?.data?.response?.data?.secretPhrase.split(' ')
+        );
+        setPrivateKey(response?.data?.response?.data?.privateKey);
+        setWallet(response?.data?.response?.data?.publicKey);
+        setPrivateKeyArr(response?.data?.response?.data?.privateKeyArr);
+        navigate('/wallet-account');
+      }
     } catch (error) {
       console.error('Error generating wallet', error);
     }

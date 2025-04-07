@@ -85,12 +85,12 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
           code.join(''),
           defaultAccount?.publicKey
         );
-        const result = await validate2FACode(
+        const response = await validate2FACode(
           code.join(''),
           defaultAccount?.publicKey
         );
-        console.log('result', result);
-        if (result) {
+        console.log('response validate 2FA :', response?.data?.response?.status);
+        if (response?.data?.response?.status === 200) {
           sendTransaction();
         }
         else{

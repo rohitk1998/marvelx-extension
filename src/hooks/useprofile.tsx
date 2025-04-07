@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL } from '../constants/index';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { getProfile } from '../helpers/common/api.helper';
 
 const useUserProfile = () => {
   const [walletAddress, setWalletAddress] = useState('');
@@ -17,16 +16,17 @@ const useUserProfile = () => {
     setError('');
 
     try {
-      const response = await axios.get(API_URL.profile + `/${walletAddress}`);
-      setUser(response?.data?.user);
-    } catch (err :any ) {
-      if(err?.response?.data?.message === 'User not found'){
-        toast.error('wallet not found');
+      const response = await getProfile(walletAddress);
+      console.log("getProfile",response)
+      if(response === false){
+        toast.error('Error fecthing profile');
         setTimeout(()=> {
           localStorage.clear();
           navigate('/')
         },2000)
       }
+      setUser(response?.data?.response?.data);
+    } catch (err :any ) {
       setError('Error fetching user profile');
       setUser(null);
     } finally {

@@ -56,6 +56,7 @@ const Verify2FA: React.FC<Verify2FAProps> = ({
         setError('Please enter a 6-digit code');
       } else {
         const result = await verify2FA(code.join(''), qrCode.secret, address);
+        console.log('verifi 2FA :',result)
         if (result) {
           setSuccess(true);
           setActive(2);

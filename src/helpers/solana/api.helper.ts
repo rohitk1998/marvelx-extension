@@ -5,15 +5,14 @@ async function getAccountTokens(address: string, selectedChain: string):Promise<
   let nfts = [];
   let balance = 0;
   try {
-    const res = await axios.get(API_URL.getTokens, {
-      params: {
-        userAddress: address,
+    const res = await axios.post(API_URL.getTokens, {
+        walletAddress: address,
         network: selectedChain,
-      },
     });
 
-    const response = res?.data;
+    const response = res?.data?.response?.data;
 
+    console.log('token response',response)
     if (response?.tokens?.length > 0) {
       tokens = response?.tokens
     }
