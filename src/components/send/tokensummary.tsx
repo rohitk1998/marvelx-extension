@@ -172,12 +172,12 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
         className="flex flex-col items-center justify-center"
         style={{ padding: '52px 0 13px 0' }}
       >
-        <img src={solIcon} alt="imgs" className="w-[73px] h-[73px]" />
+        <img src={token?.logo ? token?.logo : solIcon} alt="imgs" className="w-[73px] h-[73px] rounded-full" />
         <h2
           className="text-[48px] font-extrabold text-[#fff]"
           style={{ paddingTop: '10px' }}
         >
-          {convertExponentialToDecimal(Number(amount))} SOL
+          {convertExponentialToDecimal(Number(amount))} {token?.symbol ? token?.symbol : 'SOL'}
         </h2>
         <p className="text-[15px] font-normal text-[#fff]">
           ~${convertExponentialToDecimal(Number(usdamount))}

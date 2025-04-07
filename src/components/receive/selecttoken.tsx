@@ -19,7 +19,7 @@ interface SelectTokenProps {
 
 const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
   const { setAddress, tokens, loading } = useTokenBalance();
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,9 +39,9 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
 
   const copyToClipBoard = (address: string) => {
     navigator.clipboard.writeText(address);
-    setCopied(true);
+    setCopied(address);
     setTimeout(() => {
-      setCopied(false);
+      setCopied('');
     }, 1500);
   };
 
@@ -100,7 +100,7 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
           <div
             key={token?.symbol}
             className="relative flex items-center bg-[#4B50661A] border border-[#222326b0] rounded-xl"
-            style={{ padding: '14px', marginTop: '32px' }}
+            style={{ padding: '14px', marginTop: '10px' }}
           >
             <div
               className="w-[100%] flex flex-row items-center cursor-pointer"
@@ -131,14 +131,14 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
             <button className="w-[35px] h-[35px] rounded-lg bg-[#3A3C48] flex items-center justify-center absolute right-4 cursor-pointer"
             onClick={() => copyToClipBoard(token?.associatedTokenAddress)}
             >
-              {!copied && (
+              {token?.associatedTokenAddress !== copied && (
                 <img
                   src={copysmallNew}
                   alt="copy icon"
                   className="w-[24px] h-[24px]"
                 />
               )}
-              {copied && (
+              {token?.associatedTokenAddress === copied && (
                 <img
                   src={CopySmall}
                   alt="copied icon"

@@ -22,7 +22,7 @@ const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
 
   return (
     <DashboardLayout
-      title="Receive SOL"
+      title={`Receive ${token?.symbol}`}
       showButton={true}
       btntitle={copytext}
       onClick={() => copyToClipBoard()}
