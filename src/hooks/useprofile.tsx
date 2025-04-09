@@ -17,9 +17,9 @@ const useUserProfile = () => {
 
     try {
       const response = await getProfile(walletAddress);
-      console.log("getProfile",response)
-      if(response === false){
-        toast.error('Error fecthing profile');
+      console.log("getProfile",response?.response?.data?.response, response?.response?.data?.response)
+      if(response?.response?.data?.response?.status == 400 && response?.response?.data?.response?.message === 'user not exist'){
+        toast.error('user not exist');
         setTimeout(()=> {
           localStorage.clear();
           navigate('/')

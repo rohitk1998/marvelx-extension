@@ -1,13 +1,14 @@
 import solana from '../../assets/solana.svg';
 import graphfirst from '../../assets/graphfirst.png';
 import Spinner from '../common/spinner';
+
 interface AssetsProps {
   tokens: Array<any>;
   loading: boolean;
 }
 const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
   return (
-    <div className=" mx-auto w-[329px]">
+    <div className=" mx-auto w-[329px] mb-[20px]">
       <h4
         className="text-[#fff] text-[16px] font-extrabold"
         style={{
@@ -46,7 +47,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
                     <h4 className="text-[#fff] text-[16px] font-extrabold flex flex-col gap-[3px]">
                       ${token?.price ? Number(token?.price).toFixed(2) : '0.00'}
                       <span className="font-semibold text-[10px] text-[#198E2D]">
-                        + $0.00
+                        { token?.usd_24h_change ? `$${token?.usd_24h_change}` : '$0.00' }
                       </span>
                     </h4>
                   </div>

@@ -9,7 +9,7 @@ const data2 = [
   },
   {
     label: 'Solana Mainnet',
-    value: 'mainnet',
+    value: 'mainnet-beta',
   },
 ];
 

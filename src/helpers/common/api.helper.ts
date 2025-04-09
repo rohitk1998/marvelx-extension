@@ -120,8 +120,8 @@ const getProfile = async (walletAddress: string): Promise<any> => {
     });
     return response;
   } catch (error: any) {
-    console.log('error updating profile', error?.response?.data?.response?.data);
-    return false;
+    console.log('error updating profile', error);
+    return error;
   }
 }
 
