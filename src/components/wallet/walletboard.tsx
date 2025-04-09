@@ -6,7 +6,7 @@ import Assets from './assets';
 import DashboardLayout from '../dashboardLayout/index';
 
 const WalletBoard: React.FC = () => {
-  const { usdbal, setAddress, tokens } = useTokenBalance();
+  const { usdbal, setAddress, tokens, loading } = useTokenBalance();
 
   useEffect(() => {
     console.log('wallet dashboard render');
@@ -27,7 +27,7 @@ const WalletBoard: React.FC = () => {
     <DashboardLayout showSearchCoin={true} showFooter={true} title="">
       <BalanceBoard usdBalance={usdbal} />
       <ActionsMenu />
-      <Assets tokens={tokens} />
+      <Assets tokens={tokens} loading={loading} />
     </DashboardLayout>
   );
 };

@@ -3,9 +3,8 @@ import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, SecondaryButton, NavigationBarTitle } from '../index';
 import Stepper from '../create-wallet/stepper';
 import { useAppContext } from '../../context/useappcontext';
-import axios from 'axios';
-import { API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import { generateWalletApi } from '../../helpers/common/api.helper';
 interface StepType {
   id: number;
   value: number;
@@ -35,7 +34,7 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   setActive,
   setSubActive,
 }) => {
-  const [secretphrase,setPsecretPhrases]=useState('');
+  const [secretphrase, setPsecretPhrases] = useState('');
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -43,7 +42,6 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   };
 
   const {
-    password,
     setSecretPhrase,
     setMnemonicsArr,
     setPrivateKey,
@@ -53,66 +51,37 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
 
   const handleWalletCreation = async () => {
     try {
-      const response = await axios.post(API_URL.createWallet, {
-        password: password,
-      });
-      setWalletAndMnemonic(password,response?.data?.data?.secretPhrase,response?.data?.data?.privateKey,response?.data?.data?.walletAddress,response?.data?.data?.privateKeyArr);
+      const response = await generateWalletApi();
+      if (response?.data?.response?.status === 200) {
+        setSecretPhrase(response?.data?.response?.data?.secretPhrase);
+        setMnemonicsArr(
+          response?.data?.response?.data?.secretPhrase.split(' ')
+        );
+        setPrivateKey(response?.data?.response?.data?.privateKey);
+        setWallet(response?.data?.response?.data?.publicKey);
+        setPrivateKeyArr(response?.data?.response?.data?.privateKeyArr);
+        navigate('/wallet-account');
+      }
     } catch (error) {
-      console.error('Error creating wallet:', error);
-      return { success: false, error: 'Failed to create wallet' };
+      console.error('Error generating wallet', error);
     }
   };
 
-  function setWalletAndMnemonic(password: string,mnemonics:string,secretkey:string,address:string,secretkeyarr:any) {
-    let accountList;
-    try {
-      localStorage.clear();
-      accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
-      if (typeof accountList !== 'object' || accountList === null) {
-        accountList = {};
-      }
-    } catch {
-      accountList = {};
-    }
-
-    const accountKeys = Object.keys(accountList);
-    const accountExists = Object.values(accountList).some(
-      (account: any) => account.key === secretkey
-    );
-
-    if (!accountExists) {
-      const newAccountKey = `account${accountKeys.length + 1}`;
-      accountList[newAccountKey] = {
-        walletName: '',
-        key: secretkey,
-        publicKey: address,
-      };
-      localStorage.setItem(password, JSON.stringify(accountList));
-    } else {
-      console.log('Account already added');
-    }
-
-    localStorage.setItem('privatekey', JSON.stringify(secretkeyarr));
-    localStorage.setItem('password', password);
-    localStorage.setItem('secretphrase', mnemonics);
-    localStorage.setItem('network', 'devnet');
-    navigate('/wallet-account');
-  }
-
   const generateWallet = async () => {
     try {
-      const response = await axios.post(API_URL.createWallet, {
-        password: password,
-      });
-      console.log('Wallet Created:', response.data?.data);
-      setPsecretPhrases(response.data?.data?.secretPhrase);
-      setSecretPhrase(response.data?.data?.secretPhrase);
-      setMnemonicsArr(response.data?.data?.secretPhrase.split(' '));
-      setPrivateKey(response.data?.data?.privateKey);
-      setWallet(response.data?.data?.walletAddress);
-      setPrivateKeyArr(response.data?.data?.privateKeyArr);
+      const response = await generateWalletApi();
+      if (response?.data?.response?.status === 200) {
+        setPsecretPhrases(response?.data?.response?.data?.secretPhrase);
+        setSecretPhrase(response?.data?.response?.data?.secretPhrase);
+        setMnemonicsArr(
+          response?.data?.response?.data?.secretPhrase.split(' ')
+        );
+        setPrivateKey(response?.data?.response?.data?.privateKey);
+        setWallet(response?.data?.response?.data?.publicKey);
+        setPrivateKeyArr(response?.data?.response?.data?.privateKeyArr);
+      }
     } catch (error) {
-      console.error('Error creating wallet:', error);
+      console.error('Error generating wallet', error);
       return { success: false, error: 'Failed to create wallet' };
     }
   };
@@ -120,6 +89,8 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
   useEffect(() => {
     generateWallet();
   }, []);
+
+  console.log('secretphrase', secretphrase);
 
   return (
     <div
@@ -182,8 +153,8 @@ const SecureWalletMain: React.FC<SecureWalletMainProps> = ({
           />
         </div>
         <PrimaryButton
-          onClick={()=>{
-            if(secretphrase){
+          onClick={() => {
+            if (secretphrase) {
               handleNext();
             }
           }}

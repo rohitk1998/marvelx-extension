@@ -6,6 +6,8 @@ import { BgSecureWallet } from '../../assets';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { PrimaryButton } from '../common/primary-button';
 import { ValidationError } from '../common/errortext';
+// import { sendSPLToken } from '../../helpers/solana/transaction';
+// import { sendSPLToken } from '../../helpers/solana/transaction';
 
 interface Transaction2FAProps {
   setActive: Function;
@@ -45,11 +47,20 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   };
 
   const sendTransaction = async () => {
+    let result= null ;
     setLoading(true)
     try {
       console.log(token, receiveraddress, usdamount, amount);
       const privateKeyArr = getPrivateKeyLocalStorage();
-      const result = await sendSolanaTransactionAndConfirm(
+      // if(token?.symbol !== 'SOL'){
+      //   result = await sendSPLToken(
+      //     privateKeyArr,
+      //     receiveraddress,
+      //     token?.mint,
+      //     Number(amount)
+      //   );
+      // }
+      result = await sendSolanaTransactionAndConfirm(
         privateKeyArr,
         receiveraddress,
         Number(amount)
@@ -85,12 +96,12 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
           code.join(''),
           defaultAccount?.publicKey
         );
-        const result = await validate2FACode(
+        const response = await validate2FACode(
           code.join(''),
           defaultAccount?.publicKey
         );
-        console.log('result', result);
-        if (result) {
+        console.log('response validate 2FA :', response?.data?.response?.status);
+        if (response?.data?.response?.status === 200) {
           sendTransaction();
         }
         else{

@@ -12,8 +12,14 @@ interface SelectTokenProps {
 
 const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
   const [copytext, setCopyText] = useState('Copy');
+  let password: any = localStorage.getItem('password');
+  let accounts: any = localStorage.getItem(password);
+  let defaults: any = JSON.parse(accounts);
+  const firstAccountKey = Object.keys(defaults)[0];
+  const defaultAccount = defaults[firstAccountKey];
+
   const copyToClipBoard = () => {
-    navigator.clipboard.writeText(token.associatedTokenAddress);
+    navigator.clipboard.writeText(defaultAccount?.publicKey);
     setCopyText('Copied');
     setTimeout(() => {
       setCopyText('Copy');
@@ -22,7 +28,7 @@ const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
 
   return (
     <DashboardLayout
-      title="Receive SOL"
+      title={`Receive ${token?.symbol}`}
       showButton={true}
       btntitle={copytext}
       onClick={() => copyToClipBoard()}
@@ -34,20 +40,20 @@ const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
         style={{ paddingTop: '62px' }}
       >
         <QRCode
-          value={token.associatedTokenAddress}
+          value={defaultAccount?.publicKey}
           logoImage={SolanaTokenImg}
           qrStyle="squares"
           removeQrCodeBehindLogo={true}
           logoPaddingStyle="circle"
           logoWidth={50}
           logoHeight={50}
-          style={{width:"213px",height:"212px"}}
+          style={{width:"213px",height:"212px",borderRadius:"10px"}}
         />
         <p
           className="text-[14px]font-semi text-[#fff] w-full max-w-[301px] m-auto whitespace-normal break-words text-center"
           style={{ padding: '15px 0 50px 0' }}
         >
-          {token.associatedTokenAddress}
+          {defaultAccount?.publicKey}
         </p>
         <div className="flex gap-[5px] pl-[16px] pr-[16px] mt-[25px]">
           {' '}

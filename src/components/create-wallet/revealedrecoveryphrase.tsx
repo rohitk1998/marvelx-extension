@@ -33,7 +33,6 @@ const RevealedRecoveryPhrase: React.FC<RevealedRecoveryPhrase> = ({
   setActive,
   setSubActive,
 }) => {
-  console.log(steps, active, done, setDone, setActive, setSubActive);
   const [isBlur, setBlur] = useState(true);
 
   return (

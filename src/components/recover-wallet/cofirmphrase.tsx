@@ -3,10 +3,9 @@ import { BgSecureWallet } from '../../assets';
 import { PrimaryButton, NavigationBarTitle } from '../index';
 import MnemonicsInputBox from './mnemonicsinputbox';
 import { useAppContext } from '../../context/useappcontext';
-import axios from 'axios';
-import { API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import { ValidationError } from '../common/errortext';
+import { recoverByPhraseApi } from '../../helpers/common/api.helper';
 
 interface ConfirmPhraseProps {
   active: number;
@@ -16,7 +15,14 @@ interface ConfirmPhraseProps {
 const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
   setActive,
 }) => {
-  const { password } = useAppContext();
+  const {
+    setSecretPhrase,
+    setMnemonicsArr,
+    setPrivateKey,
+    setWallet,
+    setPrivateKeyArr,
+    password,
+  } = useAppContext();
   const [error, setError] = useState('');
   const [typedSeed, setTypedSeed] = useState('');
 
@@ -24,78 +30,38 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
 
   const recoverWallet = async () => {
     try {
-      const response = await axios.post(API_URL.recoverWallet, {
-        secretPhrase: typedSeed,
-        password: password,
-      });
-      setAccount(
-        password,
-        response?.data?.data?.privateKey,
-        response?.data?.data?.publicKey,
-        response?.data?.data?.privateKeyArr
-      );
+      const response = await recoverByPhraseApi(typedSeed, password);
+      console.log('response', response,response?.data?.response?.data?.publicKey);
+      if (response?.data?.response?.status !== 200) {
+        setError(response?.data?.response?.message);
+      } else {
+        setSecretPhrase(response?.data?.response?.data?.secretPhrase);
+        setMnemonicsArr(
+          response?.data?.response?.data?.secretPhrase?.split(' ')
+        );
+        setPrivateKey(response?.data?.response?.data?.privateKey);
+        setWallet(response?.data?.response?.data?.publicKey);
+        setPrivateKeyArr(response?.data?.response?.data?.privateKeyArr);
+        navigate('/wallet-account', {
+          state: { isRcovered: true },
+        });
+      }
     } catch (error) {
       console.error('Error recovering wallet:', error);
       return { success: false, error: 'Failed to recover wallet' };
     }
   };
 
-  const handleWalletRecovery = async () => {
-    await recoverWallet();
-  };
-
-  function setAccount(
-    password: string,
-    privatekey: string,
-    publickey: string,
-    privatekeyarr: Array<any>
-  ) {
-    localStorage.clear();
-    let accountList;
-    try {
-      accountList = JSON.parse(localStorage.getItem(password) ?? '{}');
-      if (typeof accountList !== 'object' || accountList === null) {
-        accountList = {};
-      }
-    } catch {
-      accountList = {};
-    }
-
-    const accountKeys = Object.keys(accountList);
-    const accountExists = Object.values(accountList).some(
-      (account: any) => account.key === privatekey
-    );
-
-    if (!accountExists) {
-      const newAccountKey = `account${accountKeys.length + 1}`;
-      accountList[newAccountKey] = {
-        walletName: '',
-        key: privatekey,
-        publicKey: publickey,
-      };
-      localStorage.setItem(password, JSON.stringify(accountList));
-    } else {
-      console.log('Account already added');
-    }
-
-    localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
-    localStorage.setItem('password', password);
-    localStorage.setItem('secretphrase', typedSeed);
-    localStorage.setItem('network','devnet');
-    navigate('/wallet-account',{ 
-      state : { isRcovered : true }
-    });
-  }
-
   const handleSecretPhraseComparison = () => {
-    const typedSeedArr = typedSeed.split(" ") ?? [];
-    const isNotCompleted = typedSeedArr?.some((word: string) => word.trim() === '');
+    const typedSeedArr = typedSeed.split(' ') ?? [];
+    const isNotCompleted = typedSeedArr?.some(
+      (word: string) => word.trim() === ''
+    );
     if (typedSeedArr.length !== 12 || isNotCompleted) {
       setError('Please complete your secret phrase');
-    }
-    else {
-      setError('')
-      handleWalletRecovery();
+    } else {
+      setError('');
+      recoverWallet();
     }
   };
 
@@ -118,18 +84,18 @@ const RecoverWalletComfirmPhrase: React.FC<ConfirmPhraseProps> = ({
           </h2>
         </div>
 
-        <div className='mt-[35px] w-[310px] mx-auto'>
-        <MnemonicsInputBox setMnemonics={setTypedSeed} />
-        <div className='w-[310px] mx-auto mt-[3px] h-[10px]'>
-        <ValidationError error={error} />
-        </div>
+        <div className="mt-[35px] w-[310px] mx-auto">
+          <MnemonicsInputBox setMnemonics={setTypedSeed} />
+          <div className="w-[310px] mx-auto mt-[3px] h-[10px]">
+            <ValidationError error={error} />
+          </div>
         </div>
 
-        <div className='w-full mt-[20px]'>
-        <PrimaryButton
-          onClick={() => handleSecretPhraseComparison()}
-          title={'Confirm'}
-        />
+        <div className="w-full mt-[20px]">
+          <PrimaryButton
+            onClick={() => handleSecretPhraseComparison()}
+            title={'Confirm'}
+          />
         </div>
       </div>
     </div>

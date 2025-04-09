@@ -83,11 +83,12 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   const handlePinCreation = async () => {
     setLoading(true);
     try {
-      const isPinCreated = await setTransactionPin(
+      const response = await setTransactionPin(
         profile?.wallets[0],
         pin.join('')
       );
-      if (isPinCreated?.message === 'Transaction PIN set successfully') {
+      console.log('response setup pin :',response?.data?.response?.status);
+      if (response?.data?.response?.status === 200) {
         toast.success('Transaction pin set successfully');
         setError('');
         setLoading(false);
@@ -98,7 +99,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
           );
         } else {
           setLoading(false);
-          setTimeout(() => setSelectedMenu(''), 3000);
+          setTimeout(() => setSelectedMenu(''), 2000);
         }
       }
     } catch (error) {

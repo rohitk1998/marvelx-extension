@@ -23,9 +23,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({
 
   useEffect(() => {
     setWalletInLocal();
-    if(tokens?.length > 0 ){
-      setSelectedTokenUsdPrice(tokens[0]?.price)
-    }
   }, [tokens]);
 
   const setWalletInLocal = async () => {
@@ -92,6 +89,7 @@ const SelectToken: React.FC<SelectTokenProps> = ({
             style={{ padding: '1rem', marginTop: '10px' }}
             onClick={() => {
               setToken(token);
+              setSelectedTokenUsdPrice(token?.price)
               setActive(1);
             }}
           >
@@ -99,13 +97,13 @@ const SelectToken: React.FC<SelectTokenProps> = ({
               className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold`}
               style={{ marginRight: '0.75rem' }}
             >
-              <img src={SolanaTokenImg} alt="" />
+              <img src={token?.logo ? token?.logo : SolanaTokenImg} alt="" className='w-[42px] h-[42px] rounded-full bg-cover' />
             </div>
             <div className="flex-1">
               <div className="font-[800] text-white text-[16px]">
-                {token.name}
+                {token?.name ? token?.name : '-'}
               </div>
-              <div className="text-sm text-gray-400">{token?.amount} SOL</div>
+              <div className="text-sm text-gray-400">{token?.amount ? token?.amount : '0'} {token?.symbol ? token?.symbol : '-'}</div>
             </div>
           </div>
         ))}
