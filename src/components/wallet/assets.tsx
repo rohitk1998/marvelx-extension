@@ -1,7 +1,6 @@
 import solana from '../../assets/solana.svg';
 import graphfirst from '../../assets/graphfirst.png';
 import Spinner from '../common/spinner';
-import { convertExponentialToDecimal } from '../../helpers/common/exponentialvalue';
 
 interface AssetsProps {
   tokens: Array<any>;
