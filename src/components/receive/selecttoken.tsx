@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BgSecureWallet,
-  CopySmall,
   copysmallNew,
   SolanaTokenImg,
 } from '../../assets/index';
