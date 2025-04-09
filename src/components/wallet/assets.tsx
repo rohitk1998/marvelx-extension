@@ -18,7 +18,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
         My assets
       </h4>
       {loading ? (
-        <div className='w-[329px] mx-auto items-center mt-[50px]'>
+        <div className="w-[329px] mx-auto items-center mt-[50px]">
           <Spinner loading={loading} />
         </div>
       ) : (
@@ -40,14 +40,16 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
                       </span>
                     </p>
                   </div>
-                  <div className="graphSec">
+                  <div className="ml-1 mr-1 graphSec">
                     <img src={graphfirst} alt="imgs" />
                   </div>
-                  <div className="listingData_rightData">
-                    <h4 className="text-[#fff] text-[16px] font-extrabold flex flex-col gap-[3px]">
-                      ${token?.price ? Number(token?.price).toFixed(2) : '0.00'}
+                  <div className="ml-0 listingData_rightData">
+                    <h4 className="text-[#fff] text-[14px] font-bold flex flex-col gap-[1px] w-[90px] break-all">
+                      ${token?.price ? token?.price?.toString() : '0.00'}
                       <span className="font-semibold text-[10px] text-[#198E2D]">
-                        { token?.usd_24h_change ? `$${token?.usd_24h_change}` : '$0.00' }
+                        {token?.usd_24h_change
+                          ? `$${token?.usd_24h_change}`
+                          : '$0.00'}
                       </span>
                     </h4>
                   </div>
