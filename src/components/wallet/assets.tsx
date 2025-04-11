@@ -48,17 +48,20 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
   }
 
 
-  const calculateUsdChange = (first:number,second:number)=>{
-    if(first > second){
-      return '-' + (first - second).toString()
+  const calculateUsdChange = (first: number, second: number): string => {
+    const diff = second - first;
+    const absDiff = Math.abs(diff);
+    console.log("absDiff",absDiff)
+    if (absDiff < 0.02 && diff !== 0) {
+      return `${diff > 0 ? '+' : '-'}<$0.02`;
+    } else if (diff > 0) {
+      return `+$${absDiff.toFixed(2)}`;
+    } else if (diff < 0) {
+      return `-$${absDiff.toFixed(2)}`;
+    } else {
+      return '$0.00'; // no change
     }
-    else if(second > first){
-      return '+' + (second - first).toString()
-    }
-    else{
-      return second;
-    }
-  } 
+  };
 
 
   return (
@@ -105,7 +108,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
                     </h4>
                     <span className="font-[800] text-[11px] text-[#198E2D]">
                         {token?.usd_24h_change
-                          ? `$${token?.usd_24h_change < 0.02 ? '<'+truncateWithoutRounding(Number(token?.usd_24h_change),6) : truncateWithoutRounding(Number(token?.usd_24h_change),6)}`
+                          ? `${token?.usd_24h_change}`
                           : '$0.00'}
                       </span>
                   </div>
