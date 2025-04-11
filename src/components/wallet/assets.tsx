@@ -1,7 +1,6 @@
 import solana from '../../assets/solana.svg';
 import graphfirst from '../../assets/graphfirst.png';
 import Spinner from '../common/spinner';
-import { truncateWithoutRounding } from '../../helpers/common/truncatewithoutrounding';
 import { useEffect, useState } from 'react';
 import { smartSlugify } from '../../helpers/common/slugify';
 
