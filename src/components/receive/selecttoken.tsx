@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BgSecureWallet,
@@ -27,8 +27,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
   const firstAccountKey = Object.keys(defaults)[0];
   const defaultAccount = defaults[firstAccountKey];
 
-  const intervalRef:any = useRef(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,16 +38,11 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
   };
 
   const copyToClipBoard = (value: number) => {
-     setCopied(value);
-    let currentInterval = intervalRef?.current
-    if (currentInterval && copied !== value) {
-      clearInterval(currentInterval);
-      console.log("Previous interval cleared.");
-    }
-    currentInterval = setInterval(() => {
+    setCopied(value);
+    setTimeout(() => {
       navigator.clipboard.writeText(defaultAccount?.publicKey);
       setCopied('');
-    }, 1000);
+    }, 1500);
     
   };
 

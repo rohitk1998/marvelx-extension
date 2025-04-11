@@ -28,6 +28,8 @@ interface StepType {
     setError: Function;
     setSelectedTokenUsdPrice:Function;
     selectedTokenUsdPrice:string;
+    setHash:Function;
+    hash:string;
   }>;
 }
 
@@ -77,6 +79,7 @@ const Send: React.FC = () => {
   const [amount, setAmount] = useState('');
   const [usdamount, setUsdAmount] = useState('');
   const [receiveraddress, setReceiverAddress] = useState('');
+  const [hash, setHash] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
@@ -137,6 +140,8 @@ const Send: React.FC = () => {
                 setError={setError}
                 setSelectedTokenUsdPrice={setSelectedTokenUsdPrice}
                 selectedTokenUsdPrice={selectedTokenUsdPrice}
+                setHash={setHash}
+                hash={hash}
               />
             )}
           </>

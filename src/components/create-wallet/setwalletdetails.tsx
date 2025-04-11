@@ -117,7 +117,7 @@ const SetWalletDetails: React.FC = () => {
     if(secretphrase){
       localStorage.setItem('secretphrase', secretphrase);
     }
-    localStorage.setItem('network', 'devnet');
+    localStorage.setItem('network', 'mainnet-beta')
   }
 
 

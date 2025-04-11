@@ -33,7 +33,7 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   active,
   setActive,
 }) => {
-  const { setWalletAddress, user } = useUserProfile();
+  const { setWalletAddress, user,loading } = useUserProfile();
   const [profile, setProfile]: any = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const openDrawer = () => setIsDrawerOpen(true);
@@ -69,7 +69,9 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
   ];
 
   useEffect(() => {
-    fetch2FaData();
+    if(!user){
+      fetch2FaData();
+    }
     if (user) {
       setProfile(user);
     }
@@ -165,6 +167,7 @@ const TokenSummary: React.FC<TokenSummaryProps> = ({
           setActive(4);
         }
       }}
+      isPrimaryDisabled={loading}
       backCallback={() => setActive(active - 1)}
       navigationBarTitleClass="w-full text-[16px] font-[600] text-center text-white"
     >
