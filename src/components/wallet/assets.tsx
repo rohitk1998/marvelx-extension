@@ -114,7 +114,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
                     <img src={graphfirst} alt="imgs" />
                   </div>
                   <div className="ml-0 w-[fit-content] max-w-[90px] bg-transparent flex flex-col justify-center items-end">
-                    <h4 className="text-[#fff] text-[14px] font-bold flex flex-col gap-[1px] break-all">
+                    <h4 className="text-[#fff] text-[16px] font-bold flex flex-col gap-[1px] break-all">
                       {token?.price ? token?.price : '0.00'}
                     </h4>
                     <span className="font-[800] text-[11px] text-[#198E2D]">
