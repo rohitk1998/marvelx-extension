@@ -1,7 +1,6 @@
 import solana from '../../assets/solana.svg';
 import graphfirst from '../../assets/graphfirst.png';
 import Spinner from '../common/spinner';
-import { truncateWithoutRounding } from '../../helpers/common/truncatewithoutrounding';
 import { useEffect, useState } from 'react';
 import { smartSlugify } from '../../helpers/common/slugify';
 
@@ -34,7 +33,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
   
         return {
           ...token,
-          price:data?.prices[data?.prices?.length - 1][1],
+          price:calculatePrice(data?.prices[data?.prices?.length - 1][1]),
           usd_24h_change: calculateUsdChange(data?.prices[0][1] , data?.prices[data?.prices?.length - 1][1]), // replace with actual logic later
         };
       });
@@ -62,6 +61,18 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
       return '$0.00'; // no change
     }
   };
+
+  const calculatePrice = (value : number)=> {
+    if (value < 0.02) {
+      return `<$0.02`;
+    } else if (value > 0) {
+      return `$${value.toFixed(2)}`;
+    } else if (value < 0) {
+      return `$${value.toFixed(2)}`;
+    } else {
+      return '$0.00'; // no change
+    }
+  }
 
 
   return (
@@ -104,7 +115,7 @@ const Assets: React.FC<AssetsProps> = ({ tokens, loading }) => {
                   </div>
                   <div className="ml-0 w-[fit-content] max-w-[90px] bg-transparent flex flex-col justify-center items-end">
                     <h4 className="text-[#fff] text-[14px] font-bold flex flex-col gap-[1px] break-all">
-                      ${token?.price ? truncateWithoutRounding(Number(token?.price),6) : '0.00'}
+                      {token?.price ? token?.price : '0.00'}
                     </h4>
                     <span className="font-[800] text-[11px] text-[#198E2D]">
                         {token?.usd_24h_change
