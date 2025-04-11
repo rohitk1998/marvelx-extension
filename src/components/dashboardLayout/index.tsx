@@ -30,6 +30,7 @@ interface DashLayoutProps {
   graywithoutBorderCallback?:Function;
   grayWithoutBorderTitle?:string;
   graybuttonWithoutBorderClass?:string;
+  isPrimaryDisabled?:boolean;
 }
 
 const DashLayout = ({
@@ -48,7 +49,8 @@ const DashLayout = ({
   graybuttonWithoutBorder = false,
   graywithoutBorderCallback,
   grayWithoutBorderTitle,
-  graybuttonWithoutBorderClass
+  graybuttonWithoutBorderClass,
+  isPrimaryDisabled = false
 }: DashLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -135,7 +137,7 @@ const DashLayout = ({
         {showFooter && <DashFooter />}
         {showButton && (
           <div style={{ padding: '10px 15px 8px' }}>
-            <PrimaryButton title={btntitle} onClick={onClick} />
+            <PrimaryButton title={btntitle} onClick={onClick} isDisabled={isPrimaryDisabled} />
           </div>
         )}
 

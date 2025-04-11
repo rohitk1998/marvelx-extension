@@ -15,7 +15,9 @@ const ValidatePin: React.FC<ValidationPinProps> = ({ setActive }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setWalletInLocal();
+    if(!user){
+      setWalletInLocal();
+    }
     if (user) {
       setProfile(user);
     }

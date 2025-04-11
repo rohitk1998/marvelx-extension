@@ -18,6 +18,7 @@ interface Transaction2FAProps {
   setSuccess: Function;
   setError: Function;
   error:string;
+  setHash:Function;
 }
 
 const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
@@ -28,7 +29,8 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   setActive,
   setSuccess,
   setError,
-  error
+  error,
+  setHash
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
   const [loading,setLoading]=useState(false);
@@ -67,6 +69,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
       );
       console.log('result', result);
       if (result) {
+        setHash(result);
         setActive(6);
         setSuccess(true);
         setLoading(false)
