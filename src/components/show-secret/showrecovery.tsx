@@ -30,7 +30,7 @@ const RecoveryPhraseDisplay: React.FC = () => {
     <DashboardLayout
       title="Secret Recovery Phrase"
       backCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
-      navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
+      navigationBarTitleClass="w-full text-[16px] font-[500] text-center text-white"
       graybuttonWithoutBorder={true}
       graywithoutBorderCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
       grayWithoutBorderTitle="Done"

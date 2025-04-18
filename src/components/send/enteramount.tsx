@@ -4,6 +4,7 @@ import { PrimaryButton } from '../common/primary-button';
 import { DotFormatAddress } from '../../helpers/common/dotformataddress';
 import { validateSolanaAddress } from '../../helpers/solana/transaction';
 import { ValidationError } from '../common/errortext';
+import { NavigationBarTitle } from '../common/navigationbartitle';
 
 interface EnterAmountProps {
   active: number;
@@ -81,32 +82,13 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
         className="flex flex-col flex-1 w-full max-w-md mx-auto"
         style={{ padding: '16px 16px 0' }}
       >
-        <div className="relative flex items-center">
-          <button
-            className="absolute left-0 text-white"
-            style={{ padding: '4px' }}
-            onClick={() => setActive(active - 1)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-          </button>
-          <div className="w-full text-xl font-medium text-center">
-            Enter amount
-          </div>
-        </div>
-
+        <NavigationBarTitle
+          title={'Enter amount'}
+          callback={() => {
+            setActive(active - 1);
+          }}
+          titleClass="w-full text-[16px] font-[600] text-center text-white"
+        />
         <div
           className="flex items-center bg-[#4B50661A] border border-[#222326] mt-[32px] rounded-lg"
           style={{ padding: '12px', marginBottom: '32px' }}
@@ -136,7 +118,6 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
         <div className="pl-[16px]">
           <ValidationError error={error} />
         </div>
-
         <div
           className="flex flex-col justify-center flex-1 text-center"
           style={{ marginBottom: '32px' }}
@@ -145,7 +126,7 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
             <input
               type="text"
               value={amount}
-              onFocus={()=> setAmount('')}
+              onFocus={() => setAmount('')}
               maxLength={7}
               onChange={(e) => {
                 setAmount(e.target.value);
@@ -162,12 +143,12 @@ const EnterAmount: React.FC<EnterAmountProps> = ({
             </p>
           </div>
           <div className="text-white">~${usdamount ? usdamount : '0.00'}</div>
+          <div className="pb-[10px] w-[100%] text-center bg-red">
+          <ValidationError error={fundserror} />
+        </div>
         </div>
       </div>
       <div style={{ marginTop: 'auto' }}>
-        <div className="ml-[16px] pb-[10px]">
-          <ValidationError error={fundserror} />
-        </div>
         <div
           className="border-t border-gray-800"
           style={{ paddingTop: '10px', marginBottom: '14px' }}

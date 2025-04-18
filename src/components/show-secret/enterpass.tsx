@@ -45,7 +45,7 @@ const ValidatePassword: React.FC<PasswordProps> = ({
     <DashboardLayout
     title="Show Recovery Phrase"
     backCallback={() => navigate(ROUTES.EDIT_ACCOUNT,{ state : location?.state })}
-    navigationBarTitleClass="w-full text-[16px] font-semibold text-center text-white"
+    navigationBarTitleClass="w-full text-[16px] font-[500] text-center text-white"
     showButton={true}
     onClick={()=> handleConfirmPassword()}
     btntitle="Continue"

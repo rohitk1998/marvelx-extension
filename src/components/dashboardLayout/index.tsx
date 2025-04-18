@@ -125,7 +125,7 @@ const DashLayout = ({
         )}
 
         {!showSearchCoin && (
-          <div className="pt-[23px] pr-[17px} pl-[17px]">
+          <div className="pt-[15px] pr-[17px} pl-[17px]">
             <NavigationBarTitle
               title={title}
               callback={backCallback}
