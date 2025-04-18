@@ -6,9 +6,6 @@ import { BgSecureWallet } from '../../assets';
 import { NavigationBarTitle } from '../common/navigationbartitle';
 import { PrimaryButton } from '../common/primary-button';
 import { ValidationError } from '../common/errortext';
-// import { sendSPLToken } from '../../helpers/solana/transaction';
-// import { sendSPLToken } from '../../helpers/solana/transaction';
-
 interface Transaction2FAProps {
   setActive: Function;
   token: any;
@@ -54,14 +51,6 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
     try {
       console.log(token, receiveraddress, usdamount, amount);
       const privateKeyArr = getPrivateKeyLocalStorage();
-      // if(token?.symbol !== 'SOL'){
-      //   result = await sendSPLToken(
-      //     privateKeyArr,
-      //     receiveraddress,
-      //     token?.mint,
-      //     Number(amount)
-      //   );
-      // }
       result = await sendSolanaTransactionAndConfirm(
         privateKeyArr,
         receiveraddress,

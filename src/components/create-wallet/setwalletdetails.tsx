@@ -111,7 +111,7 @@ const SetWalletDetails: React.FC = () => {
     } else {
       console.log('Account already added');
     }
-
+    console.log('privatekeyarr',privatekeyarr);
     localStorage.setItem('privatekey', JSON.stringify(privatekeyarr));
     localStorage.setItem('password', password);
     if(secretphrase){

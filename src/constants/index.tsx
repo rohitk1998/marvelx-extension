@@ -82,6 +82,7 @@ const API_URL = {
   validate2FA: `${BASE_URL}/user/validate-2fa`, //done
   updateProfile: `${BASE_URL}/user/update-username`, //done
   recoverbyPrivateKey: `${BASE_URL}/user/recover-by-private-key`, //done
+  sendSolToken: `${BASE_URL}/user/send-solana-tokens`, //done
 };
 
 export { ADD_WALLET_FEATURES, RECOVER_WALLET_OPTIONS, ROUTES, API_URL };
