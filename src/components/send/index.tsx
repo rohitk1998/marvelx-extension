@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import TransactionSuccess from './transactionsuccess';
 import TokenSummary from './tokensummary';
 import { useLocation } from 'react-router-dom';
-import ValidatePin from './validatepin';
-import ValidateTransaction2FA from './validate2FA';
+// import ValidatePin from './validatepin';
+// import ValidateTransaction2FA from './validate2FA';
 
 interface StepType {
   id: number;
@@ -54,16 +54,16 @@ const SendProps: StepType[] = [
     value: 4,
     Component: TokenSummary,
   },
-  {
-    id: 4,
-    value: 5,
-    Component: ValidatePin,
-  },
-  {
-    id: 5,
-    value: 6,
-    Component: ValidateTransaction2FA,
-  },
+  // {
+  //   id: 4,
+  //   value: 5,
+  //   Component: ValidatePin,
+  // },
+  // {
+  //   id: 5,
+  //   value: 6,
+  //   Component: ValidateTransaction2FA,
+  // },
   {
     id: 6,
     value: 7,

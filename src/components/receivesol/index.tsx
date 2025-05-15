@@ -12,9 +12,8 @@ interface SelectTokenProps {
 
 const ReceiveSol: React.FC<SelectTokenProps> = ({ token, setActive }) => {
   const [copytext, setCopyText] = useState('Copy');
-  let password: any = localStorage.getItem('password');
-  let accounts: any = localStorage.getItem(password);
-  let defaults: any = JSON.parse(accounts);
+  const accounts: any = localStorage.getItem('account');
+  const defaults = JSON.parse(accounts) || {};
   const firstAccountKey = Object.keys(defaults)[0];
   const defaultAccount = defaults[firstAccountKey];
 

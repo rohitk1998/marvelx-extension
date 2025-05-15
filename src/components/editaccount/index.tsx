@@ -20,11 +20,10 @@ function getInitials(name: string) {
 const EditAccount: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const password: any = localStorage.getItem('password') ?? '';
-  const account: any = localStorage.getItem(password) ?? '{}';
-  const parsedAccount = JSON.parse(account) || {};
+  const accounts: any = localStorage.getItem('account');
+  const parsedAccount: any = JSON.parse(accounts);
   const defaultAccountName = Object.keys(parsedAccount)[0] || '';
-  const [data2,setData2]=useState([
+  const [data2, setData2] = useState([
     {
       label: 'Show recovery phrase',
       value: '',
@@ -50,14 +49,15 @@ const EditAccount: React.FC = () => {
     },
   ];
 
-
   useEffect(() => {
     if (localStorage.getItem('secretphrase') === null) {
-      let newarr = data2.filter((item) => item.label !== 'Show recovery phrase');
+      let newarr = data2.filter(
+        (item) => item.label !== 'Show recovery phrase'
+      );
       setData2(newarr);
     }
   }, []);
-  
+
   return (
     <DashboardLayout
       title="Edit account"
@@ -105,7 +105,7 @@ const EditAccount: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
+        {/* <div className="flex flex-col bg-[#4B506633] rounded-[10px] border border-[#3739417D]">
           {data2?.map((item) => (
             <button
               key={item.value}
@@ -122,7 +122,7 @@ const EditAccount: React.FC = () => {
               </span>
             </button>
           ))}
-        </div>
+        </div> */}
       </div>
     </DashboardLayout>
   );

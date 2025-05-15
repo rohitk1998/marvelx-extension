@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import {
-    SendIcon,
+    // SendIcon,
     ReceiveIcon,
     SwapIcon,
     BuyIcon,
   } from '../../assets';
 
   const links = [
-    { icon: SendIcon, label: 'Send',to:'/send' },
+    // { icon: SendIcon, label: 'Send',to:'/send' },
     { icon: ReceiveIcon, label: 'Receive',to:'/receive' },
     { icon: SwapIcon, label: 'Swap',to:'/' },
     { icon: BuyIcon, label: 'Buy',to:'/' },

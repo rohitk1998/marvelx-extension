@@ -143,7 +143,7 @@ const RecoverWalletCreatePassword: React.FC<RecoverWalletCreatePasswordProps> = 
 
           <p className="text-[12px] text-white font-normal">
             I understand that MarvelX cannot recover this password for me.{' '}
-            <span className="text-[14px] text-white cursor-pointer font-medium">
+            <span className="text-[14px] text-white cursor-pointer font-medium" onClick={()=> navigate('/term-conditions')}>
               Learn more
             </span>
           </p>

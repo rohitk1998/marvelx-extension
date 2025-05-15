@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import DashboardLayout from '../dashboardLayout/index';
 import { copysmallNew } from '../../assets';
+import { getKeyFromPrivateKeyArray } from '../../helpers/solana/wallet.helper';
+import { getPrivateKeyLocalStorage } from '../../helpers/common/localstorage';
 
 const PrivateKeyDisplay: React.FC = () => {
   const [key, setKey] = useState('');
@@ -12,14 +14,9 @@ const PrivateKeyDisplay: React.FC = () => {
   const location = useLocation();
 
   const setWalletInLocal = async () => {
-    let password: any = localStorage.getItem('password');
-    let accounts: any = localStorage.getItem(password);
-    if (!accounts) return;
-    let defaults: any = JSON.parse(accounts);
-    const firstAccountKey = Object.keys(defaults)[0];
-    console.log('firstAccountKey', firstAccountKey);
-    const defaultAccount = defaults[firstAccountKey];
-    setKey(defaultAccount?.key);
+    let keyArr = getPrivateKeyLocalStorage();
+    const privateKey: any = getKeyFromPrivateKeyArray(keyArr);
+    setKey(privateKey);
   };
 
   useEffect(() => {

@@ -21,9 +21,8 @@ const EnterAddress: React.FC<EnterAddressProps> = ({
   receiveraddress,
 }) => {
   const [error, setError] = useState('');
-  const password: any = localStorage.getItem('password') ?? '';
-  const account: any = localStorage.getItem(password) ?? '{}';
-  const parsedAccount = JSON.parse(account) || {};
+  const accounts: any = localStorage.getItem('account');
+  const parsedAccount = JSON.parse(accounts) || {};
   const defaultAccountName = Object.keys(parsedAccount)[0] || '';
 
   const handleConfirmAddress = () => {

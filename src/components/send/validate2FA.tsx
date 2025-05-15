@@ -14,8 +14,8 @@ interface Transaction2FAProps {
   receiveraddress: string;
   setSuccess: Function;
   setError: Function;
-  error:string;
-  setHash:Function;
+  error: string;
+  setHash: Function;
 }
 
 const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
@@ -27,10 +27,10 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   setSuccess,
   setError,
   error,
-  setHash
+  setHash,
 }) => {
   const [code, setCode] = useState<string[]>(Array(6).fill(''));
-  const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1) {
       const newCode = [...code];
@@ -46,8 +46,8 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
   };
 
   const sendTransaction = async () => {
-    let result= null ;
-    setLoading(true)
+    let result = null;
+    setLoading(true);
     try {
       console.log(token, receiveraddress, usdamount, amount);
       const privateKeyArr = getPrivateKeyLocalStorage();
@@ -61,7 +61,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
         setHash(result);
         setActive(6);
         setSuccess(true);
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -72,17 +72,15 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
 
   const handleValidationTransactionCode = async () => {
     try {
-      if(code.join('') === ''){
-        setError('Please enter the 2FA code')
-      }
-      else{
-        let password: any = localStorage.getItem('password');
-        let accounts: any = localStorage.getItem(password);
+      if (code.join('') === '') {
+        setError('Please enter the 2FA code');
+      } else {
+        const accounts: any = localStorage.getItem('account');
         if (!accounts) return;
         let defaults: any = JSON.parse(accounts);
         const firstAccountKey = Object.keys(defaults)[0];
         const defaultAccount = defaults[firstAccountKey];
-       
+
         console.log(
           'code , wallet address:',
           code.join(''),
@@ -92,11 +90,13 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
           code.join(''),
           defaultAccount?.publicKey
         );
-        console.log('response validate 2FA :', response?.data?.response?.status);
+        console.log(
+          'response validate 2FA :',
+          response?.data?.response?.status
+        );
         if (response?.data?.response?.status === 200) {
           sendTransaction();
-        }
-        else{
+        } else {
           setError('Invalid 2FA code');
         }
       }
@@ -128,12 +128,12 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
     });
   };
 
-  useEffect(()=> {
-    setError('')
-    return()=> {
-      setError('')
-    }
-  },[])
+  useEffect(() => {
+    setError('');
+    return () => {
+      setError('');
+    };
+  }, []);
 
   return (
     <div
@@ -148,15 +148,15 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
       <NavigationBarTitle
         title="Validate Two Factor"
         callback={() => setActive(4)}
-          titleClass="w-full text-[16px] font-[600] text-center text-white"
+        titleClass="w-full text-[16px] font-[600] text-center text-white"
       />
       <div className="flex flex-col items-center mt-[67px]">
         <h2 className="text-2xl font-[700] text-center text-white">
           Enter the code on your verification app
         </h2>
         <p
-           className="text-sm text-center text-[#6B6D76] w-[311px] mt-[15px]"
-           style={{ marginBottom: '32px' }}
+          className="text-sm text-center text-[#6B6D76] w-[311px] mt-[15px]"
+          style={{ marginBottom: '32px' }}
         >
           This is required to complete this transaction safely
         </p>
@@ -177,7 +177,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
                   autoComplete="off"
                   value={code[index]}
                   onChange={(e) => handleCodeChange(index, e.target.value)}
-                  onKeyDown={(e)=> handlePinBackspace(index,e)}
+                  onKeyDown={(e) => handlePinBackspace(index, e)}
                   className="w-12 h-12 text-xl text-center bg-gray-800 border border-gray-700 rounded-md focus:border-gray-700 focus:outline-none"
                   style={{ padding: '8px' }}
                 />
@@ -185,7 +185,7 @@ const ValidateTransaction2FA: React.FC<Transaction2FAProps> = ({
             <button
               className="absolute right-0 text-sm text-gray-300 -bottom-6"
               style={{ padding: '4px' }}
-              onClick={()=> handlePaste()}
+              onClick={() => handlePaste()}
             >
               Paste
             </button>

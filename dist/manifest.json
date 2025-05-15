@@ -5,23 +5,7 @@
   "description": "MarvelX Wallet",
   "permissions": [
     "storage",
-    "tabs",
-    "webNavigation",
-    "webRequest",
-    "clipboardRead",
-    "notifications",
-    "alarms",
-    "unlimitedStorage",
-    "activeTab",
-    "scripting",
-    "background",
-    "idle",
-    "sidePanel",
-    "nativeMessaging"
-  ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+    "clipboardRead"
   ],
   "action": {
     "default_popup": "index.html",

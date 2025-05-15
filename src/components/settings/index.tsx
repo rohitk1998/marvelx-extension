@@ -3,9 +3,9 @@ import arrowright from '../../assets/icons/arrow-right.svg';
 import { SearchIcon } from '../../assets/SvgIcon';
 import {
   EmptyWallet,
-  LockIcon,
-  ActiveNextwork,
-  PreferenceIcon,
+  // LockIcon,
+  // ActiveNextwork,
+  // PreferenceIcon,
   ExportIcon,
   AboutMarve,
   ExpFeature,
@@ -25,21 +25,21 @@ const Settings = () => {
       icon: EmptyWallet,
       nextarrow: arrowright,
     },
-    {
-      label: 'Preferences',
-      icon: PreferenceIcon,
-      nextarrow: arrowright,
-    },
-    {
-      label: 'Security and Privacy',
-      icon: LockIcon,
-      nextarrow: arrowright,
-    },
-    {
-      label: 'Active networks',
-      icon: ActiveNextwork,
-      nextarrow: arrowright,
-    },
+    // {
+    //   label: 'Preferences',
+    //   icon: PreferenceIcon,
+    //   nextarrow: arrowright,
+    // },
+    // {
+    //   label: 'Security and Privacy',
+    //   icon: LockIcon,
+    //   nextarrow: arrowright,
+    // },
+    // {
+    //   label: 'Active networks',
+    //   icon: ActiveNextwork,
+    //   nextarrow: arrowright,
+    // },
   ];
 
   const data2 = [

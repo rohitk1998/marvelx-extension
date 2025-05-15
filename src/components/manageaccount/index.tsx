@@ -17,9 +17,8 @@ function getInitials(name: string) {
 const ManageAccountSetting: React.FC = () => {
   const navigate = useNavigate();
 
-  const password: any = localStorage.getItem('password') ?? '';
-  const account: any = localStorage.getItem(password) ?? '{}';
-  const parsedAccount = JSON.parse(account) || {};
+  const accounts: any = localStorage.getItem('account');
+  const parsedAccount = JSON.parse(accounts) || {};
   const defaultAccountName = Object.keys(parsedAccount)[0] || '';
 
   const data2 = [

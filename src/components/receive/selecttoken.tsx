@@ -21,9 +21,8 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
   const { setAddress, tokens, loading } = useTokenBalance();
   const [copied, setCopied]: any = useState('');
 
-  let password: any = localStorage.getItem('password');
-  let accounts: any = localStorage.getItem(password);
-  let defaults: any = JSON.parse(accounts);
+  const accounts: any = localStorage.getItem('account');
+  const defaults: any = JSON.parse(accounts);
   const firstAccountKey = Object.keys(defaults)[0];
   const defaultAccount = defaults[firstAccountKey];
 
@@ -43,7 +42,6 @@ const SelectToken: React.FC<SelectTokenProps> = ({ setActive, setToken }) => {
       navigator.clipboard.writeText(defaultAccount?.publicKey);
       setCopied('');
     }, 1500);
-    
   };
 
   if (loading) {

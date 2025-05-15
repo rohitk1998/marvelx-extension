@@ -31,8 +31,7 @@ const TransactionPINScreen: React.FC<PinProps> = ({ setSelectedMenu }) => {
   }, [user]);
 
   const fetch2FaData = async () => {
-    let password: any = localStorage.getItem('password');
-    let accounts: any = localStorage.getItem(password);
+    let accounts: any = localStorage.getItem('account');
     if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
     const firstAccountKey = Object.keys(defaults)[0];

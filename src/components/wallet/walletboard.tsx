@@ -14,8 +14,7 @@ const WalletBoard: React.FC = () => {
   }, []);
 
   const setWalletInLocal = async () => {
-    let password: any = localStorage.getItem('password');
-    let accounts: any = localStorage.getItem(password);
+    const accounts: any = localStorage.getItem('account');
     if (!accounts) return;
     let defaults: any = JSON.parse(accounts);
     const firstAccountKey = Object.keys(defaults)[0];

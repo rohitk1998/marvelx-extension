@@ -5,7 +5,7 @@ import {
   CreateWallet,
   WalletBoard,
   RecoverByPhrase,
-  Send,
+  // Send,
   EditAccount,
   TwoFactorAuthenticator,
   SecurityAndPrivacy,
@@ -24,6 +24,7 @@ import RecoveryPhrase from './components/show-secret';
 import PrivateKeyDisplay from './components/show-privatekey';
 import AccountAddresses from './components/accountaddress';
 import ManageAccountSetting from './components/manageaccount';
+import TermAndConditions from './components/termandconditions';
 
 const routes = [
   {
@@ -32,6 +33,16 @@ const routes = [
       <PublicRoute>
         <OnBoardingLayout>
           <Splash />
+        </OnBoardingLayout>
+      </PublicRoute>
+    ),
+  },
+  {
+    path: '/term-conditions',
+    element: (
+      <PublicRoute>
+        <OnBoardingLayout>
+          <TermAndConditions />
         </OnBoardingLayout>
       </PublicRoute>
     ),
@@ -122,14 +133,14 @@ const routes = [
       </PrivateRoute>
     ),
   },
-  {
-    path: '/send',
-    element: (
-      <PrivateRoute>
-        <Send />
-      </PrivateRoute>
-    ),
-  },
+  // {
+  //   path: '/send',
+  //   element: (
+  //     <PrivateRoute>
+  //       <Send />
+  //     </PrivateRoute>
+  //   ),
+  // },
   {
     path: '/edit-account',
     element: (
